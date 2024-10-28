@@ -55,6 +55,8 @@ export const selectPartner = (categoryId: string) => {
             return Partners.hybrid;
         case "habit":
             return Partners.habit;
+        case "frogs":
+            return Partners.frogs;
         default:
             return 1000;
     }

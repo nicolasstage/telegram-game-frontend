@@ -11,6 +11,7 @@ export enum Partners {
   tapGear = "7",
   hybrid = "8",
   habit = "9",
+  frogs = "10",
 }
 
 export interface Quiz {
@@ -470,6 +471,48 @@ export const taskCategories: TaskCategory[] = [
         active: true,
         comingSoon: false,
         cta: "Open Telegram Bot",
+      },
+    ],
+  },
+  {
+    categoryId: "frogs",
+    title: "$Frogs",
+    icon: Img.TaskExtras,
+    reward: 1,
+    rewardAsset: "Ticket",
+    completed: false,
+    tasks: [
+      {
+        taskId: "frogs_task-1",
+        title: "Play FROGS Game",
+        type: "partner",
+        completed: false,
+        caption:
+          "A meme coin that brings the iconic Pepe the Frog energy and the bold spirit of Donald Trump to the Telegram community! 🚀💥",
+        resource: "https://t.me/realFrogs_bot",
+        logo: {
+          uri: PartnerLogos.FrogsLogo,
+          size: 100,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open Telegram Bot",
+      },
+      {
+        taskId: "frogs_task-2",
+        title: "Visit Channel and Engage",
+        type: "partner",
+        completed: false,
+        caption:
+          "A meme coin that brings the iconic Pepe the Frog energy and the bold spirit of Donald Trump to the Telegram community! 🚀💥",
+        resource: "https://t.me/realFrogsClub",
+        logo: {
+          uri: PartnerLogos.FrogsLogo,
+          size: 100,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open Telegram Group",
       },
     ],
   },
