@@ -36,11 +36,10 @@ export default function Roulette() {
   const [prizeNumber, setPrizeNumber] = useState(0);
   const [doubleImageState, setDoubleImageState] = useState<"off" | "win" | "lose">("off");
   const [isSpinning, setIsSpinning] = useState(false);
-  const [isTicketAmountUpdated, setIsTicketAmountUpdated] = useState(true);
+  const [currentTicketAmount, setCurrentTicketAmount] = useState(0)
 
   const { profile, audio, effectsVolume } = useGameContext();
 
-  const currentTicketAmount = useRef(0)
 
   const { load, play, setVolume } = useAudioPlayer();
 
@@ -50,26 +49,21 @@ export default function Roulette() {
   }, [effectsVolume])
 
   useEffect(() => {
-    if (profile?.tickets?.balance !== currentTicketAmount.current) {
-      currentTicketAmount.current = profile?.tickets?.balance
-      setIsTicketAmountUpdated(true)
-    }
-  }, [profile])
+    setCurrentTicketAmount(profile?.tickets?.balance || 0)
+  }, [])
 
   async function handleSpin() {
     setPageState(1);
     setIsSpinning(true);
 
-    if (!mustSpin && !isSpinning && isTicketAmountUpdated && profile?.keyID) {
-      currentTicketAmount.current = profile?.tickets?.balance
-
+    if (!mustSpin && !isSpinning && profile?.keyID) {
       const rouletteResult = await fetchRouletteResult(profile?.keyID);
 
       if (rouletteResult && !rouletteResult?.error) {
-        setIsTicketAmountUpdated(false)
-
         if (audio)
           play()
+
+        setCurrentTicketAmount(prev => prev - 1)
 
         setPrizeNumber(rouletteResult.valueWon);
         setMustSpin(true);
@@ -210,7 +204,7 @@ export default function Roulette() {
           <FlexDiv $align="center" $gap="8px" $background="#262527" $padding="8px" $radius="8px">
             {profile?.tickets?.balance ? (<>
               <Image src={Img.Tickets} alt="Tickets" width={42.15} height={32} />
-              <P $fontSize='16px'>x {profile?.tickets?.balance}</P>
+              <P $fontSize='16px'>x {currentTicketAmount}</P>
             </>
             )
               :
@@ -222,7 +216,7 @@ export default function Roulette() {
 
       {
         pageState <= 2
-          ? <PageState1 pageState={pageState} isSpinning={isSpinning} isTicketAmountUpdated={isTicketAmountUpdated} handleSpin={handleSpin} mustSpin={mustSpin} setMustSpin={setMustSpin} prizeNumber={prizeNumber} />
+          ? <PageState1 pageState={pageState} isSpinning={isSpinning} handleSpin={handleSpin} mustSpin={mustSpin} setMustSpin={setMustSpin} prizeNumber={prizeNumber} currentTicketAmount={currentTicketAmount} />
           : <PageState2
             pageState={pageState}
             doubleImageState={doubleImageState}

@@ -21,18 +21,18 @@ const Wheel = dynamic<any>(() =>
 interface Props {
   pageState: 1 | 2 | 3 | 4 | 5;
   isSpinning: boolean;
-  isTicketAmountUpdated: boolean;
   handleSpin: () => void;
   mustSpin: boolean;
   setMustSpin: (e: boolean) => void;
   prizeNumber: number;
+  currentTicketAmount: number
 }
 
 const pointerProperties: PointerProps = {
   style: { visibility: "hidden" }
 }
 
-export default function PageState1({ pageState, isSpinning, isTicketAmountUpdated, handleSpin, mustSpin, setMustSpin, prizeNumber }: Props) {
+export default function PageState1({ pageState, isSpinning, handleSpin, mustSpin, setMustSpin, prizeNumber, currentTicketAmount }: Props) {
 
   const { profile } = useGameContext();
   const [isUnlockingTicket, setIsUnlockingTicket] = useState<boolean>(false);
@@ -95,10 +95,10 @@ export default function PageState1({ pageState, isSpinning, isTicketAmountUpdate
 
       <FlexDiv $direction="column" $gap="16px" $align='center' $justify='center'>
 
-        <SpinButton ticketBalance={profile?.tickets?.balance} pageState={pageState} isTicketUnlocked={profile?.isTicketUnlocked} isSpinning={isSpinning} isTicketAmountUpdated={isTicketAmountUpdated} handleSpin={handleSpin} handleTicketUnlock={handleTicketUnlock} isUnlockingTicket={isUnlockingTicket} />
+        <SpinButton ticketBalance={currentTicketAmount.toString()} pageState={pageState} isTicketUnlocked={profile?.isTicketUnlocked} isSpinning={isSpinning} handleSpin={handleSpin} handleTicketUnlock={handleTicketUnlock} isUnlockingTicket={isUnlockingTicket} />
 
         <FlexDiv $align="center" $justify="center" $gap="8px">
-          {profile?.tickets?.balance === '0' && !mustSpin ? (
+          {currentTicketAmount === 0 && !mustSpin ? (
             <P $fontSize="12px" $color='#FFDAD6' $align='center' $width='70%'>You don&apos;t have enough tickets to spin the roulette</P>
           ) : (
             <>

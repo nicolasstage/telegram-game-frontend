@@ -6,12 +6,11 @@ interface SpinButtonProps {
   isTicketUnlocked: boolean;
   isUnlockingTicket: boolean;
   isSpinning: boolean;
-  isTicketAmountUpdated: boolean;
   handleSpin: () => void;
   handleTicketUnlock: () => void;
 }
 
-const SpinButton = ({ ticketBalance, pageState, isTicketUnlocked, isUnlockingTicket, isSpinning, isTicketAmountUpdated, handleSpin, handleTicketUnlock }: SpinButtonProps) => {
+const SpinButton = ({ ticketBalance, pageState, isTicketUnlocked, isUnlockingTicket, isSpinning, handleSpin, handleTicketUnlock }: SpinButtonProps) => {
 
   if (isUnlockingTicket) {
     return <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
@@ -26,9 +25,9 @@ const SpinButton = ({ ticketBalance, pageState, isTicketUnlocked, isUnlockingTic
   }
 
 
-  if (!isTicketAmountUpdated || ticketBalance === '0') {
+  if (ticketBalance === '0') {
     return <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
-      {!isTicketAmountUpdated ? "Refreshing Tickets" : pageState === 1 ? "Spin" : "Spin Again"}
+      {pageState === 1 ? "Spin" : "Spin Again"}
     </Button>
   }
 
