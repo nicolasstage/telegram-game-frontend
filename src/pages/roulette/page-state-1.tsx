@@ -95,7 +95,7 @@ export default function PageState1({ pageState, isSpinning, handleSpin, mustSpin
 
       <FlexDiv $direction="column" $gap="16px" $align='center' $justify='center'>
 
-        <SpinButton ticketBalance={currentTicketAmount.toString()} pageState={pageState} isTicketUnlocked={profile?.isTicketUnlocked} isSpinning={isSpinning} handleSpin={handleSpin} handleTicketUnlock={handleTicketUnlock} isUnlockingTicket={isUnlockingTicket} />
+        <SpinButton ticketBalance={currentTicketAmount?.toString()} pageState={pageState} isTicketUnlocked={profile?.isTicketUnlocked} isSpinning={isSpinning} handleSpin={handleSpin} handleTicketUnlock={handleTicketUnlock} isUnlockingTicket={isUnlockingTicket} />
 
         <FlexDiv $align="center" $justify="center" $gap="8px">
           {currentTicketAmount === 0 && !mustSpin ? (
