@@ -122,7 +122,7 @@ export default function Wallet() {
         </FlexDiv>
 
         {/* uncomment this to show the asset transfer button */}
-        {/* <div className="split"></div>
+        <div className="split"></div>
         <FlexDiv $direction="column" $gap="10px">
           <P $fontSize="24px">Assets Exchange</P>
           <P $color="#C8C6C8">
@@ -145,7 +145,7 @@ export default function Wallet() {
               </FlexDiv>
             </Button>
           </S.BuyButton>
-        </FlexDiv> */}
+        </FlexDiv>
 
         <FlexDiv $direction="column" $gap="8px" $width="100%">
           <FlexDiv
