@@ -130,22 +130,11 @@ const SendCNTPConfirm = () => {
         <S.Split />
         <FlexDiv $justify="space-between">
           <P $fontSize="14px" $color="#989899">
-            Fee
+            Estimated Fee
           </P>
           <P $fontSize="14px" $color="#989899">
-            {transferTokenDetails?.gasFee} $CONET
+            &lt; {transferTokenDetails?.gasFee} $CONET
           </P>
-        </FlexDiv>
-        <FlexDiv $justify="space-between">
-          <P $fontSize="14px" $color="#989899">
-            Network cost
-          </P>
-          <FlexDiv $align="center">
-            <Image src={Img?.CarServiceImg} width={16} height={16} alt="" />
-            <P $fontSize="14px" $color="#989899">
-              ${Number(transferTokenDetails?.gasPrice).toFixed(5)}
-            </P>
-          </FlexDiv>
         </FlexDiv>
         <FlexDiv $justify="center" $margin="10px">
           <p
