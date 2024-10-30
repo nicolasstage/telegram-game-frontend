@@ -57,6 +57,8 @@ export const selectPartner = (categoryId: string) => {
             return Partners.habit;
         case "frogs":
             return Partners.frogs;
+        case "cognixphere":
+            return Partners.cognixphere;
         default:
             return 1000;
     }

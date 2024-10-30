@@ -12,6 +12,7 @@ export enum Partners {
   hybrid = "8",
   habit = "9",
   frogs = "10",
+  cognixphere = "11",
 }
 
 export interface Quiz {
@@ -513,6 +514,62 @@ export const taskCategories: TaskCategory[] = [
         active: true,
         comingSoon: false,
         cta: "Open Telegram Group",
+      },
+    ],
+  },
+  {
+    categoryId: "cognixphere",
+    title: "CogniXphere",
+    icon: Img.TaskExtras,
+    reward: 1,
+    rewardAsset: "Ticket",
+    completed: false,
+    tasks: [
+      {
+        taskId: "cognixphere_task-1",
+        title: "Join CogniXphere Telegram Bot",
+        type: "partner",
+        completed: false,
+        caption: "Join CogniXphere MiniApp",
+        resource:
+          "https://t.me/CogniXphereBot/minigame?startapp=kentId6308729999",
+        logo: {
+          uri: PartnerLogos.CogniXphereLogo,
+          size: 100,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open Telegram Bot",
+      },
+      {
+        taskId: "cognixphere_task-2",
+        title: "Join CogniXphere Telegram Chat",
+        type: "partner",
+        completed: false,
+        caption: "Join CogniXphere MiniApp",
+        resource: "https://t.me/CogniXphereObservation",
+        logo: {
+          uri: PartnerLogos.CogniXphereLogo,
+          size: 100,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open Telegram Chat",
+      },
+      {
+        taskId: "cognixphere_task-3",
+        title: "Follow CogniXphere on X",
+        type: "partner",
+        completed: false,
+        caption: "Join CogniXphere MiniApp",
+        resource: "https://x.com/CogniXphere",
+        logo: {
+          uri: PartnerLogos.CogniXphereLogo,
+          size: 100,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open X",
       },
     ],
   },
