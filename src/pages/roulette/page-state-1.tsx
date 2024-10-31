@@ -12,6 +12,7 @@ import { PointerProps } from 'react-custom-roulette/dist/components/Wheel/types'
 import SpinButton from './page-components/spinButton';
 import { fetchUnlockTicket } from '@/API/getData';
 import { toast } from 'react-hot-toast';
+import { MemoizedWheel } from './wheel';
 
 const Wheel = dynamic<any>(() =>
   import("react-custom-roulette").then((mod) => mod.Wheel),
@@ -76,7 +77,7 @@ export default function PageState1({ pageState, isSpinning, handleSpin, mustSpin
         <img src={rouletteDesign.src} style={{ width: "85%", maxWidth: '483px', position: 'absolute', zIndex: 2 }} />
 
         <div style={{ flex: 1, position: "relative", zIndex: 1, transform: "rotate(43deg)" }}>
-          <Wheel
+          <MemoizedWheel
             mustStartSpinning={mustSpin}
             prizeNumber={rouletteResultMapping[prizeNumber] ?? 0}
             data={wheelData}
