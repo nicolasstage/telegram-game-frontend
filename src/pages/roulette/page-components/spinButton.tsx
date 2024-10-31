@@ -2,6 +2,7 @@ import { Button } from "@/components/button";
 
 interface SpinButtonProps {
   ticketBalance: string;
+  spinningCounter: number | undefined;
   pageState: 1 | 2 | 3 | 4 | 5;
   isTicketUnlocked: boolean;
   isUnlockingTicket: boolean;
@@ -10,7 +11,7 @@ interface SpinButtonProps {
   handleTicketUnlock: () => void;
 }
 
-const SpinButton = ({ ticketBalance, pageState, isTicketUnlocked, isUnlockingTicket, isSpinning, handleSpin, handleTicketUnlock }: SpinButtonProps) => {
+const SpinButton = ({ ticketBalance, spinningCounter, pageState, isTicketUnlocked, isUnlockingTicket, isSpinning, handleSpin, handleTicketUnlock }: SpinButtonProps) => {
 
   if (isUnlockingTicket) {
     return <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
@@ -24,7 +25,6 @@ const SpinButton = ({ ticketBalance, pageState, isTicketUnlocked, isUnlockingTic
     </Button>
   }
 
-
   if (ticketBalance === '0') {
     return <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
       {pageState === 1 ? "Spin" : "Spin Again"}
@@ -34,6 +34,12 @@ const SpinButton = ({ ticketBalance, pageState, isTicketUnlocked, isUnlockingTic
   if (isSpinning) {
     return <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
       Spinning...
+    </Button>
+  }
+
+  if (spinningCounter && spinningCounter > 0) {
+    return <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
+      Wait {spinningCounter} more seconds
     </Button>
   }
 

@@ -10,6 +10,7 @@ import {
 } from "react";
 import Leaderboard from "../types/leaderboard";
 import { fetchRegisterReferrer, fetchStartMining } from "@/API/getData";
+import { AnyARecord } from "dns";
 
 export type Difficulty = "easy" | "normal" | "hard";
 
@@ -78,6 +79,9 @@ type GameContext = {
   setBuyItem?: (skin: any) => void;
   transferTokenDetails?: any;
   setTransferTokenDetails?: (details: any) => void;
+  spinningCounter?: number;
+  setSpinningCounter?: (e: any) => void;
+  spinningCounterInterval?: any;
 };
 
 const Game = createContext<GameContext>({});
@@ -154,6 +158,8 @@ export function GameProvider({ children }: GameProps) {
       gasPrice: 0,
       toAddress: "",
     });
+  const [spinningCounter, setSpinningCounter] = useState<number>(0);
+  const spinningCounterInterval = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const miningErrorTimeout = useRef<NodeJS.Timeout | null>(null);
   const walletAddress = useRef<string>("");
@@ -206,6 +212,12 @@ export function GameProvider({ children }: GameProps) {
       setHighScore(parseInt(hScore));
     }
   }, []);
+
+  useEffect(() => {
+    if (spinningCounter === 0 && spinningCounterInterval?.current) {
+      clearInterval(spinningCounterInterval?.current);
+    }
+  }, [spinningCounter])
 
   return (
     <Game.Provider
@@ -266,6 +278,9 @@ export function GameProvider({ children }: GameProps) {
         setBuyItem,
         transferTokenDetails,
         setTransferTokenDetails,
+        spinningCounter,
+        setSpinningCounter,
+        spinningCounterInterval,
       }}
     >
       {children}

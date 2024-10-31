@@ -38,7 +38,7 @@ export default function Roulette() {
   const [isSpinning, setIsSpinning] = useState(false);
   const [currentTicketAmount, setCurrentTicketAmount] = useState(0)
 
-  const { profile, audio, effectsVolume } = useGameContext();
+  const { profile, audio, effectsVolume, spinningCounter, setSpinningCounter, spinningCounterInterval } = useGameContext();
 
 
   const { load, play, setVolume } = useAudioPlayer();
@@ -60,6 +60,15 @@ export default function Roulette() {
       const rouletteResult = await fetchRouletteResult(profile?.keyID);
 
       if (rouletteResult && !rouletteResult?.error) {
+        setSpinningCounter?.(20);
+
+        if (spinningCounterInterval?.current)
+          clearInterval(spinningCounterInterval?.current);
+
+        spinningCounterInterval.current = setInterval(() => {
+          setSpinningCounter?.((prevState: number) => prevState - 1);
+        }, 1000);
+
         if (audio)
           play()
 
@@ -121,10 +130,14 @@ export default function Roulette() {
       const rouletteResult = await fetchRouletteResult(profile?.keyID);
 
       if (rouletteResult && !rouletteResult?.error) {
-        // if (audio)
-        //   load(RouletteSpin, {
-        //     autoplay: true
-        //   })
+        setSpinningCounter?.(20);
+
+        if (spinningCounterInterval?.current)
+          clearInterval(spinningCounterInterval?.current);
+
+        spinningCounterInterval.current = setInterval(() => {
+          setSpinningCounter?.((prevState: number) => prevState - 1);
+        }, 1000);
 
         setPrizeNumber(rouletteResult.valueWon);
 
@@ -223,6 +236,7 @@ export default function Roulette() {
             prizeNumber={prizeNumber}
             handleDouble={handleDouble}
             backToRoulette={backToRoulette}
+            spinningCounter={spinningCounter}
             doubleFinished={doubleFinished}
             doubleRunning={doubleRunning}
           />

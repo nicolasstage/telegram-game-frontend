@@ -11,6 +11,7 @@ interface Props {
   doubleImageState: ImageStateType;
   handleDouble: () => void;
   backToRoulette: () => void;
+  spinningCounter: number | undefined;
   doubleFinished: boolean;
   doubleRunning: boolean;
 }
@@ -23,24 +24,13 @@ const ImageScheme: Record<ImageStateType, any> = {
   lose: [Img.DoubleWin, Img.DoubleLoseHighlight],
 }
 
-export default function PageState2({ pageState, doubleImageState, prizeNumber, handleDouble, backToRoulette, doubleFinished, doubleRunning }: Props) {
-  const [counter, setCounter] = useState(20);
-  const interval = useRef<NodeJS.Timeout | undefined>(undefined);
+export default function PageState2({ pageState, doubleImageState, prizeNumber, handleDouble, backToRoulette, spinningCounter, doubleFinished, doubleRunning }: Props) {
 
   useEffect(() => {
-    interval.current = setInterval(() => {
-      setCounter(counter => counter - 1);
-    }, 1000);
-
-    return () => clearInterval(interval.current);
-  }, []);
-
-  useEffect(() => {
-    if (counter === 0) {
-      clearInterval(interval.current);
+    if (spinningCounter === 0) {
       backToRoulette();
     }
-  }, [counter])
+  }, [spinningCounter])
 
   return (
     <>
@@ -80,8 +70,8 @@ export default function PageState2({ pageState, doubleImageState, prizeNumber, h
         </FlexDiv>
 
         {
-          !doubleFinished && (
-            <P>{counter}</P>
+          !doubleRunning && (
+            <P>{spinningCounter}</P>
           )
         }
 
@@ -96,9 +86,6 @@ export default function PageState2({ pageState, doubleImageState, prizeNumber, h
             </div>
           )
         }
-        <Button $color="#79F8FF" $width="196px" $height="45px" $padding="12px 0" $radius="8px" onClick={backToRoulette}>
-          Spin again
-        </Button>
       </FlexDiv>
     </>
   )
