@@ -61,6 +61,7 @@ type GradientButtonProps = {
   flex?: number;
   onClick?: () => void;
   disabled?: boolean;
+  cursor?: string;
 };
 
 export const GradientButton: React.FC<GradientButtonProps> = ({
@@ -71,6 +72,7 @@ export const GradientButton: React.FC<GradientButtonProps> = ({
   flex,
   onClick,
   disabled,
+  cursor = "auto",
 }) => {
   return (
     <GradientImage $flex={flex}>
@@ -83,7 +85,7 @@ export const GradientButton: React.FC<GradientButtonProps> = ({
         $height={height}
         onClick={onClick}
         $flex={flex}
-        $cursor={disabled ? "not-allowed" : "auto"}
+        $cursor={disabled ? "not-allowed" : cursor}
         $color={disabled ? "gray" : "white"}
       >
         {children}

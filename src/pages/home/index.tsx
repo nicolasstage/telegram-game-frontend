@@ -96,6 +96,7 @@ export default function Home() {
           onClick={() => {
             setRouter?.("/leaderboard");
           }}
+          cursor="pointer"
         >
           <FlexDiv $align="center" $gap="8px">
             <Image
@@ -113,6 +114,7 @@ export default function Home() {
           onClick={() => {
             setRouter?.("/shopping");
           }}
+          cursor="pointer"
         >
           <FlexDiv $align="center" $gap="8px">
             <Image width={24} height={24} src={Img.Shop} alt="shop page" />
@@ -196,7 +198,7 @@ export default function Home() {
         </FlexDiv>
 
         <FlexDiv $justify="center">
-          <GradientButton onClick={handleOpenPlatform}>
+          <GradientButton onClick={handleOpenPlatform} cursor="pointer">
             Open Platform
           </GradientButton>
         </FlexDiv>
