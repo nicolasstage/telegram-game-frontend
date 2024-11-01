@@ -12,12 +12,7 @@ import { PointerProps } from 'react-custom-roulette/dist/components/Wheel/types'
 import SpinButton from './page-components/spinButton';
 import { fetchUnlockTicket } from '@/API/getData';
 import { toast } from 'react-hot-toast';
-import { MemoizedWheel } from './wheel';
-
-const Wheel = dynamic<any>(() =>
-  import("react-custom-roulette").then((mod) => mod.Wheel),
-  { ssr: false }
-);
+import { MemoizedWheel } from '../../components/spinningWheel';
 
 interface Props {
   pageState: 1 | 2 | 3 | 4 | 5;
