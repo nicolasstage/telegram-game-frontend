@@ -140,6 +140,7 @@ export const taskCategories: TaskCategory[] = [
         logo: {
           uri: Img.TwitterX,
           color: "#000000",
+          size: 50,
         },
         caption:
           "Follow Us on X, like and share our pinned post, earn Tickets just for staying connected!",
@@ -157,6 +158,7 @@ export const taskCategories: TaskCategory[] = [
         logo: {
           uri: Img.Telegram,
           color: "#66ACDD",
+          size: 50,
         },
         caption:
           "Join our Community on Telegram and earn Tickets just for staying connected!",
@@ -166,6 +168,40 @@ export const taskCategories: TaskCategory[] = [
       },
       {
         taskId: "social_task-3",
+        title: "Join our Instagram Channel",
+        type: "social",
+        completed: false,
+        logo: {
+          uri: Img.Instagram,
+          color: "#E94869",
+          size: 50,
+        },
+        caption:
+          "Follow us on Instagram and earn Tickets just for staying connected!",
+        cta: "Open Instagram",
+        resource: "https://www.instagram.com/conet_network/",
+        active: true,
+        comingSoon: false,
+      },
+      {
+        taskId: "social_task-4",
+        title: "Follow us on Youtube",
+        type: "social",
+        completed: false,
+        logo: {
+          uri: Img.Youtube,
+          color: "#FFFFFF",
+          size: 50,
+        },
+        caption:
+          "Subscribe to our Youtube channel and earn Tickets just for staying connected!",
+        cta: "Open Youtube",
+        resource: "https://www.youtube.com/@CoNET_Network",
+        active: true,
+        comingSoon: false,
+      },
+      {
+        taskId: "social_task-5",
         title: "Join our Server",
         type: "social",
         completed: false,

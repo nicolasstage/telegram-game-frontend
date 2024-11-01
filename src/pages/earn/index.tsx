@@ -97,6 +97,18 @@ export default function Earn() {
         tasksCopy[2].tasks[1].completed = false
       }
 
+      if (res[1][0][0].includes('13')) {
+        tasksCopy[2].tasks[2].completed = true
+      } else {
+        tasksCopy[2].tasks[2].completed = false
+      }
+
+      if (res[1][0][0].includes('14')) {
+        tasksCopy[2].tasks[3].completed = true
+      } else {
+        tasksCopy[2].tasks[3].completed = false
+      }
+
       setTasks?.(tasksCopy)
     }
 
@@ -252,6 +264,64 @@ export default function Earn() {
     }
 
     setIsLoading(false)
+  }
+  async function checkInstagramAccount() {
+    if (!chosenTask) return;
+
+    const tasksCopy = tasks ? [...tasks] : []
+
+    window.open(chosenTask.resource, "_blank");
+
+    const res = await fetchCheckPartner(profile?.keyID, '13')
+
+    if (!res.error) {
+      setTimeout(() => {
+        tasksCopy[2].tasks[2].completed = true
+
+        setTasks?.(tasksCopy)
+
+        toast.success("Task completed! Check your rewards in the Earn Page", {
+          position: "bottom-center",
+          duration: 2000,
+        });
+      }, 5000);
+    }
+    else {
+      toast.error("Unable to confirm. Check if you have completed the tasks", {
+        position: "bottom-center",
+        duration: 2000,
+      });
+    }
+  }
+
+  async function checkYoutubeAccount() {
+    if (!chosenTask) return;
+
+    const tasksCopy = tasks ? [...tasks] : []
+
+    window.open(chosenTask.resource, "_blank");
+
+    const res = await fetchCheckPartner(profile?.keyID, '14')
+
+    if (!res.error) {
+      setTimeout(() => {
+        tasksCopy[2].tasks[3].completed = true
+
+        setTasks?.(tasksCopy)
+
+        toast.success("Task completed! Check your rewards in the Earn Page", {
+          position: "bottom-center",
+          duration: 2000,
+        });
+      }, 5000);
+    }
+    else {
+      toast.error("Unable to confirm. Check if you have completed the tasks", {
+        position: "bottom-center",
+        duration: 2000,
+      });
+    }
+
   }
 
   const handlePartnerCheckButton = async () => {
@@ -589,7 +659,28 @@ export default function Earn() {
 
                           <button style={{ color: '#FFFFFF', padding: '16px 24px', borderRadius: '32px', width: '100%', marginTop: '32px', border: isLoading ? '1px solid #fff' : 'none', backgroundColor: isLoading ? '#363E59' : '#17181F' }} disabled={isLoading} onClick={() => checkTelegramAccount()}>{isLoading ? 'Confirming...' : 'Confirm ID'}</button>
                         </div>
-                      ) :
+                      ) : chosenTask.cta === 'Open Instagram' && chosenTask?.type === 'social' ? (
+                        <Button $width="100%" $radius="999px" $background="#17181F" $border="1px solid #04DAE8" disabled={chosenTask.claim && isTodayRewardTaken} onClick={checkInstagramAccount} $padding="18px">
+                          <FlexDiv $align="center" $gap="8px">
+                            {
+                              !chosenTask.claim && (
+                                <Image src={chosenTask.referral ? Img.CopyImg : Img.OpenExternal} alt="Open External" width={24} height={24} />
+                              )
+                            }
+                            <P>{chosenTask.referral ? "Copy Telegram Game Referral Link" : chosenTask.cta}</P>
+                          </FlexDiv>
+                        </Button>
+                      ) : chosenTask.cta === 'Open Youtube' && chosenTask?.type === 'social' ? (
+                        <Button $width="100%" $radius="999px" $background="#17181F" $border="1px solid #04DAE8" disabled={chosenTask.claim && isTodayRewardTaken} onClick={checkYoutubeAccount} $padding="18px">
+                          <FlexDiv $align="center" $gap="8px">
+                            {
+                              !chosenTask.claim && (
+                                <Image src={chosenTask.referral ? Img.CopyImg : Img.OpenExternal} alt="Open External" width={24} height={24} />
+                              )
+                            }
+                            <P>{chosenTask.referral ? "Copy Telegram Game Referral Link" : chosenTask.cta}</P>
+                          </FlexDiv>
+                        </Button>) :
                         (
                           <>
                             <Button $width="100%" $radius="999px" $background="#17181F" $border="1px solid #04DAE8" disabled={chosenTask.claim && isTodayRewardTaken} onClick={buttonAction} $padding="18px">

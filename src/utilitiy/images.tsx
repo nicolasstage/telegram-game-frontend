@@ -70,6 +70,8 @@ export const Img = {
   Discord: "/Discord.svg",
   TwitterX: "/TwitterX.svg",
   Telegram: "/Telegram.svg",
+  Youtube: "/youtube-icon.png",
+  Instagram: "/instagram-icon.png",
   WatchVideo: "/WatchVideo.svg",
   CommonTask: "/CommonTask.svg",
   TaskDaily: "/taskDaily.svg",
