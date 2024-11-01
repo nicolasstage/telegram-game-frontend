@@ -30,11 +30,10 @@ export default function Earn() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [completedTaskCategory, setCompletedTaskCategory] = useState<TaskCategory>();
   const [isTodayRewardTaken, setIsTodayRewardTaken] = useState<boolean>(false)
-  const [completedStabilityAi, setCompletedStabilityAi] = useState<boolean[]>([])
   const [completedBearfi, setCompletedBearfi] = useState<boolean[]>([])
   const [completedTapGear, setCompletedTapGear] = useState<boolean[]>([])
-  const [completedFrogs, setCompletedFrogs] = useState<boolean[]>([])
   const [completedCognixphere, setCompletedCognixphere] = useState<boolean[]>([])
+  const [completedBombCrypto, setCompletedBombCrypto] = useState<boolean[]>([])
 
   const { profile, dailyClaimInfo } = useGameContext();
 
@@ -121,6 +120,7 @@ export default function Earn() {
         tasksCopy[10].tasks[0].completed = false
         tasksCopy[11].tasks[0].completed = false
         tasksCopy[12].tasks[0].completed = false
+        tasksCopy[13].tasks[0].completed = false
 
         return
       }
@@ -157,14 +157,6 @@ export default function Earn() {
         tasksCopy[10].tasks[0].completed = false
       }
 
-      if (res[1][0][0].includes('10')) {
-        tasksCopy[11].tasks[0].completed = true
-        tasksCopy[11].tasks[1].completed = true
-      } else {
-        tasksCopy[11].tasks[0].completed = false
-        tasksCopy[11].tasks[1].completed = false
-      }
-
       if (res[1][0][0].includes('11')) {
         tasksCopy[12].tasks[0].completed = true
         tasksCopy[12].tasks[1].completed = true
@@ -173,6 +165,16 @@ export default function Earn() {
         tasksCopy[12].tasks[0].completed = false
         tasksCopy[12].tasks[1].completed = false
         tasksCopy[12].tasks[2].completed = false
+      }
+
+      if (res[1][0][0].includes('12')) {
+        tasksCopy[13].tasks[0].completed = true
+        tasksCopy[13].tasks[1].completed = true
+        tasksCopy[13].tasks[2].completed = true
+      } else {
+        tasksCopy[13].tasks[0].completed = false
+        tasksCopy[13].tasks[1].completed = false
+        tasksCopy[13].tasks[2].completed = false
       }
 
       setTasks?.(tasksCopy)
@@ -274,12 +276,12 @@ export default function Earn() {
           auxArr = [...completedTapGear]
         }
 
-        if (chosenTaskCategory?.categoryId === 'frogs') {
-          auxArr = [...completedFrogs]
-        }
-
         if (chosenTaskCategory?.categoryId === 'cognixphere') {
           auxArr = [...completedCognixphere]
+        }
+
+        if (chosenTaskCategory?.categoryId === 'bombcrypto') {
+          auxArr = [...completedBombCrypto]
         }
 
         if (selectedPartnerId.toString().includes('6')) {
@@ -312,19 +314,6 @@ export default function Earn() {
           if (auxArr.length < 3) return
         }
 
-        if (selectedPartnerId.toString().includes('10')) {
-          auxArr.push(true)
-          setCompletedFrogs(auxArr)
-
-          if (chosenTask?.taskId === 'frogs_task-1') {
-            tasksCopy[11].tasks[0].completed = true
-          } else {
-            tasksCopy[11].tasks[1].completed = true
-          }
-
-          if (auxArr.length < 2) return
-        }
-
         if (selectedPartnerId.toString().includes('11')) {
           auxArr.push(true)
           setCompletedCognixphere(auxArr)
@@ -335,6 +324,21 @@ export default function Earn() {
             tasksCopy[12].tasks[1].completed = true
           } else {
             tasksCopy[12].tasks[2].completed = true
+          }
+
+          if (auxArr.length < 3) return
+        }
+
+        if (selectedPartnerId.toString().includes('12')) {
+          auxArr.push(true)
+          setCompletedBombCrypto(auxArr)
+
+          if (chosenTask?.taskId === 'bombcrypto_task-1') {
+            tasksCopy[13].tasks[0].completed = true
+          } else if (chosenTask?.taskId === 'bombcrypto_task-2') {
+            tasksCopy[13].tasks[1].completed = true
+          } else {
+            tasksCopy[13].tasks[2].completed = true
           }
 
           if (auxArr.length < 3) return
@@ -363,15 +367,16 @@ export default function Earn() {
             tasksCopy[10].tasks[0].completed = true
           }
 
-          if (selectedPartnerId.toString().includes('10')) {
-            tasksCopy[11].tasks[0].completed = true
-            tasksCopy[11].tasks[1].completed = true
-          }
-
           if (selectedPartnerId.toString().includes('11')) {
             tasksCopy[12].tasks[0].completed = true
             tasksCopy[12].tasks[1].completed = true
             tasksCopy[12].tasks[2].completed = true
+          }
+
+          if (selectedPartnerId.toString().includes('12')) {
+            tasksCopy[13].tasks[0].completed = true
+            tasksCopy[13].tasks[1].completed = true
+            tasksCopy[13].tasks[2].completed = true
           }
 
           setTasks?.(tasksCopy)

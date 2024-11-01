@@ -24,7 +24,7 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
     if (asset === 'conet')
       return profile?.tokens?.conet?.balance;
     else if (asset === 'ticket')
-      return profile.tickets.balance;
+      return profile?.tickets?.balance;
   };
 
   const getFormattedSecondaryBalance = () => {
@@ -35,7 +35,7 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
     if (secondaryAsset === 'conet')
       return profile?.tokens?.conet?.balance;
     else if (secondaryAsset === 'ticket')
-      return profile.tickets.balance;
+      return profile?.tickets?.balance;
   }
 
   return (

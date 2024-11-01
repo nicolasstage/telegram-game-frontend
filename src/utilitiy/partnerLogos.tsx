@@ -7,4 +7,5 @@ export const PartnerLogos = {
   HabitLogo: "/partners/habit-logo.jpg",
   FrogsLogo: "/partners/frogs-logo.jpg",
   CogniXphereLogo: "/partners/cognixphere-logo.png",
+  BombCryptoLogo: "/partners/bombcrypto-logo.png",
 }

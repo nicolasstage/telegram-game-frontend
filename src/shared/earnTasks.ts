@@ -13,6 +13,7 @@ export enum Partners {
   habit = "9",
   frogs = "10",
   cognixphere = "11",
+  bombcrypto = "12",
 }
 
 export interface Quiz {
@@ -469,7 +470,7 @@ export const taskCategories: TaskCategory[] = [
           uri: PartnerLogos.HabitLogo,
           size: 100,
         },
-        active: true,
+        active: false,
         comingSoon: false,
         cta: "Open Telegram Bot",
       },
@@ -495,7 +496,7 @@ export const taskCategories: TaskCategory[] = [
           uri: PartnerLogos.FrogsLogo,
           size: 100,
         },
-        active: true,
+        active: false,
         comingSoon: false,
         cta: "Open Telegram Bot",
       },
@@ -511,7 +512,7 @@ export const taskCategories: TaskCategory[] = [
           uri: PartnerLogos.FrogsLogo,
           size: 100,
         },
-        active: true,
+        active: false,
         comingSoon: false,
         cta: "Open Telegram Group",
       },
@@ -565,6 +566,64 @@ export const taskCategories: TaskCategory[] = [
         resource: "https://x.com/CogniXphere",
         logo: {
           uri: PartnerLogos.CogniXphereLogo,
+          size: 100,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open X",
+      },
+    ],
+  },
+  {
+    categoryId: "bombcrypto",
+    title: "Bomb Crypto",
+    icon: Img.TaskExtras,
+    reward: 1,
+    rewardAsset: "Ticket",
+    completed: false,
+    tasks: [
+      {
+        taskId: "bombcrypto_task-1",
+        title: "Play Bomb Crypto Game",
+        type: "partner",
+        completed: false,
+        caption:
+          "Bomb Crypto: The pixel art game inspired by the Bomberman game",
+        resource: "https://t.me/bombcrypto_io_bot?startapp=n-conet",
+        logo: {
+          uri: PartnerLogos.BombCryptoLogo,
+          size: 100,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open Telegram Bot",
+      },
+      {
+        taskId: "bombcrypto_task-2",
+        title: "Join Bomb Crypto Telegram Channel",
+        type: "partner",
+        completed: false,
+        caption:
+          "Bomb Crypto: The pixel art game inspired by the Bomberman game",
+        resource: "https://t.me/BombCryptoGroup",
+        logo: {
+          uri: PartnerLogos.BombCryptoLogo,
+          size: 100,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open Telegram Channel",
+      },
+      {
+        taskId: "bombcrypto_task-3",
+        title: "Follow Bomb Crypto on X",
+        type: "partner",
+        completed: false,
+        caption:
+          "Bomb Crypto: The pixel art game inspired by the Bomberman game",
+        resource: "https://x.com/BombCryptoGame",
+        logo: {
+          uri: PartnerLogos.BombCryptoLogo,
           size: 100,
         },
         active: true,

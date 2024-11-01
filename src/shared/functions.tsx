@@ -59,6 +59,8 @@ export const selectPartner = (categoryId: string) => {
             return Partners.frogs;
         case "cognixphere":
             return Partners.cognixphere;
+        case "bombcrypto":
+            return Partners.bombcrypto;
         default:
             return 1000;
     }
