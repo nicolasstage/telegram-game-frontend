@@ -190,7 +190,6 @@ export function GameProvider({ children }: GameProps) {
 
     if (profile?.keyID && profile?.keyID !== walletAddress.current) {
       walletAddress.current = profile?.keyID;
-      walletAddress.current = profile?.keyID;
 
       const url = window.location.search;
 
