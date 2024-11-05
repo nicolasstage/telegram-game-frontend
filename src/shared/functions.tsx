@@ -1,5 +1,4 @@
 import { RefObject } from "react";
-import { Partners } from "./earnTasks";
 
 export const slice = (text: string) => {
     if (text) {
@@ -39,29 +38,4 @@ export const formatToken = (token: number) => {
 
 export const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-export const selectPartner = (categoryId: string) => {
-    switch (categoryId) {
-        case "mhaya":
-            return Partners.mhaya;
-        case "stability-world-ai":
-            return Partners.stabilityAi;
-        case "bearfi":
-            return Partners.bearfi;
-        case "tap-gear":
-            return Partners.tapGear;
-        case "hybrid":
-            return Partners.hybrid;
-        case "habit":
-            return Partners.habit;
-        case "frogs":
-            return Partners.frogs;
-        case "cognixphere":
-            return Partners.cognixphere;
-        case "bombcrypto":
-            return Partners.bombcrypto;
-        default:
-            return 1000;
-    }
 }

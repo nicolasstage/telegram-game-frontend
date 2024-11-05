@@ -6,7 +6,7 @@ import PageWrapper from '@/components/pageWrapper';
 import { useEffect, useRef, useState } from 'react';
 import { Div, FlexDiv } from '@/components/div';
 import { P } from '@/components/p';
-import { Task, taskCategories, TaskCategory } from '../../shared/earnTasks';
+import { _dailyClaim, _dailyTasks, _partnerTasks, _referralTask, _socialTasks, Task, TaskCategory } from '../../shared/earnTasks';
 import Image from 'next/image';
 import { Img } from '@/utilitiy/images';
 import Modal from '@/components/modal';
@@ -19,21 +19,19 @@ import { useGameContext } from '@/utilitiy/providers/GameProvider';
 import { checkSocialMedias, checkTwitter } from '@/API';
 import { fetchCheckPartner, fetchCheckTelegram, fetchCheckTwitter, fetchClaimDailyReward } from '@/API/getData';
 import copy from 'copy-to-clipboard';
-import { selectPartner } from '@/shared/functions';
 
 export default function Earn() {
-  const [tasks, setTasks] = useState<TaskCategory[]>(taskCategories);
+  const [dailyClaimTasks, setDailyClaimTasks] = useState<TaskCategory>(_dailyClaim);
+  const [referralTasks, setReferralTasks] = useState<TaskCategory>(_referralTask);
+  const [socialTasks, setSocialTasks] = useState<TaskCategory>(_socialTasks);
+  const [partnerTaskGroups, setPartnerTaskGroups] = useState<TaskCategory[]>(_partnerTasks);
+
   const [chosenTask, setChosenTask] = useState<Task>();
   const [chosenTaskCategory, setChosenTaskCategory] = useState<TaskCategory>()
   const [userName, setUserName] = useState<string>('')
   const [telegramId, setTelegramId] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [completedTaskCategory, setCompletedTaskCategory] = useState<TaskCategory>();
   const [isTodayRewardTaken, setIsTodayRewardTaken] = useState<boolean>(false)
-  const [completedBearfi, setCompletedBearfi] = useState<boolean[]>([])
-  const [completedTapGear, setCompletedTapGear] = useState<boolean[]>([])
-  const [completedCognixphere, setCompletedCognixphere] = useState<boolean[]>([])
-  const [completedBombCrypto, setCompletedBombCrypto] = useState<boolean[]>([])
 
   const { profile, dailyClaimInfo } = useGameContext();
 
@@ -50,66 +48,37 @@ export default function Earn() {
     setIsTodayRewardTaken(isTaken)
 
     if (isTaken) {
-      const tasksCopy = [...tasks]
-      tasksCopy[1].tasks[0].completed = true
-      setTasks(tasksCopy)
+      const tmpTasks = dailyClaimTasks
+      tmpTasks.tasks.forEach((task) => {
+        task.completed = true
+      })
+
+      setDailyClaimTasks(tmpTasks)
     }
   }, [dailyClaimInfo, profile?.dailyClaimWeek])
-
-  useEffect(() => {
-    let completedCategory: TaskCategory | undefined = undefined;
-
-    tasks.filter((task) => task.reward && !task.completed).forEach((category) => {
-      const anyUncompletedTask = category.tasks.find((task) => !task.completed);
-
-      if (!anyUncompletedTask) {
-        completedCategory = category;
-      }
-    })
-
-    completedCategory &&
-      setCompletedTaskCategory(completedCategory);
-  }, [tasks]);
 
   useEffect(() => {
     async function fetchSocialMedias() {
       const res = await checkSocialMedias(profile?.keyID)
 
-      const tasksCopy = [...tasks]
+      const socialTasksCopy = socialTasks
 
       if (res[1][0][0].length === 0) {
-        tasksCopy[2].tasks[0].completed = false
-        tasksCopy[2].tasks[1].completed = false
-        tasksCopy[2].tasks[2].completed = false
+        socialTasksCopy.tasks.forEach((task) => {
+          task.completed = false
+        });
 
         return
       }
 
-      if (res[1][0][0].includes('2')) {
-        tasksCopy[2].tasks[0].completed = true
-      } else {
-        tasksCopy[2].tasks[0].completed = false
-      }
+      socialTasksCopy.tasks.forEach(task => {
+        if (res[1][0][0].includes(task.nftId?.toString()))
+          task.completed = true
+        else
+          task.completed = false
+      });
 
-      if (res[1][0][0].includes('3')) {
-        tasksCopy[2].tasks[1].completed = true
-      } else {
-        tasksCopy[2].tasks[1].completed = false
-      }
-
-      if (res[1][0][0].includes('13')) {
-        tasksCopy[2].tasks[2].completed = true
-      } else {
-        tasksCopy[2].tasks[2].completed = false
-      }
-
-      if (res[1][0][0].includes('14')) {
-        tasksCopy[2].tasks[3].completed = true
-      } else {
-        tasksCopy[2].tasks[3].completed = false
-      }
-
-      setTasks?.(tasksCopy)
+      setSocialTasks?.(socialTasksCopy)
     }
 
     fetchSocialMedias()
@@ -119,77 +88,31 @@ export default function Earn() {
     async function fetchSocialMedias() {
       const res = await checkSocialMedias(profile?.keyID)
 
-      const tasksCopy = [...tasks]
+      const partnerTaskGroupsCopy = [...partnerTaskGroups]
 
       if (res[1][0][0].length === 0) {
-        tasksCopy[7].tasks[0].completed = false
-        tasksCopy[7].tasks[1].completed = false
-        tasksCopy[7].tasks[2].completed = false
-        tasksCopy[8].tasks[0].completed = false
-        tasksCopy[8].tasks[1].completed = false
-        tasksCopy[8].tasks[2].completed = false
-        tasksCopy[9].tasks[0].completed = false
-        tasksCopy[10].tasks[0].completed = false
-        tasksCopy[11].tasks[0].completed = false
-        tasksCopy[12].tasks[0].completed = false
-        tasksCopy[13].tasks[0].completed = false
+        partnerTaskGroups.forEach(group => {
+          group.tasks.forEach(task => {
+            task.completed = false
+          })
+        });
 
         return
       }
 
-      if (res[1][0][0].includes('6')) {
-        tasksCopy[7].tasks[0].completed = true
-        tasksCopy[7].tasks[1].completed = true
-        tasksCopy[7].tasks[2].completed = true
-      } else {
-        tasksCopy[7].tasks[0].completed = false
-        tasksCopy[7].tasks[1].completed = false
-        tasksCopy[7].tasks[2].completed = false
-      }
+      partnerTaskGroupsCopy.forEach(group => {
+        if (res[1][0][0].includes(group.nftId?.toString())) {
+          group.tasks.forEach(task => {
+            task.completed = true
+          })
+        } else {
+          group.tasks.forEach(task => {
+            task.completed = false
+          })
+        }
+      })
 
-      if (res[1][0][0].includes('7')) {
-        tasksCopy[8].tasks[0].completed = true
-        tasksCopy[8].tasks[1].completed = true
-        tasksCopy[8].tasks[2].completed = true
-      } else {
-        tasksCopy[8].tasks[0].completed = false
-        tasksCopy[8].tasks[1].completed = false
-        tasksCopy[8].tasks[2].completed = false
-      }
-
-      if (res[1][0][0].includes('8')) {
-        tasksCopy[9].tasks[0].completed = true
-      } else {
-        tasksCopy[9].tasks[0].completed = false
-      }
-
-      if (res[1][0][0].includes('9')) {
-        tasksCopy[10].tasks[0].completed = true
-      } else {
-        tasksCopy[10].tasks[0].completed = false
-      }
-
-      if (res[1][0][0].includes('11')) {
-        tasksCopy[12].tasks[0].completed = true
-        tasksCopy[12].tasks[1].completed = true
-        tasksCopy[12].tasks[2].completed = true
-      } else {
-        tasksCopy[12].tasks[0].completed = false
-        tasksCopy[12].tasks[1].completed = false
-        tasksCopy[12].tasks[2].completed = false
-      }
-
-      if (res[1][0][0].includes('12')) {
-        tasksCopy[13].tasks[0].completed = true
-        tasksCopy[13].tasks[1].completed = true
-        tasksCopy[13].tasks[2].completed = true
-      } else {
-        tasksCopy[13].tasks[0].completed = false
-        tasksCopy[13].tasks[1].completed = false
-        tasksCopy[13].tasks[2].completed = false
-      }
-
-      setTasks?.(tasksCopy)
+      setPartnerTaskGroups?.(partnerTaskGroupsCopy)
     }
 
     fetchSocialMedias()
@@ -213,9 +136,10 @@ export default function Earn() {
     const res = await fetchCheckTwitter(profile.keyID, userName)
 
     if (res?.response?.isFollow === true && res?.response?.isRetweet === true) {
-      const tasksCopy = [...tasks]
-      tasksCopy[2].tasks[0].completed = true
-      setTasks(tasksCopy)
+      const socialTasksCopy = socialTasks
+      socialTasksCopy.tasks[0].completed = true
+      setSocialTasks(socialTasksCopy)
+
       toast.success("Task completed! Check your rewards in the Earn Page", {
         position: "bottom-center",
         duration: 2000,
@@ -242,9 +166,10 @@ export default function Earn() {
     const res = await fetchCheckTelegram(profile.keyID, telegramId)
 
     if (res?.response?.isInTGGroup === true && !res?.response?.isusedByOtherWallet) {
-      const tasksCopy = [...tasks]
-      tasksCopy[2].tasks[1].completed = true
-      setTasks(tasksCopy)
+      const socialTasksCopy = socialTasks
+      socialTasksCopy.tasks[1].completed = true
+      setSocialTasks(socialTasksCopy)
+
       toast.success("Task completed! Check your rewards in the Earn Page", {
         position: "bottom-center",
         duration: 2000,
@@ -265,10 +190,11 @@ export default function Earn() {
 
     setIsLoading(false)
   }
+
   async function checkInstagramAccount() {
     if (!chosenTask) return;
 
-    const tasksCopy = tasks ? [...tasks] : []
+    const socialTasksCopy = socialTasks;
 
     window.open(chosenTask.resource, "_blank");
 
@@ -276,9 +202,9 @@ export default function Earn() {
 
     if (!res.error) {
       setTimeout(() => {
-        tasksCopy[2].tasks[2].completed = true
+        socialTasksCopy.tasks[2].completed = true
 
-        setTasks?.(tasksCopy)
+        setSocialTasks?.(socialTasksCopy)
 
         toast.success("Task completed! Check your rewards in the Earn Page", {
           position: "bottom-center",
@@ -297,7 +223,7 @@ export default function Earn() {
   async function checkYoutubeAccount() {
     if (!chosenTask) return;
 
-    const tasksCopy = tasks ? [...tasks] : []
+    const socialTasksCopy = socialTasks;
 
     window.open(chosenTask.resource, "_blank");
 
@@ -305,9 +231,9 @@ export default function Earn() {
 
     if (!res.error) {
       setTimeout(() => {
-        tasksCopy[2].tasks[3].completed = true
+        socialTasksCopy.tasks[3].completed = true
 
-        setTasks?.(tasksCopy)
+        setSocialTasks?.(socialTasksCopy)
 
         toast.success("Task completed! Check your rewards in the Earn Page", {
           position: "bottom-center",
@@ -325,131 +251,46 @@ export default function Earn() {
   }
 
   const handlePartnerCheckButton = async () => {
+
     window.open(chosenTask?.resource, "_blank");
 
     setTimeout(async () => {
       if (chosenTask?.completed) return;
       if (!chosenTask?.resource) return;
+      if (!chosenTaskCategory?.nftId) return;
 
-      const tasksCopy = tasks ? [...tasks] : []
+
+      const partnerTaskGroupsCopy = partnerTaskGroups ? [...partnerTaskGroups] : []
 
       if (chosenTaskCategory?.categoryId) {
-        const selectedPartnerId = selectPartner(chosenTaskCategory?.categoryId)
+        const chosenCategoryIndex = partnerTaskGroupsCopy.findIndex((group: TaskCategory) => group.nftId === chosenTaskCategory?.nftId)
 
-        let auxArr: any[] = []
-
-        if (chosenTaskCategory?.categoryId === 'bearfi') {
-          auxArr = [...completedBearfi]
-        }
-
-        if (chosenTaskCategory?.categoryId === 'tap-gear') {
-          auxArr = [...completedTapGear]
-        }
-
-        if (chosenTaskCategory?.categoryId === 'cognixphere') {
-          auxArr = [...completedCognixphere]
-        }
-
-        if (chosenTaskCategory?.categoryId === 'bombcrypto') {
-          auxArr = [...completedBombCrypto]
-        }
-
-        if (selectedPartnerId.toString().includes('6')) {
-          auxArr.push(true)
-          setCompletedBearfi(auxArr)
-
-          if (chosenTask?.taskId === 'bearfi_task-1') {
-            tasksCopy[7].tasks[0].completed = true
-          } else if (chosenTask?.taskId === 'bearfi_task-2') {
-            tasksCopy[7].tasks[1].completed = true
-          } else {
-            tasksCopy[7].tasks[2].completed = true
+        chosenTaskCategory.tasks.forEach(task => {
+          if (task.taskId === chosenTask?.taskId) {
+            task.completed = true
           }
+        })
 
-          if (auxArr.length < 3) return
-        }
+        partnerTaskGroupsCopy[chosenCategoryIndex].tasks = chosenTaskCategory.tasks
 
-        if (selectedPartnerId.toString().includes('7')) {
-          auxArr.push(true)
-          setCompletedTapGear(auxArr)
+        const completedTasks = chosenTaskCategory.tasks.reduce((_completedTasks: number, task: Task) => {
+          if (task.completed) _completedTasks++
+          return _completedTasks
+        }, 0)
 
-          if (chosenTask?.taskId === 'tap-gear_task-1') {
-            tasksCopy[8].tasks[0].completed = true
-          } else if (chosenTask?.taskId === 'tap-gear_task-2') {
-            tasksCopy[8].tasks[1].completed = true
-          } else {
-            tasksCopy[8].tasks[2].completed = true
-          }
+        if (completedTasks < chosenTaskCategory.tasks.length)
+          return
 
-          if (auxArr.length < 3) return
-        }
-
-        if (selectedPartnerId.toString().includes('11')) {
-          auxArr.push(true)
-          setCompletedCognixphere(auxArr)
-
-          if (chosenTask?.taskId === 'cognixphere_task-1') {
-            tasksCopy[12].tasks[0].completed = true
-          } else if (chosenTask?.taskId === 'cognixphere_task-2') {
-            tasksCopy[12].tasks[1].completed = true
-          } else {
-            tasksCopy[12].tasks[2].completed = true
-          }
-
-          if (auxArr.length < 3) return
-        }
-
-        if (selectedPartnerId.toString().includes('12')) {
-          auxArr.push(true)
-          setCompletedBombCrypto(auxArr)
-
-          if (chosenTask?.taskId === 'bombcrypto_task-1') {
-            tasksCopy[13].tasks[0].completed = true
-          } else if (chosenTask?.taskId === 'bombcrypto_task-2') {
-            tasksCopy[13].tasks[1].completed = true
-          } else {
-            tasksCopy[13].tasks[2].completed = true
-          }
-
-          if (auxArr.length < 3) return
-        }
-
-        const res = await fetchCheckPartner(profile?.keyID, selectedPartnerId.toString())
+        const res = await fetchCheckPartner(profile?.keyID, chosenTaskCategory.nftId.toString())
 
         if (!res.error) {
-          if (selectedPartnerId.toString().includes('6')) {
-            tasksCopy[7].tasks[0].completed = true
-            tasksCopy[7].tasks[1].completed = true
-            tasksCopy[7].tasks[2].completed = true
-          }
+          chosenTaskCategory.tasks.forEach(task => {
+            task.completed = true
+          })
 
-          if (selectedPartnerId.toString().includes('7')) {
-            tasksCopy[8].tasks[0].completed = true
-            tasksCopy[8].tasks[1].completed = true
-            tasksCopy[8].tasks[2].completed = true
-          }
+          partnerTaskGroupsCopy[chosenCategoryIndex].tasks = chosenTaskCategory.tasks
 
-          if (selectedPartnerId.toString().includes('8')) {
-            tasksCopy[9].tasks[0].completed = true
-          }
-
-          if (selectedPartnerId.toString().includes('9')) {
-            tasksCopy[10].tasks[0].completed = true
-          }
-
-          if (selectedPartnerId.toString().includes('11')) {
-            tasksCopy[12].tasks[0].completed = true
-            tasksCopy[12].tasks[1].completed = true
-            tasksCopy[12].tasks[2].completed = true
-          }
-
-          if (selectedPartnerId.toString().includes('12')) {
-            tasksCopy[13].tasks[0].completed = true
-            tasksCopy[13].tasks[1].completed = true
-            tasksCopy[13].tasks[2].completed = true
-          }
-
-          setTasks?.(tasksCopy)
+          setPartnerTaskGroups?.(partnerTaskGroupsCopy)
 
           toast.success("Task completed! Check your rewards in the Earn Page", {
             position: "bottom-center",
@@ -479,9 +320,9 @@ export default function Earn() {
     }
 
     if (res?.response?.result === true) {
-      const tasksCopy = [...tasks]
-      tasksCopy[1].tasks[0].completed = true
-      setTasks(tasksCopy)
+      const dailyClaimTasksCopy = dailyClaimTasks
+      dailyClaimTasksCopy.tasks[0].completed = true
+      setDailyClaimTasks(dailyClaimTasksCopy)
 
       toast.success("Task completed! Check your rewards in the Earn Page", {
         position: "bottom-center",
@@ -539,65 +380,147 @@ export default function Earn() {
         </FlexDiv>
 
         <GuardianCard />
-        {
-          tasks.filter((category) => !!category.tasks.find((task) => task.active)).map((category) => (
-            <FlexDiv $direction="column" key={category.title} $gap="12px" className="task-category">
-              <FlexDiv $direction="column" $gap="8px">
-                <FlexDiv $gap="5px" $align="center">
-                  {category.icon && <Image alt={category.title} width={24} height={24} src={category.icon} />}
-                  <P $fontSize="24px">{category.title}</P>
-                </FlexDiv>
-                {(category.reward && !category.completed) && (<P $fontSize="14px">Complete all tasks and receive {category.reward} {category.rewardAsset}</P>)}
-              </FlexDiv>
 
+        {/* Referral Task */}
+        <FlexDiv $direction="column" key={referralTasks.title} $gap="12px" className="task-category">
+          <FlexDiv $direction="column" $gap="8px">
+            <FlexDiv $gap="5px" $align="center">
+              {referralTasks.icon && <Image alt={referralTasks.title} width={24} height={24} src={referralTasks.icon} />}
+              <P $fontSize="24px">{referralTasks.title}</P>
+            </FlexDiv>
+          </FlexDiv>
+
+          {referralTasks.tasks.filter((task) => task?.active).map((task) => (
+            <FlexDiv key={task.title} $gap="16px" $padding="16px" $border="1px solid #FFFFFF1A" $radius="16px" $align="center" $height="95px" className={`task`} onClick={() => chooseTask(task, referralTasks)}>
+              <FlexDiv className="text-content" $direction="column" $gap="4px">
+                <P $fontSize="24px">{task.title}</P>
+              </FlexDiv>
+              <Image src={Img.RightArrowImg} alt="Proceed" width={28} height={28} />
+            </FlexDiv>
+          ))}
+        </FlexDiv>
+
+        {/* Daily Claim */}
+        <FlexDiv $direction="column" key={dailyClaimTasks.title} $gap="12px" className="task-category">
+          <FlexDiv $direction="column" $gap="8px">
+            <FlexDiv $gap="5px" $align="center">
+              {dailyClaimTasks.icon && <Image alt={dailyClaimTasks.title} width={24} height={24} src={dailyClaimTasks.icon} />}
+              <P $fontSize="24px">{dailyClaimTasks.title}</P>
+            </FlexDiv>
+          </FlexDiv>
+
+          {dailyClaimTasks.tasks.filter((task) => task?.active).map((task) => (
+            <FlexDiv key={task.title} $gap="16px" $padding="16px" $border="1px solid #FFFFFF1A" $radius="16px" $align="center" $height="95px" className={`task`} onClick={() => chooseTask(task, dailyClaimTasks)}>
               {
-                category.tasks.filter((task) => task.active).map((task) => (
-                  task.comingSoon ? (
-                    <div key={task.title} style={{ position: 'relative', width: '100%', height: '104px', cursor: 'not-allowed', display: 'flex', border: '1px solid #535254', alignItems: 'center', borderRadius: '16px', backgroundColor: '#262527', justifyContent: 'space-between', padding: '16px' }}>
-                      <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '14px' }}>
-                        <Image src={task?.logo?.uri || ''} alt="Coming Soon" width={50} height={50} />
-                        <div>
-                          <p style={{ color: '#ADAAAD', fontSize: '24px', lineHeight: '28px' }}>{task.title}</p>
-                          <p style={{ color: '#ADAAAD', fontSize: '12px', lineHeight: '20px' }}>Coming soon</p>
-                        </div>
-                      </div>
-                      <Image src={Img.Lock} alt='lock' width={30} height={30} />
-                    </div>
-                  ) :
-                    (
-                      <FlexDiv key={task.title} $gap="16px" $padding="16px" $border="1px solid #FFFFFF1A" $radius="16px" $align="center" $height="95px" className={`task ${task.completed && !task.claim ? 'completed' : ''}`} onClick={() => chooseTask(task, category)}>
-                        {
-                          task.logo && (
-                            <FlexDiv $width="60px" $height="60px" $background={task.logo?.color || "transparent"} $radius="8px" $justify="center" $align="center">
-                              {task.logo.uri && (
-                                <Image src={task.logo.uri} alt="Task" width={task.logo.color ? 28 : 48} height={task.logo.color ? 28 : 48} style={{ "borderRadius": "8px" }} />
-                              )}
-                            </FlexDiv>
-                          )
-                        }
-                        <FlexDiv className="text-content" $direction="column" $gap="4px">
-                          <P $fontSize="24px">{task.title}</P>
-                        </FlexDiv>
-                        {
-                          task.completed ? (
-                            <Image src={Img.TaskCheck} alt="Proceed" width={24} height={24} />
-                          ) : (
-                            <Image src={Img.RightArrowImg} alt="Proceed" width={28} height={28} />
-                          )
-                        }
+                task.logo && (
+                  <FlexDiv $width="60px" $height="60px" $background={task.logo?.color || "transparent"} $radius="8px" $justify="center" $align="center">
+                    {task.logo.uri && (
+                      <Image src={task.logo.uri} alt="Task" width={task.logo.color ? 28 : 48} height={task.logo.color ? 28 : 48} style={{ "borderRadius": "8px" }} />
+                    )}
+                  </FlexDiv>
+                )
+              }
+              <FlexDiv className="text-content" $direction="column" $gap="4px">
+                <P $fontSize="24px">{task.title}</P>
+              </FlexDiv>
+              <Image src={Img.RightArrowImg} alt="Proceed" width={28} height={28} />
+            </FlexDiv>
+          ))}
+        </FlexDiv>
+
+        {/* Social Tasks */}
+        <FlexDiv $direction="column" key={socialTasks.title} $gap="12px" className="task-category">
+          <FlexDiv $direction="column" $gap="8px">
+            <FlexDiv $gap="5px" $align="center">
+              {socialTasks.icon && <Image alt={socialTasks.title} width={24} height={24} src={socialTasks.icon} />}
+              <P $fontSize="24px">{socialTasks.title}</P>
+            </FlexDiv>
+          </FlexDiv>
+
+          {socialTasks.tasks.filter((task) => task?.active).map((task) => (
+            task.comingSoon ? (
+              <div key={task.title} style={{ position: 'relative', width: '100%', height: '104px', cursor: 'not-allowed', display: 'flex', border: '1px solid #535254', alignItems: 'center', borderRadius: '16px', backgroundColor: '#262527', justifyContent: 'space-between', padding: '16px' }}>
+                <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '14px' }}>
+                  <Image src={task?.logo?.uri || ''} alt="Coming Soon" width={50} height={50} />
+                  <div>
+                    <p style={{ color: '#ADAAAD', fontSize: '24px', lineHeight: '28px' }}>{task.title}</p>
+                    <p style={{ color: '#ADAAAD', fontSize: '12px', lineHeight: '20px' }}>Coming soon</p>
+                  </div>
+                </div>
+                <Image src={Img.Lock} alt='lock' width={30} height={30} />
+              </div>
+            ) : (
+              <FlexDiv key={task.title} $gap="16px" $padding="16px" $border="1px solid #FFFFFF1A" $radius="16px" $align="center" $height="95px" className={`task`} onClick={() => chooseTask(task, socialTasks)}>
+                {
+                  task.logo && (
+                    <FlexDiv $width="60px" $height="60px" $background={task.logo?.color || "transparent"} $radius="8px" $justify="center" $align="center">
+                      {task.logo.uri && (
+                        <Image src={task.logo.uri} alt="Task" width={task.logo.color ? 28 : 48} height={task.logo.color ? 28 : 48} style={{ "borderRadius": "8px" }} />
+                      )}
+                    </FlexDiv>
+                  )
+                }
+                <FlexDiv className="text-content" $direction="column" $gap="4px">
+                  <P $fontSize="24px">{task.title}</P>
+                </FlexDiv>
+                {
+                  task.completed ? (
+                    <Image src={Img.TaskCheck} alt="Proceed" width={24} height={24} />
+                  ) : (
+                    <Image src={Img.RightArrowImg} alt="Proceed" width={28} height={28} />
+                  )
+                }
+              </FlexDiv>
+            )
+          ))}
+        </FlexDiv>
+
+        {/* Partner Tasks */}
+        {partnerTaskGroups.filter((group) => !!group.tasks.find((task) => task.active)).map((group) => (
+          <FlexDiv $direction="column" key={group.title} $gap="12px" className="task-category">
+            <FlexDiv $direction="column" $gap="8px">
+              <FlexDiv $gap="5px" $align="center">
+                {group.icon && <Image alt={group.title} width={24} height={24} src={group.icon} />}
+                <P $fontSize="24px">{group.title}</P>
+              </FlexDiv>
+              <P $fontSize="14px">Complete all tasks and receive {group.reward} {group.rewardAsset}</P>
+            </FlexDiv>
+
+            {
+              group.tasks.filter((task) => task.active).map((task) => (
+                <FlexDiv key={task.title} $gap="16px" $padding="16px" $border="1px solid #FFFFFF1A" $radius="16px" $align="center" $height="95px" className={`task ${task.completed ? 'completed' : ''}`} onClick={() => chooseTask(task, group)}>
+                  {
+                    task.logo && (
+                      <FlexDiv $width="60px" $height="60px" $background={task.logo?.color || "transparent"} $radius="8px" $justify="center" $align="center">
+                        {task.logo.uri && (
+                          <Image src={task.logo.uri} alt="Task" width={task.logo.color ? 28 : 48} height={task.logo.color ? 28 : 48} style={{ "borderRadius": "8px" }} />
+                        )}
                       </FlexDiv>
                     )
-                ))
-              }
-            </FlexDiv>
-          ))
-        }
+                  }
+                  <FlexDiv className="text-content" $direction="column" $gap="4px">
+                    <P $fontSize="24px">{task.title}</P>
+                  </FlexDiv>
+                  {
+                    task.completed ? (
+                      <Image src={Img.TaskCheck} alt="Proceed" width={24} height={24} />
+                    ) : (
+                      <Image src={Img.RightArrowImg} alt="Proceed" width={28} height={28} />
+                    )
+                  }
+                </FlexDiv>
+              ))
+            }
+          </FlexDiv>
+        ))}
+
         {
           chosenTask && (
             <Modal align="flex-end" close={closeTask}>
               <FlexDiv $background="#111113E5" $width="100%" $maxHeight='100vh' $padding="24px" className="modal-content" $direction="column" $align="center" $position="relative" $overflowY='auto' $gap="16px">
                 <Button className="close" onClick={closeTask}>X</Button>
                 <P $fontSize="20px">{chosenTask.title}</P>
+
                 {
                   chosenTask.claim ? (
                     <DailyClaim chosenTask={chosenTask} />
@@ -707,8 +630,8 @@ export default function Earn() {
                   )
                 }
 
-                {chosenTask.claim && !chosenTask.completed && dailyClaimInfo?.todayDayOfWeek.toString() && (
-                  isTodayRewardTaken || !(tasks[2].tasks[0].completed || tasks[2].tasks[1].completed) ?
+                {chosenTask?.claim && dailyClaimInfo?.todayDayOfWeek.toString() && (
+                  isTodayRewardTaken ?
                     <Button $cursor='not-allowed !important' $width="100%" $minHeight='55px' $radius="999px" $background={"gray"} disabled $padding="18px">
                       <FlexDiv $align="center" $gap="8px">
                         <P>{chosenTask.cta}</P>
@@ -724,6 +647,7 @@ export default function Earn() {
             </Modal>
           )
         }
+
       </PageWrapper>
     </>
   )

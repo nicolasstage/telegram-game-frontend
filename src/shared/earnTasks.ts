@@ -4,18 +4,6 @@ import { PartnerLogos } from "@/utilitiy/partnerLogos";
 type RewardType = "CNTP" | "Key" | "Ticket";
 type TaskType = "social" | "partner";
 
-export enum Partners {
-  mhaya = "4",
-  stabilityAi = "5",
-  bearfi = "6",
-  tapGear = "7",
-  hybrid = "8",
-  habit = "9",
-  frogs = "10",
-  cognixphere = "11",
-  bombcrypto = "12",
-}
-
 export interface Quiz {
   title: string;
   caption: string;
@@ -33,6 +21,7 @@ export interface QuizQuestion {
 
 export interface TaskCategory {
   categoryId: string;
+  nftId?: number;
   title: string;
   icon?: string;
   tasks: Task[];
@@ -43,6 +32,7 @@ export interface TaskCategory {
 
 export interface Task {
   taskId: string;
+  nftId?: number;
   title: string;
   type?: TaskType;
   completed?: boolean;
@@ -84,195 +74,180 @@ export const dailyQuiz: Quiz = {
   ],
 };
 
-export const taskCategories: TaskCategory[] = [
-  {
-    categoryId: "referral",
-    title: "Send Invitation",
-    icon: Img.TaskInvitation,
-    completed: false,
-    tasks: [
-      {
-        taskId: "referral_task-1",
-        title: "Invite Friends",
-        completed: false,
-        caption:
-          "Share your referral link and earn CNTP when your friends are mining!",
-        referral: true,
-        active: true,
+export const _dailyClaim: TaskCategory = {
+  categoryId: "daily-rewards",
+  title: "Daily Rewards",
+  icon: Img.TaskDaily,
+  tasks: [
+    {
+      taskId: "daily-rewards_task-1",
+      title: "Daily Claim",
+      claim: true,
+      caption:
+        "Claim daily rewards and earn Tickets by logging in each day without skipping!",
+      extraInstruction:
+        "*Complete at least one social task to be able to claim.",
+      logo: {
+        uri: Img.DailyClaim,
       },
-    ],
-  },
-  {
-    categoryId: "daily-rewards",
-    title: "Daily Rewards",
-    icon: Img.TaskDaily,
-    tasks: [
-      {
-        taskId: "daily-rewards_task-1",
-        title: "Daily Claim",
-        claim: true,
-        caption:
-          "Claim daily rewards and earn Tickets by logging in each day without skipping!",
-        extraInstruction:
-          "*Complete at least one social task to be able to claim.",
-        logo: {
-          uri: Img.DailyClaim,
-        },
-        cta: "Claim today's reward",
-        active: true,
-        comingSoon: false,
+      cta: "Claim today's reward",
+      active: true,
+      comingSoon: false,
+    },
+  ],
+};
+
+export const _dailyTasks: TaskCategory = {
+  categoryId: "daily-tasks",
+  title: "Daily Tasks",
+  icon: Img.TaskDaily,
+  completed: false,
+  tasks: [
+    {
+      taskId: "daily-tasks_task-1",
+      title: "Quiz",
+      completed: false,
+      logo: {
+        uri: Img.TaskQuiz,
       },
-    ],
-  },
-  {
-    categoryId: "social",
-    title: "Join Us",
-    icon: Img.TaskJoin,
-    reward: 1,
-    rewardAsset: "Ticket",
-    completed: false,
-    tasks: [
-      {
-        taskId: "social_task-1",
-        title: "Follow Us on X",
-        type: "social",
-        completed: false,
-        logo: {
-          uri: Img.TwitterX,
-          color: "#000000",
-          size: 50,
-        },
-        caption:
-          "Follow Us on X, like and share our pinned post, earn Tickets just for staying connected!",
-        extraInstruction:
-          "*You have 2 minutes to do it so we can confirm that the task has been completed",
-        cta: "Open X",
-        resource: "https://x.com/conet_network?lang=en",
-        active: true,
+      quiz: true,
+      active: true,
+      comingSoon: true,
+    },
+    {
+      taskId: "daily-tasks_task-2",
+      title: "Interact with Us on X",
+      completed: false,
+      logo: {
+        uri: Img.TwitterX,
+        color: "#000000",
       },
-      {
-        taskId: "social_task-2",
-        title: "Join our Community",
-        type: "social",
-        completed: false,
-        logo: {
-          uri: Img.Telegram,
-          color: "#66ACDD",
-          size: 50,
-        },
-        caption:
-          "Join our Community on Telegram and earn Tickets just for staying connected!",
-        cta: "Open Telegram",
-        resource: "https://t.me/conet_network",
-        active: true,
+      active: false,
+      comingSoon: true,
+    },
+  ],
+};
+
+export const _referralTask: TaskCategory = {
+  categoryId: "referral",
+  title: "Send Invitation",
+  icon: Img.TaskInvitation,
+  completed: false,
+  tasks: [
+    {
+      taskId: "referral_task-1",
+      title: "Invite Friends",
+      completed: false,
+      caption:
+        "Share your referral link and earn CNTP when your friends are mining!",
+      referral: true,
+      active: true,
+    },
+  ],
+};
+
+export const _socialTasks: TaskCategory = {
+  categoryId: "social",
+  title: "Join Us",
+  icon: Img.TaskJoin,
+  reward: 1,
+  rewardAsset: "Ticket",
+  completed: false,
+  tasks: [
+    {
+      taskId: "social_task-1",
+      nftId: 2,
+      title: "Follow Us on X",
+      type: "social",
+      completed: false,
+      logo: {
+        uri: Img.TwitterX,
+        color: "#000000",
       },
-      {
-        taskId: "social_task-3",
-        title: "Join our Instagram Channel",
-        type: "social",
-        completed: false,
-        logo: {
-          uri: Img.Instagram,
-          color: "#E94869",
-          size: 50,
-        },
-        caption:
-          "Follow us on Instagram and earn Tickets just for staying connected!",
-        cta: "Open Instagram",
-        resource: "https://www.instagram.com/conet_network/",
-        active: true,
-        comingSoon: false,
+      caption:
+        "Follow Us on X, like and share our pinned post, earn Tickets just for staying connected!",
+      extraInstruction:
+        "*You have 2 minutes to do it so we can confirm that the task has been completed",
+      cta: "Open X",
+      resource: "https://x.com/conet_network?lang=en",
+      active: true,
+    },
+    {
+      taskId: "social_task-2",
+      nftId: 3,
+      title: "Join our Community",
+      type: "social",
+      completed: false,
+      logo: {
+        uri: Img.Telegram,
+        color: "#66ACDD",
       },
-      {
-        taskId: "social_task-4",
-        title: "Follow us on Youtube",
-        type: "social",
-        completed: false,
-        logo: {
-          uri: Img.Youtube,
-          color: "#FFFFFF",
-          size: 50,
-        },
-        caption:
-          "Subscribe to our Youtube channel and earn Tickets just for staying connected!",
-        cta: "Open Youtube",
-        resource: "https://www.youtube.com/@CoNET_Network",
-        active: true,
-        comingSoon: false,
+      caption:
+        "Join our Community on Telegram and earn Tickets just for staying connected!",
+      cta: "Open Telegram",
+      resource: "https://t.me/conet_network",
+      active: true,
+    },
+    {
+      taskId: "social_task-3",
+      nftId: 13,
+      title: "Join our Instagram Channel",
+      type: "social",
+      completed: false,
+      logo: {
+        uri: Img.Instagram,
+        color: "#E94869",
+        size: 50,
       },
-      {
-        taskId: "social_task-5",
-        title: "Join our Server",
-        type: "social",
-        completed: false,
-        logo: {
-          uri: Img.Discord,
-          color: "#5865F2",
-        },
-        caption:
-          "Join our Server on Discord and earn Tickets just for staying connected!",
-        cta: "Open Discord",
-        resource: "https://discord.gg/JrpMBFkewd",
-        active: true,
-        comingSoon: true,
+      caption:
+        "Follow us on Instagram and earn Tickets just for staying connected!",
+      cta: "Open Instagram",
+      resource: "https://www.instagram.com/conet_network/",
+      active: true,
+      comingSoon: false,
+    },
+    {
+      taskId: "social_task-4",
+      nftId: 14,
+      title: "Follow us on Youtube",
+      type: "social",
+      completed: false,
+      logo: {
+        uri: Img.Youtube,
+        color: "#FFFFFF",
+        size: 50,
       },
-    ],
-  },
-  {
-    categoryId: "daily-tasks",
-    title: "Daily Tasks",
-    icon: Img.TaskDaily,
-    completed: false,
-    tasks: [
-      {
-        taskId: "daily-tasks_task-1",
-        title: "Quiz",
-        completed: false,
-        logo: {
-          uri: Img.TaskQuiz,
-        },
-        quiz: true,
-        active: true,
-        comingSoon: true,
+      caption:
+        "Subscribe to our Youtube channel and earn Tickets just for staying connected!",
+      cta: "Open Youtube",
+      resource: "https://www.youtube.com/@CoNET_Network",
+      active: true,
+      comingSoon: false,
+    },
+    {
+      taskId: "social_task-5",
+      nftId: 15,
+      title: "Join our Server",
+      type: "social",
+      completed: false,
+      logo: {
+        uri: Img.Discord,
+        color: "#5865F2",
       },
-      {
-        taskId: "daily-tasks_task-2",
-        title: "Interact with Us on X",
-        completed: false,
-        logo: {
-          uri: Img.TwitterX,
-          color: "#000000",
-        },
-        active: false,
-        comingSoon: true,
-      },
-    ],
-  },
-  {
-    categoryId: "partners",
-    title: "Partners",
-    icon: Img.TaskExtras,
-    reward: 1,
-    rewardAsset: "Ticket",
-    completed: false,
-    tasks: [
-      {
-        taskId: "partners_task-1",
-        title: "TITLE HERE",
-        completed: false,
-        caption: "CAPTION HERE",
-        extraInstruction: "EXTRA INSTRUCTION HERE",
-        logo: {
-          uri: Img.CoNETPartner,
-          size: 100,
-        },
-        active: false,
-        comingSoon: false,
-      },
-    ],
-  },
+      caption:
+        "Join our Server on Discord and earn Tickets just for staying connected!",
+      cta: "Open Discord",
+      resource: "https://discord.gg/JrpMBFkewd",
+      active: true,
+      comingSoon: true,
+    },
+  ],
+};
+
+export const _partnerTasks: TaskCategory[] = [
   {
     categoryId: "mhaya",
+    nftId: 4,
     title: "Mhaya",
     icon: Img.TaskExtras,
     reward: 1,
@@ -301,6 +276,7 @@ export const taskCategories: TaskCategory[] = [
   },
   {
     categoryId: "stability-world-ai",
+    nftId: 5,
     title: "Stability World AI",
     icon: Img.TaskExtras,
     reward: 1,
@@ -346,6 +322,7 @@ export const taskCategories: TaskCategory[] = [
   },
   {
     categoryId: "bearfi",
+    nftId: 6,
     title: "BearFi",
     icon: Img.TaskExtras,
     reward: 1,
@@ -396,7 +373,7 @@ export const taskCategories: TaskCategory[] = [
           uri: PartnerLogos.BearfiLogo,
           size: 100,
         },
-        active: true,
+        active: false,
         comingSoon: false,
         cta: "Open Telegram",
       },
@@ -404,6 +381,7 @@ export const taskCategories: TaskCategory[] = [
   },
   {
     categoryId: "tap-gear",
+    nftId: 7,
     title: "TapGear",
     icon: Img.TaskExtras,
     reward: 1,
@@ -463,6 +441,7 @@ export const taskCategories: TaskCategory[] = [
   },
   {
     categoryId: "hybrid",
+    nftId: 8,
     title: "Hybrid",
     icon: Img.TaskExtras,
     reward: 1,
@@ -489,6 +468,7 @@ export const taskCategories: TaskCategory[] = [
   },
   {
     categoryId: "habit",
+    nftId: 9,
     title: "Habit Farming App",
     icon: Img.TaskExtras,
     reward: 1,
@@ -514,6 +494,7 @@ export const taskCategories: TaskCategory[] = [
   },
   {
     categoryId: "frogs",
+    nftId: 10,
     title: "$Frogs",
     icon: Img.TaskExtras,
     reward: 1,
@@ -556,6 +537,7 @@ export const taskCategories: TaskCategory[] = [
   },
   {
     categoryId: "cognixphere",
+    nftId: 11,
     title: "CogniXphere",
     icon: Img.TaskExtras,
     reward: 1,
@@ -612,6 +594,7 @@ export const taskCategories: TaskCategory[] = [
   },
   {
     categoryId: "bombcrypto",
+    nftId: 12,
     title: "Bomb Crypto",
     icon: Img.TaskExtras,
     reward: 1,
@@ -665,33 +648,6 @@ export const taskCategories: TaskCategory[] = [
         active: true,
         comingSoon: false,
         cta: "Open X",
-      },
-    ],
-  },
-  {
-    categoryId: "finished-tasks",
-    title: "Finished Tasks",
-    icon: Img.TaskFinished,
-    tasks: [
-      {
-        taskId: "finished-tasks_task-1",
-        title: "Daily Task",
-        completed: true,
-        logo: {
-          uri: Img.CommonTask,
-        },
-        active: true,
-        comingSoon: true,
-      },
-      {
-        taskId: "finished-tasks_task-2",
-        title: "Watch Video",
-        completed: true,
-        logo: {
-          uri: Img.WatchVideo,
-        },
-        active: false,
-        comingSoon: true,
       },
     ],
   },
