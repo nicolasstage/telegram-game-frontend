@@ -101,7 +101,7 @@ export const _dailyClaim: TaskCategory = {
 export const _videoTasks: TaskCategory = {
   categoryId: "video-tasks",
   title: "Video Tasks",
-  icon: Img.TaskDaily,
+  icon: Img.TaskExtras,
   completed: false,
   tasks: [
     {
