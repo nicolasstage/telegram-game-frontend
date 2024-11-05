@@ -6,7 +6,7 @@ import PageWrapper from '@/components/pageWrapper';
 import { useEffect, useRef, useState } from 'react';
 import { Div, FlexDiv } from '@/components/div';
 import { P } from '@/components/p';
-import { _dailyClaim, _dailyTasks, _partnerTasks, _referralTask, _socialTasks, Task, TaskCategory } from '../../shared/earnTasks';
+import { _dailyClaim, _videoTasks, _partnerTasks, _referralTask, _socialTasks, Task, TaskCategory } from '../../shared/earnTasks';
 import Image from 'next/image';
 import { Img } from '@/utilitiy/images';
 import Modal from '@/components/modal';
@@ -14,7 +14,6 @@ import { Button } from '@/components/button';
 import "./styles.css";
 import DailyClaim from './page-components/DailyClaim';
 import CommonTask from './page-components/CommonTask';
-import DailyQuiz from './page-components/DailyQuiz';
 import { useGameContext } from '@/utilitiy/providers/GameProvider';
 import { checkSocialMedias, checkTwitter } from '@/API';
 import { fetchCheckPartner, fetchCheckTelegram, fetchCheckTwitter, fetchClaimDailyReward } from '@/API/getData';
@@ -24,6 +23,7 @@ export default function Earn() {
   const [dailyClaimTasks, setDailyClaimTasks] = useState<TaskCategory>(_dailyClaim);
   const [referralTasks, setReferralTasks] = useState<TaskCategory>(_referralTask);
   const [socialTasks, setSocialTasks] = useState<TaskCategory>(_socialTasks);
+  const [videoTasks, setVideoTasks] = useState<TaskCategory>(_videoTasks);
   const [partnerTaskGroups, setPartnerTaskGroups] = useState<TaskCategory[]>(_partnerTasks);
 
   const [chosenTask, setChosenTask] = useState<Task>();
@@ -118,6 +118,34 @@ export default function Earn() {
     fetchSocialMedias()
   }, [])
 
+  useEffect(() => {
+    async function fetchSocialMedias() {
+      const res = await checkSocialMedias(profile?.keyID)
+
+      const videoTasksCopy = videoTasks
+
+      if (res[1][0][0].length === 0) {
+        videoTasksCopy.tasks.forEach(task => {
+          task.completed = false
+        })
+
+        return
+      }
+
+      videoTasksCopy.tasks.forEach(task => {
+        if (res[1][0][0].includes(task.nftId?.toString())) {
+          task.completed = true
+        } else {
+          task.completed = false
+        }
+      })
+
+      setVideoTasks?.(videoTasksCopy)
+    }
+
+    fetchSocialMedias()
+  }, [])
+
   function copyReferralLink(text: string) {
     if (!text) return;
 
@@ -193,12 +221,14 @@ export default function Earn() {
 
   async function checkInstagramAccount() {
     if (!chosenTask) return;
+    if (!chosenTask.resource) return;
+    if (!chosenTask.nftId) return;
 
     const socialTasksCopy = socialTasks;
 
     window.open(chosenTask.resource, "_blank");
 
-    const res = await fetchCheckPartner(profile?.keyID, '13')
+    const res = await fetchCheckPartner(profile?.keyID, chosenTask.nftId.toString())
 
     if (!res.error) {
       setTimeout(() => {
@@ -222,12 +252,14 @@ export default function Earn() {
 
   async function checkYoutubeAccount() {
     if (!chosenTask) return;
+    if (!chosenTask.resource) return;
+    if (!chosenTask.nftId) return;
 
     const socialTasksCopy = socialTasks;
 
     window.open(chosenTask.resource, "_blank");
 
-    const res = await fetchCheckPartner(profile?.keyID, '14')
+    const res = await fetchCheckPartner(profile?.keyID, chosenTask.nftId.toString())
 
     if (!res.error) {
       setTimeout(() => {
@@ -247,7 +279,6 @@ export default function Earn() {
         duration: 2000,
       });
     }
-
   }
 
   const handlePartnerCheckButton = async () => {
@@ -305,6 +336,39 @@ export default function Earn() {
         }
       }
     }, 10000);
+  }
+
+  const handleCheckVideoTaskButton = async () => {
+    if (!chosenTask) return;
+    if (!chosenTask.resource) return;
+    if (!chosenTask.nftId) return;
+
+    const videoTasksCopy = videoTasks;
+
+    window.open(chosenTask.resource, "_blank");
+
+    const res = await fetchCheckPartner(profile?.keyID, chosenTask.nftId.toString())
+
+    if (!res.error) {
+      setTimeout(() => {
+        const taskIndex = videoTasksCopy.tasks.findIndex((task) => task.taskId === chosenTask.taskId)
+
+        videoTasksCopy.tasks[taskIndex].completed = true
+
+        setVideoTasks?.(videoTasksCopy)
+
+        toast.success("Task completed! Check your rewards in the Earn Page", {
+          position: "bottom-center",
+          duration: 2000,
+        });
+      }, 5000);
+    }
+    else {
+      toast.error("Unable to confirm. Check if you have completed the tasks", {
+        position: "bottom-center",
+        duration: 2000,
+      });
+    }
   }
 
   const handleClaim = async () => {
@@ -421,7 +485,7 @@ export default function Earn() {
                 )
               }
               <FlexDiv className="text-content" $direction="column" $gap="4px">
-                <P $fontSize="24px">{task.title}</P>
+                <P $fontSize={task.titleSize || "24px"}>{task.title}</P>
               </FlexDiv>
               <Image src={Img.RightArrowImg} alt="Proceed" width={28} height={28} />
             </FlexDiv>
@@ -443,7 +507,7 @@ export default function Earn() {
                 <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '14px' }}>
                   <Image src={task?.logo?.uri || ''} alt="Coming Soon" width={50} height={50} />
                   <div>
-                    <p style={{ color: '#ADAAAD', fontSize: '24px', lineHeight: '28px' }}>{task.title}</p>
+                    <p style={{ color: '#ADAAAD', fontSize: task.titleSize || '24px', lineHeight: '28px' }}>{task.title}</p>
                     <p style={{ color: '#ADAAAD', fontSize: '12px', lineHeight: '20px' }}>Coming soon</p>
                   </div>
                 </div>
@@ -461,7 +525,54 @@ export default function Earn() {
                   )
                 }
                 <FlexDiv className="text-content" $direction="column" $gap="4px">
-                  <P $fontSize="24px">{task.title}</P>
+                  <P $fontSize={task.titleSize || "24px"}>{task.title}</P>
+                </FlexDiv>
+                {
+                  task.completed ? (
+                    <Image src={Img.TaskCheck} alt="Proceed" width={24} height={24} />
+                  ) : (
+                    <Image src={Img.RightArrowImg} alt="Proceed" width={28} height={28} />
+                  )
+                }
+              </FlexDiv>
+            )
+          ))}
+        </FlexDiv>
+
+        {/* Video Tasks */}
+        <FlexDiv $direction="column" key={videoTasks.title} $gap="12px" className="task-category">
+          <FlexDiv $direction="column" $gap="8px">
+            <FlexDiv $gap="5px" $align="center">
+              {videoTasks.icon && <Image alt={videoTasks.title} width={24} height={24} src={videoTasks.icon} />}
+              <P $fontSize="24px">{videoTasks.title}</P>
+            </FlexDiv>
+          </FlexDiv>
+
+          {videoTasks.tasks.filter((task) => task?.active).map((task) => (
+            task.comingSoon ? (
+              <div key={task.title} style={{ position: 'relative', width: '100%', height: '104px', cursor: 'not-allowed', display: 'flex', border: '1px solid #535254', alignItems: 'center', borderRadius: '16px', backgroundColor: '#262527', justifyContent: 'space-between', padding: '16px' }}>
+                <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '14px' }}>
+                  <Image src={task?.logo?.uri || ''} alt="Coming Soon" width={50} height={50} />
+                  <div>
+                    <p style={{ color: '#ADAAAD', fontSize: task.titleSize || '24px', lineHeight: '28px' }}>{task.title}</p>
+                    <p style={{ color: '#ADAAAD', fontSize: '12px', lineHeight: '20px' }}>Coming soon</p>
+                  </div>
+                </div>
+                <Image src={Img.Lock} alt='lock' width={30} height={30} />
+              </div>
+            ) : (
+              <FlexDiv key={task.title} $gap="16px" $padding="16px" $border="1px solid #FFFFFF1A" $radius="16px" $align="center" $height="95px" className={`task`} onClick={() => chooseTask(task, socialTasks)}>
+                {
+                  task.logo && (
+                    <FlexDiv $width="60px" $height="60px" $background={task.logo?.color || "transparent"} $radius="8px" $justify="center" $align="center">
+                      {task.logo.uri && (
+                        <Image src={task.logo.uri} alt="Task" width={task.logo.color ? 28 : 48} height={task.logo.color ? 28 : 48} style={{ "borderRadius": "8px" }} />
+                      )}
+                    </FlexDiv>
+                  )
+                }
+                <FlexDiv className="text-content" $direction="column" $gap="4px">
+                  <P $fontSize={task.titleSize || "24px"}>{task.title}</P>
                 </FlexDiv>
                 {
                   task.completed ? (
@@ -524,13 +635,17 @@ export default function Earn() {
                 {
                   chosenTask.claim ? (
                     <DailyClaim chosenTask={chosenTask} />
-                  ) : chosenTask.quiz ? (
-                    <DailyQuiz />
+                  ) : chosenTask.type === 'video-task' ? (
+                    <CommonTask
+                      chosenTask={chosenTask}
+                      categoryId={chosenTaskCategory?.categoryId}
+                      handleActionButton={handleCheckVideoTaskButton}
+                    />
                   ) : (
                     <CommonTask
                       chosenTask={chosenTask}
                       categoryId={chosenTaskCategory?.categoryId}
-                      handlePartnerCheckButton={handlePartnerCheckButton}
+                      handleActionButton={handlePartnerCheckButton}
                     />
                   )
                 }

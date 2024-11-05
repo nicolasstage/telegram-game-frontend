@@ -2,7 +2,7 @@ import { Img } from "@/utilitiy/images";
 import { PartnerLogos } from "@/utilitiy/partnerLogos";
 
 type RewardType = "CNTP" | "Key" | "Ticket";
-type TaskType = "social" | "partner";
+type TaskType = "social" | "partner" | "video-task";
 
 export interface Quiz {
   title: string;
@@ -34,6 +34,7 @@ export interface Task {
   taskId: string;
   nftId?: number;
   title: string;
+  titleSize?: string;
   type?: TaskType;
   completed?: boolean;
   logo?: {
@@ -97,33 +98,29 @@ export const _dailyClaim: TaskCategory = {
   ],
 };
 
-export const _dailyTasks: TaskCategory = {
-  categoryId: "daily-tasks",
-  title: "Daily Tasks",
+export const _videoTasks: TaskCategory = {
+  categoryId: "video-tasks",
+  title: "Video Tasks",
   icon: Img.TaskDaily,
   completed: false,
   tasks: [
     {
-      taskId: "daily-tasks_task-1",
-      title: "Quiz",
+      taskId: "video-tasks_task-1",
+      nftId: 17,
+      type: "video-task",
+      title: "Blockchain & Decentralization Explained",
+      titleSize: "20px",
+      caption:
+        "Watch the new video in our Youtube channel The CoNETian TG Guide",
       completed: false,
+      resource: "https://youtu.be/TpSSeik9SPk?si=0ihKvAKj7hCgFA92",
       logo: {
-        uri: Img.TaskQuiz,
+        uri: Img.Youtube,
+        size: 50,
       },
-      quiz: true,
       active: true,
-      comingSoon: true,
-    },
-    {
-      taskId: "daily-tasks_task-2",
-      title: "Interact with Us on X",
-      completed: false,
-      logo: {
-        uri: Img.TwitterX,
-        color: "#000000",
-      },
-      active: false,
-      comingSoon: true,
+      comingSoon: false,
+      cta: "Open Youtube",
     },
   ],
 };

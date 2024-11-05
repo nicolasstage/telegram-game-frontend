@@ -8,10 +8,10 @@ import { Task } from '../../../shared/earnTasks';
 interface Props {
   chosenTask: Task;
   categoryId?: string;
-  handlePartnerCheckButton: () => Promise<void>;
+  handleActionButton: () => Promise<void>;
 }
 
-export default function CommonTask({ chosenTask, categoryId, handlePartnerCheckButton }: Props) {
+export default function CommonTask({ chosenTask, categoryId, handleActionButton }: Props) {
   return (
     <>
       <FlexDiv $gap="12px" $align="center">
@@ -39,9 +39,9 @@ export default function CommonTask({ chosenTask, categoryId, handlePartnerCheckB
         </FlexDiv>
       </FlexDiv>
 
-      {chosenTask?.type === 'partner' && (
+      {chosenTask?.type === 'partner' || chosenTask?.type === 'video-task' && (
         <FlexDiv $width='100%' $justify="center" $align="center" $gap="12px">
-          <Button $width="100%" $radius="999px" $background="#17181F" $border="1px solid #04DAE8" onClick={handlePartnerCheckButton} $padding="18px">
+          <Button $width="100%" $radius="999px" $background="#17181F" $border="1px solid #04DAE8" onClick={handleActionButton} $padding="18px">
             <FlexDiv $align="center" $gap="8px">
               <Image src={Img.OpenExternal} alt="Open External" width={24} height={24} />
               <P>{chosenTask.cta}</P>
