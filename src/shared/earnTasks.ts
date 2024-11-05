@@ -651,4 +651,47 @@ export const _partnerTasks: TaskCategory[] = [
       },
     ],
   },
+  {
+    categoryId: "catplanets",
+    nftId: 16,
+    title: "Cat Planets",
+    icon: Img.TaskExtras,
+    reward: 1,
+    rewardAsset: "Ticket",
+    completed: false,
+    tasks: [
+      {
+        taskId: "catplanets_task-1",
+        title: "Play Cat Planets",
+        type: "partner",
+        completed: false,
+        caption:
+          "🪐Cat Planets: A Purr-fect Universe of Fun and Furry Adventures! ⭐️  ",
+        resource: "https://t.me/CatPlanetsBot",
+        logo: {
+          uri: PartnerLogos.CatPlanetsLogo,
+          size: 100,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open Telegram Bot",
+      },
+      {
+        taskId: "catplanets_task-2",
+        title: "Join Cat Planets Channel",
+        type: "partner",
+        completed: false,
+        caption:
+          "🪐Cat Planets: A Purr-fect Universe of Fun and Furry Adventures! ⭐️  ",
+        resource: "https://t.me/catplanetsann",
+        logo: {
+          uri: PartnerLogos.CatPlanetsLogo,
+          size: 100,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open Telegram Channel",
+      },
+    ],
+  },
 ];
