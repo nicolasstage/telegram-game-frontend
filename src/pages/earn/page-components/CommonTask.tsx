@@ -39,7 +39,7 @@ export default function CommonTask({ chosenTask, categoryId, handleActionButton 
         </FlexDiv>
       </FlexDiv>
 
-      {chosenTask?.type === 'partner' || chosenTask?.type === 'video-task' && (
+      {(chosenTask?.type === 'partner' || chosenTask?.type === 'video-task') && (
         <FlexDiv $width='100%' $justify="center" $align="center" $gap="12px">
           <Button $width="100%" $radius="999px" $background="#17181F" $border="1px solid #04DAE8" onClick={handleActionButton} $padding="18px">
             <FlexDiv $align="center" $gap="8px">
