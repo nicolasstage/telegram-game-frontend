@@ -9,4 +9,5 @@ export const PartnerLogos = {
   CogniXphereLogo: "/partners/cognixphere-logo.png",
   BombCryptoLogo: "/partners/bombcrypto-logo.png",
   CatPlanetsLogo: "/partners/catplanets-logo.png",
+  Wagmi11Logo: "/partners/wagmi11-logo.jpg",
 }
