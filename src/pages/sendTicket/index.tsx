@@ -43,8 +43,8 @@ const S = {
   `,
 };
 
-const SendCNTP = () => {
-  const assetName = "cCNTP";
+const SendTicket = () => {
+  const assetName = "Ticket";
 
   const [amount, setAmount] = useState<string>("0");
   const [isValidAmount, setIsValidAmount] = useState<boolean>(false);
@@ -54,7 +54,7 @@ const SendCNTP = () => {
 
   const { setRouter, setTransferTokenDetails, profile } = useGameContext();
 
-  const balance = formatToken(profile?.tokens?.cCNTP?.balance);
+  const balance = profile?.tickets?.balance;
 
   const handleToAddressChange = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -106,16 +106,19 @@ const SendCNTP = () => {
       amount,
     });
 
-    setRouter?.("/sendCNTPConfirm");
+    setRouter?.("/sendTicketConfirm");
   };
 
   return (
     <PageWrapper>
-      <BackButton text="Send CNTP" to="/send" />
+      <BackButton text="Send Ticket" to="/send" />
+
       <Div $padding="0 10px">
-        <CurrentBalance asset="cntp" />
+        <CurrentBalance asset="ticket" />
       </Div>
+
       <div className="split"></div>
+
       <FlexDiv $direction="column" $padding="0 10px" $gap="32px">
         <Button
           $background="#262626"
@@ -177,4 +180,4 @@ const SendCNTP = () => {
   );
 };
 
-export default SendCNTP;
+export default SendTicket;

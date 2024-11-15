@@ -38,6 +38,14 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
       return profile?.tickets?.balance;
   }
 
+  const getSingularOrPlural = (asset: string) => {
+    const _balance = parseFloat(getFormattedBalance());
+
+    if (_balance > 1 && asset === 'ticket') return 'S';
+
+    return '';
+  }
+
   return (
     <FlexDiv $direction="column" $gap="12px" $width="100%">
       {
@@ -69,7 +77,7 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
                     <Skeleton width={200} />
                   )}
                 </P>
-                <P>{asset.toUpperCase()}</P>
+                <P>{asset.toUpperCase()}{getSingularOrPlural(asset)}</P>
               </FlexDiv>
               {
                 secondaryAsset && (

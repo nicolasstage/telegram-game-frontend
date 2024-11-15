@@ -3,7 +3,7 @@ import { Div, FlexDiv } from "@/components/div";
 import { P } from "@/components/p";
 import PageWrapper from "@/components/pageWrapper";
 import { Img } from "@/utilitiy/images";
-import { useGameContext } from "@/utilitiy/providers/GameProvider";
+import { ReadableAssetType, useGameContext } from "@/utilitiy/providers/GameProvider";
 import Image from "next/image";
 
 const TransactionSuccess = () => {
@@ -29,15 +29,11 @@ const TransactionSuccess = () => {
           >
             <FlexDiv $justify="space-between">
               <P $fontSize="14px">Sent</P>
-              <P $fontSize="14px">{buyItem?.price} $CNTP</P>
+              <P $fontSize="14px">{buyItem?.price} {ReadableAssetType[transferTokenDetails ? transferTokenDetails.assetName : 'cCNTP']}</P>
             </FlexDiv>
             <FlexDiv $justify="space-between" $margin="10px 0">
               <P $fontSize="14px">GAS fee</P>
               <P $fontSize="14px">{transferTokenDetails?.gasFee} $CONET</P>
-            </FlexDiv>
-            <FlexDiv $justify="space-between" $margin="10px 0">
-              <P $fontSize="14px">Network cost</P>
-              <P $fontSize="14px">$ {transferTokenDetails?.gasPrice}</P>
             </FlexDiv>
           </Div>
         </Div>
@@ -52,7 +48,7 @@ const TransactionSuccess = () => {
             <GradientButton onClick={() => setRouter?.("/gameitem")}>
               Back to Items
             </GradientButton>
-          ) : buyItem?.sendCNTP ? (
+          ) : buyItem?.send ? (
             <GradientButton onClick={() => setRouter?.("/wallet")}>
               Back to My Wallet
             </GradientButton>

@@ -31,6 +31,8 @@ import Send from "@/pages/send";
 import SendCNTP from "@/pages/sendCntp";
 import SendCNTPConfirm from "@/pages/sendCNTPConfirm";
 import { ToasterWithMax } from '@/components/toasterWithMax';
+import SendTicket from "@/pages/sendTicket";
+import SendTicketConfirm from "@/pages/sendTicketConfirm";
 
 const S = {
   Main: styled.div`
@@ -138,6 +140,8 @@ function CurrentPage() {
     "/send": <Send />,
     "/sendCNTP": <SendCNTP />,
     "/sendCNTPConfirm": <SendCNTPConfirm />,
+    "/sendTicket": <SendTicket />,
+    "/sendTicketConfirm": <SendTicketConfirm />,
   };
 
   return pages[router as keyof typeof pages] ?? null;

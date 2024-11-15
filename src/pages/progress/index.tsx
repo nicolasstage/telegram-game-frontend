@@ -8,7 +8,7 @@ import { Button } from "@/components/button";
 import { useEffect } from "react";
 import { useGameContext } from "@/utilitiy/providers/GameProvider";
 import Loading from "@/components/loading";
-import { fetchTransferToken } from "@/API/getData";
+import { fetchTransferTicketNft, fetchTransferToken } from "@/API/getData";
 
 const ConfirmProgress = () => {
   const { setRouter, profile, transferTokenDetails } = useGameContext();
@@ -29,7 +29,28 @@ const ConfirmProgress = () => {
       }
     };
 
-    transferToken();
+    const transferTicketNft = async () => {
+      const response =
+        transferTokenDetails?.assetName &&
+        transferTokenDetails?.toAddress &&
+        (await fetchTransferTicketNft(
+          Number(transferTokenDetails?.amount),
+          profile?.keyID,
+          transferTokenDetails?.assetName,
+          transferTokenDetails?.toAddress,
+        ));
+
+      if (response) {
+        setRouter?.("/transactionsuccess");
+      }
+    };
+
+    if (transferTokenDetails?.assetName.toLowerCase() === 'ccntp') {
+      transferToken();
+    }
+    else if (transferTokenDetails?.assetName.toLowerCase() === 'ticket') {
+      transferTicketNft();
+    }
   }, []);
 
   return (

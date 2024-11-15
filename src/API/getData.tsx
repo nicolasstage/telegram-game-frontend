@@ -16,6 +16,8 @@ import {
   estimateGas,
   getNativeBalance,
   isAddress,
+  estimateGasForNftContract,
+  transferTicketNft,
 } from ".";
 
 export const fetchImportWallet = async (
@@ -382,6 +384,35 @@ export const fetchTransferToken = async (
   return { error: true, message: "Failed to transfer token" };
 };
 
+export const fetchTransferTicketNft = async (
+  amount: number,
+  sourceProfileKeyID: string,
+  assetName: string,
+  toAddress: string,
+): Promise<any> => {
+  try {
+    const response = await transferTicketNft(
+      amount,
+      sourceProfileKeyID,
+      assetName,
+      toAddress,
+    );
+
+    if (Array.isArray(response) && response.length >= 2) {
+      const [status, data] = response;
+      if (status === "SUCCESS") {
+        return true;
+      } else {
+        console.error("Failed to transfer token");
+      }
+    }
+  } catch (error) {
+    console.error("Failed to transfer token", error);
+  }
+
+  return { error: true, message: "Failed to transfer token" };
+};
+
 export const fetchEstimateGas = async (
   amount: string,
   sourceProfileKeyID: string,
@@ -394,6 +425,35 @@ export const fetchEstimateGas = async (
       sourceProfileKeyID,
       assetName,
       toAddress
+    );
+
+    if (Array.isArray(response) && response.length >= 2) {
+      const [status, data] = response;
+      if (status === "SUCCESS") {
+        return data;
+      } else {
+        console.error("Failed to estimate gas");
+      }
+    }
+  } catch (error) {
+    console.error("Failed to estimate gas", error);
+  }
+
+  return { error: true, message: "Failed to estimate gas" };
+};
+
+export const fetchEstimateGasForNftContract = async (
+  amount: string,
+  sourceProfileKeyID: string,
+  assetName: string,
+  toAddress: string,
+): Promise<any> => {
+  try {
+    const response = await estimateGasForNftContract(
+      amount,
+      sourceProfileKeyID,
+      assetName,
+      toAddress,
     );
 
     if (Array.isArray(response) && response.length >= 2) {

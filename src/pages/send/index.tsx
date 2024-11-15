@@ -12,9 +12,15 @@ import styled from "styled-components";
 const actives = [
   {
     key: 1,
-    img: SkinImg.Rewards,
+    img: SendImg.CntpImg,
     title: "CNTP",
     router: "/sendCNTP",
+  },
+  {
+    key: 2,
+    img: SendImg.TicketImg,
+    title: "Ticket",
+    router: "/sendTicket",
   },
 ];
 
@@ -22,22 +28,22 @@ const locks = [
   {
     key: 1,
     img: SendImg.SkinBlurImg,
+    title: "Skin",
   },
   {
     key: 2,
     img: SendImg.KeyBlurImg,
+    title: "Key",
   },
   {
     key: 3,
     img: SendImg.ItemBlurImg,
+    title: "Item",
   },
   {
     key: 4,
-    img: SendImg.TicketBlurImg,
-  },
-  {
-    key: 5,
     img: SendImg.NftBlurImg,
+    title: "NFT",
   },
 ];
 
@@ -100,6 +106,7 @@ const Send = () => {
           );
         })}
       </FlexDiv>
+
       {/* Substitute the following lines for the implementation of transaction history */}
       {/* <Button
         $margin="0 20px 100px 20px"

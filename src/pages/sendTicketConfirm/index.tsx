@@ -10,8 +10,8 @@ import { useGameContext } from "@/utilitiy/providers/GameProvider";
 import { Img } from "@/utilitiy/images";
 import { SkinImg } from "@/utilitiy/skinStoreImage";
 import { formatToken, slice } from "@/utilitiy/functions";
-import { fetchEstimateGas, fetchGetNativeBalance } from "@/API/getData";
-import { TransferTokenDetails } from "@/utilitiy/providers/GameProvider";
+import { fetchEstimateGas, fetchEstimateGasForNftContract, fetchGetNativeBalance } from "@/API/getData";
+import { SendImg } from "@/utilitiy/send";
 
 const S = {
   Split: styled.div`
@@ -20,7 +20,16 @@ const S = {
   `,
 };
 
-const SendCNTPConfirm = () => {
+const renderAssetImage = (assetName: string = 'ccntp') => {
+  switch (assetName) {
+    case 'ticket':
+      return SendImg.TicketImg;
+    default:
+      return SendImg.CntpImg;
+  }
+}
+
+const SendTicketConfirm = () => {
   const [quoteSecs, setQuoteSecs] = useState<number>(60);
   const [hasInsufficientFee, setHasInsufficientFee] = useState<boolean>(false);
 
@@ -38,11 +47,11 @@ const SendCNTPConfirm = () => {
         transferTokenDetails?.amount &&
         transferTokenDetails?.assetName &&
         transferTokenDetails?.toAddress &&
-        (await fetchEstimateGas(
+        (await fetchEstimateGasForNftContract(
           transferTokenDetails?.amount,
           profile?.keyID,
           transferTokenDetails?.assetName,
-          transferTokenDetails?.toAddress
+          transferTokenDetails?.toAddress,
         ));
 
       setQuoteSecs(60);
@@ -80,7 +89,7 @@ const SendCNTPConfirm = () => {
 
   return (
     <PageWrapper margin="32px 16px 140px 16px">
-      <BackButton text="Confirm your order" to="/sendCNTP" />
+      <BackButton text="Confirm your order" to="/sendTicket" />
       <FlexDiv $direction="column" $gap="10px">
         <P $fontSize="16px">Wallet</P>
         <FlexDiv
@@ -111,8 +120,8 @@ const SendCNTPConfirm = () => {
           $gap="10px"
         >
           <FlexDiv $gap="10px" $align="center">
-            <Image src={SkinImg.Rewards} width={20} height={20} alt="" />
-            <P $fontSize="16px">CNTP</P>
+            <Image src={renderAssetImage(transferTokenDetails?.assetName.toLowerCase())} width={20} height={20} alt="" />
+            <P $fontSize="16px">Ticket</P>
           </FlexDiv>
           <P>{transferTokenDetails?.amount}</P>
         </FlexDiv>
@@ -169,4 +178,4 @@ const SendCNTPConfirm = () => {
   );
 };
 
-export default SendCNTPConfirm;
+export default SendTicketConfirm;

@@ -268,6 +268,26 @@ export const transferToken: (
     return _postMessage(cmd, true, resolve);
   });
 
+export const transferTicketNft: (
+  amount: number,
+  sourceProfileKeyID: string,
+  assetName: string,
+  toAddress: string
+) => Promise<string> = (
+  amount: number,
+  sourceProfileKeyID: string,
+  assetName: string,
+  toAddress: string
+) =>
+  new Promise((resolve) => {
+    const cmd: WorkerCommand = {
+      cmd: "transferTicketNft",
+      uuid: v4(),
+      data: [amount, sourceProfileKeyID, assetName, toAddress],
+    };
+    return _postMessage(cmd, true, resolve);
+  });
+
 export const estimateGas: (
   amount: string,
   sourceProfileKeyID: string,
@@ -282,6 +302,26 @@ export const estimateGas: (
   new Promise((resolve) => {
     const cmd: WorkerCommand = {
       cmd: "estimateGas",
+      uuid: v4(),
+      data: [amount, sourceProfileKeyID, assetName, toAddress],
+    };
+    return _postMessage(cmd, true, resolve);
+  });
+
+export const estimateGasForNftContract: (
+  amount: string,
+  sourceProfileKeyID: string,
+  assetName: string,
+  toAddress: string
+) => Promise<string> = (
+  amount: string,
+  sourceProfileKeyID: string,
+  assetName: string,
+  toAddress: string
+) =>
+  new Promise((resolve) => {
+    const cmd: WorkerCommand = {
+      cmd: "estimateGasForNftContract",
       uuid: v4(),
       data: [amount, sourceProfileKeyID, assetName, toAddress],
     };

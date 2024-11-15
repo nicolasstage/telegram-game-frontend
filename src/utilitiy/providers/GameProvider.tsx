@@ -14,9 +14,16 @@ import { AnyARecord } from "dns";
 
 export type Difficulty = "easy" | "normal" | "hard";
 
+export type AssetType = 'cCNTP' | 'ticket' | 'nft';
+export const ReadableAssetType: Record<string, string> = {
+  'cCNTP': 'CNTP',
+  'Ticket': 'Ticket',
+  'nft': 'NFT'
+}
+
 export type TransferTokenDetails = {
   amount: string;
-  assetName: string;
+  assetName: AssetType;
   toAddress: string;
   gasFee: number;
   gasPrice: number;
@@ -77,7 +84,7 @@ type GameContext = {
   referrerAddress?: string;
   buyItem?: any;
   setBuyItem?: (skin: any) => void;
-  transferTokenDetails?: any;
+  transferTokenDetails?: TransferTokenDetails;
   setTransferTokenDetails?: (details: any) => void;
   spinningCounter?: number;
   setSpinningCounter?: (e: any) => void;
