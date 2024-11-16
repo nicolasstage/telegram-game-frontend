@@ -16,15 +16,15 @@ const actives = [
     title: "CNTP",
     router: "/sendCNTP",
   },
-  {
-    key: 2,
-    img: SendImg.TicketImg,
-    title: "Ticket",
-    router: "/sendTicket",
-  },
 ];
 
 const locks = [
+  {
+    key: 5,
+    img: SendImg.TicketBlurImg,
+    title: "Ticket",
+    router: "/sendTicket",
+  },
   {
     key: 1,
     img: SendImg.SkinBlurImg,
