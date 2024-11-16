@@ -243,24 +243,23 @@ export const _socialTasks: TaskCategory = {
 
 export const _partnerTasks: TaskCategory[] = [
   {
-    categoryId: "wagmi11",
-    nftId: 18,
-    title: "Wagmi11",
+    categoryId: "notmush",
+    nftId: 19,
+    title: "Not Mush Coin",
     icon: Img.TaskExtras,
     reward: 1,
     rewardAsset: "Ticket",
     completed: false,
     tasks: [
       {
-        taskId: "wagmi11_task-1",
-        title: "Join Wagmi11 Prediction",
+        taskId: "notmush_task-1",
+        title: "Join Not Mush Coin",
         type: "partner",
         completed: false,
-        caption:
-          "WAGMI11 Play, Predict & Win! Decentralized prediction and sports fantasy platform.",
-        resource: "https://t.me/wagmi11PredictBot?start=r_6993211587",
+        caption: "Mushroom Warrior is a play to earn web3 game.",
+        resource: "https://t.me/NotMushCoin_bot/play?startapp=m_606319378",
         logo: {
-          uri: PartnerLogos.Wagmi11Logo,
+          uri: PartnerLogos.NotMushLogo,
           size: 100,
         },
         active: true,
@@ -268,15 +267,41 @@ export const _partnerTasks: TaskCategory[] = [
         cta: "Open Telegram",
       },
       {
-        taskId: "wagmi11_task-2",
-        title: "Join Wagmi11 Telegram",
+        taskId: "notmush_task-2",
+        title: "Join Not Mush Telegram Chat",
+        type: "partner",
+        completed: false,
+        caption: "Mushroom Warrior is a play to earn web3 game.",
+        resource: "https://t.me/notmushcoin_chat",
+        logo: {
+          uri: PartnerLogos.NotMushLogo,
+          size: 100,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open Telegram",
+      },
+    ],
+  },
+  {
+    categoryId: "tonflash",
+    nftId: 20,
+    title: "Ton Flash",
+    icon: Img.TaskExtras,
+    reward: 1,
+    rewardAsset: "Ticket",
+    completed: false,
+    tasks: [
+      {
+        taskId: "tonflash_task-1",
+        title: "Mine $TON with TON Flash",
         type: "partner",
         completed: false,
         caption:
-          "WAGMI11 Play, Predict & Win! Decentralized prediction and sports fantasy platform.",
-        resource: "https://t.me/+Tkm-Bb3voOVmOWRl",
+          "Welcome to TON Flash - The 1st App for TON Mining on Telegram! ⚡️",
+        resource: "https://t.me/tonflash_mine_bot/app?startapp=IvEtMsof",
         logo: {
-          uri: PartnerLogos.Wagmi11Logo,
+          uri: PartnerLogos.TonFlashLogo,
           size: 100,
         },
         active: true,
