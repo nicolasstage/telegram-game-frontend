@@ -8,7 +8,7 @@ import { Button } from "@/components/button";
 import { useEffect } from "react";
 import { useGameContext } from "@/utilitiy/providers/GameProvider";
 import Loading from "@/components/loading";
-import { fetchTransferTicketNft, fetchTransferToken } from "@/API/getData";
+import { fetchTransferNft, fetchTransferToken } from "@/API/getData";
 
 const ConfirmProgress = () => {
   const { setRouter, profile, transferTokenDetails } = useGameContext();
@@ -29,11 +29,11 @@ const ConfirmProgress = () => {
       }
     };
 
-    const transferTicketNft = async () => {
+    const transferNft = async () => {
       const response =
         transferTokenDetails?.assetName &&
         transferTokenDetails?.toAddress &&
-        (await fetchTransferTicketNft(
+        (await fetchTransferNft(
           Number(transferTokenDetails?.amount),
           profile?.keyID,
           transferTokenDetails?.assetName,
@@ -49,7 +49,7 @@ const ConfirmProgress = () => {
       transferToken();
     }
     else if (transferTokenDetails?.assetName.toLowerCase() === 'ticket') {
-      transferTicketNft();
+      transferNft();
     }
   }, []);
 
