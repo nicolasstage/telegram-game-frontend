@@ -17,7 +17,7 @@ import {
   getNativeBalance,
   isAddress,
   estimateGasForNftContract,
-  transferTicketNft,
+  transferNft,
 } from ".";
 
 export const fetchImportWallet = async (
@@ -384,14 +384,14 @@ export const fetchTransferToken = async (
   return { error: true, message: "Failed to transfer token" };
 };
 
-export const fetchTransferTicketNft = async (
+export const fetchTransferNft = async (
   amount: number,
   sourceProfileKeyID: string,
   assetName: string,
   toAddress: string,
 ): Promise<any> => {
   try {
-    const response = await transferTicketNft(
+    const response = await transferNft(
       amount,
       sourceProfileKeyID,
       assetName,

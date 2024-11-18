@@ -268,7 +268,7 @@ export const transferToken: (
     return _postMessage(cmd, true, resolve);
   });
 
-export const transferTicketNft: (
+export const transferNft: (
   amount: number,
   sourceProfileKeyID: string,
   assetName: string,
@@ -281,7 +281,7 @@ export const transferTicketNft: (
 ) =>
   new Promise((resolve) => {
     const cmd: WorkerCommand = {
-      cmd: "transferTicketNft",
+      cmd: "transferNft",
       uuid: v4(),
       data: [amount, sourceProfileKeyID, assetName, toAddress],
     };
