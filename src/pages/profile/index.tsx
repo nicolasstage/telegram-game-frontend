@@ -66,7 +66,7 @@ export default function Profile() {
     }
 
     return (
-        <PageWrapper margin="32px 16px 140px 16px">
+        <PageWrapper margin="12px 16px 140px 16px">
             <FlexDiv $direction="column" $gap="32px">
                 <FlexDiv $align="center" $justify="space-between">
                     <BackButton text="My Profile" to="/" />

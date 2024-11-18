@@ -10,7 +10,7 @@ const UserData = () => {
   const { profile } = useGameContext();
 
   return (
-    <FlexDiv $gap="8px">
+    <FlexDiv $gap="8px" $align="center">
       <Image
         width={32}
         height={32}
@@ -18,8 +18,8 @@ const UserData = () => {
         alt="user default image"
       />
       <FlexDiv $direction="column" $gap="2px">
-        <P $fontSize="14px">{profile?.game?.username || "Anonymous User"}</P>
-        <P $fontSize="12px" $color="#B1B1B2">
+        <P $fontSize="1.6vh">{profile?.game?.username || "Anonymous User"}</P>
+        <P $fontSize="1.4vh" $color="#B1B1B2">
           {slice(profile?.keyID)}
           {!profile?.keyID && <Skeleton />}
         </P>

@@ -14,7 +14,7 @@ export default function About() {
   }
 
   return (
-    <PageWrapper margin="32px 16px 140px 16px">
+    <PageWrapper margin="12px 16px 140px 16px">
       <BackButton text="About The CoNETian" />
 
       <FlexDiv $direction="column" $width="100%" $gap="64px">

@@ -27,9 +27,10 @@ const MiningStatus = () => {
       <FlexDiv
         $align="center"
         $border="1px solid #CFCFCF0A"
-        $padding="8px 10px"
+        $padding="0 10px"
         $radius="16px"
         $gap="8px"
+        $height="3vh"
       >
         {mining ? (
           <>
@@ -48,22 +49,24 @@ const MiningStatus = () => {
       <FlexDiv
         $align="center"
         $border="1px solid #CFCFCF0A"
-        $padding="8px 10px"
+        $padding="0 10px"
         $radius="16px"
         $gap="8px"
+        $height="3vh"
       >
         <P $fontSize="8px">Mining Rate: {mining && miningRate?.toFixed(10)}</P>
-        {!mining && <Skeleton width={40} />}
+        {!mining && <Skeleton width={40} height={12} />}
       </FlexDiv>
       <FlexDiv
         $align="center"
         $border="1px solid #CFCFCF0A"
-        $padding="8px 10px"
+        $padding="0 10px"
         $radius="16px"
         $gap="8px"
+        $height="3vh"
       >
         <P $fontSize="8px">Online Miners: {mining && onlineMiners}</P>
-        {!mining && <Skeleton width={40} />}
+        {!mining && <Skeleton width={40} height={12} />}
       </FlexDiv>
     </FlexDiv>
   );

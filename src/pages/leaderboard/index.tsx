@@ -28,7 +28,7 @@ const Leaderboard = () => {
   };
 
   return (
-    <PageWrapper margin="32px 0 150px 0">
+    <PageWrapper margin="12px 0 150px 0">
       <FlexDiv $padding="0 15px">
         <Button $direction="row" $gap="10px" onClick={() => {
           if (filter === 0)

@@ -112,7 +112,7 @@ export default function Wallet() {
 
   return (
     <>
-      <FlexDiv $direction="column" $gap="32px" $margin="32px 16px 140px 16px">
+      <FlexDiv $direction="column" $gap="22px" $margin="12px 16px 140px 16px">
         <MiningStatus />
 
         <BackButton text="My Wallet" />

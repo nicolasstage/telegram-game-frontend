@@ -52,7 +52,7 @@ export default function Shopping() {
   const { setRouter } = useGameContext();
 
   return (
-    <PageWrapper margin="32px 16px 140px 16px">
+    <PageWrapper margin="12px 16px 140px 16px">
       <BackButton text="Shop" />
       <Supplies />
       <div className="split"></div>

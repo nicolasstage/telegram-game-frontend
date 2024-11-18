@@ -20,9 +20,15 @@ const S = {
     align-items: center;
     background-image: linear-gradient(135deg, black 0%, #3a3a3a 100%);
     border-radius: 50%;
-    width: 308px;
-    height: 308px;
+    width: 30vh;
+    height: 30vh;
     box-shadow: 0 0px 25px 0 rgba(0, 0, 0, 0.2), 0 0px 40px 0 rgba(0, 0, 0, 0.6);
+    position: relative;
+
+    img {
+      width: 28vh !important;
+      height: 28vh !important;
+    }
   `,
 };
 
@@ -43,7 +49,7 @@ export default function Home() {
   }
 
   return (
-    <PageWrapper margin="8px 16px 88px 16px">
+    <PageWrapper margin="12px 16px 88px 16px" vhGap="1.8vh">
       <FlexDiv $justify="space-between">
         <FlexDiv $gap="16px">
           <UserData />
@@ -125,25 +131,23 @@ export default function Home() {
 
       <FlexDiv $justify="space-between" $align="center">
         <FlexDiv $direction="column" $gap="4px">
-          <P $fontSize="28px" $color="#F6F1F2">
+          <P $fontSize="2.4vh" $color="#F6F1F2">
             The CoNETian
           </P>
-          <P $fontSize="12px" style={{ margin: "0 0 0 6px" }}>
+          <P $fontSize="1.4vh" style={{ margin: "0 0 0 6px" }}>
             {capitalizeFirstLetter(difficulty || "")} Mode
           </P>
         </FlexDiv>
         <FlexDiv
-          $padding="8px 0"
+          $padding="8px 16px"
           $border="1px solid #CFCFCF1A"
           $radius="16px"
           $direction="column"
           $justify="space-between"
           $align="center"
-          $width="146px"
-          $height="74px"
         >
-          <P>Highest Score</P>
-          <GradientP $first="#79F8FF" $second="#499599" $fontSize="24px">
+          <P $fontSize="1.8vh">Highest Score</P>
+          <GradientP $first="#79F8FF" $second="#499599" $fontSize="2.2vh">
             {highScore}
           </GradientP>
         </FlexDiv>
@@ -152,8 +156,8 @@ export default function Home() {
         <Button $radius="50%">
           <S.PlayButton onClick={() => setRouter?.("/playground")}>
             <Image
-              width={289}
-              height={289}
+              width={269}
+              height={269}
               src={Img.PlayImg}
               alt="play image"
             />
@@ -165,11 +169,11 @@ export default function Home() {
           $direction="column"
           $align="center"
           $justify="space-between"
-          $gap="16px"
+          $gap="1vh"
         >
           <FlexDiv $direction="column" $align="center" $gap="4px">
             <P $fontSize="10px">CNTP earned</P>
-            <P $fontSize="16px">
+            <P $fontSize="2.2vh">
               {profile ? (
                 formatToken(profile?.tokens?.cCNTP?.balance)
               ) : (
@@ -178,7 +182,7 @@ export default function Home() {
             </P>
           </FlexDiv>
 
-          <GradientImage $width="140px"></GradientImage>
+          <GradientImage $width="120px"></GradientImage>
 
           <FlexDiv $align="center" $gap="8px">
             {profile?.tickets?.balance ? (
@@ -186,8 +190,8 @@ export default function Home() {
                 <Image
                   src={Img.Tickets}
                   alt="Tickets"
-                  width={42.15}
-                  height={32}
+                  width={38}
+                  height={28.85}
                 />
                 <P $fontSize="16px">x {profile?.tickets?.balance}</P>
               </>

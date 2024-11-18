@@ -21,7 +21,7 @@ export default function Boxes() {
 
   if (isBuyKeyOpen) {
     return (
-      <PageWrapper margin="32px 16px 140px 16px">
+      <PageWrapper margin="12px 16px 140px 16px">
         <Keys closeKeys={() => setIsBuyKeyOpen(false)} />
       </PageWrapper>
     )
@@ -29,7 +29,7 @@ export default function Boxes() {
 
   if (choosenBox) {
     return (
-      <PageWrapper margin="32px 16px 140px 16px">
+      <PageWrapper margin="12px 16px 140px 16px">
         <BackButton text={choosenBox.title} action={() => setChoosenBox(undefined)} />
         <Box box={choosenBox} />
       </PageWrapper>
@@ -37,7 +37,7 @@ export default function Boxes() {
   }
 
   return (
-    <PageWrapper margin="32px 16px 140px 16px">
+    <PageWrapper margin="12px 16px 140px 16px">
       <BackButton text="Open the Box" to='/shopping' />
       <Supplies />
       <Button $width="100%" $radius="999px" $background="#17181F" $border="1px solid #04DAE8" $padding="18px" onClick={() => setIsBuyKeyOpen(true)}>

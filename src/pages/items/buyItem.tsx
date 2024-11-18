@@ -28,7 +28,7 @@ const S = {
 const BuyItem = () => {
   const { buyItem, setRouter } = useGameContext();
   return (
-    <PageWrapper margin="32px 16px 140px 16px">
+    <PageWrapper margin="12px 16px 140px 16px">
       <BackButton text={buyItem?.title} to="/gameitem" />
       <Rank />
       <div className="split"></div>

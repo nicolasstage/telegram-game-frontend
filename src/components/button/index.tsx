@@ -78,7 +78,7 @@ export const GradientButton: React.FC<GradientButtonProps> = ({
     <GradientImage $flex={flex}>
       <Button
         $background="#252527"
-        $padding="16px 24px"
+        $padding="8px 16px"
         $radius="32px"
         $fontSize="14px"
         $width={width}

@@ -72,7 +72,7 @@ const GameItems = () => {
   const { profile } = useGameContext();
 
   return (
-    <PageWrapper margin="32px 16px 140px 16px">
+    <PageWrapper margin="12px 16px 140px 16px">
       <BackButton text="On game items" to="/shopping" />
       <Rank />
       <FlexDiv $gap="8px" $align="center">

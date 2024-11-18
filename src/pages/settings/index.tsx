@@ -44,7 +44,7 @@ export default function Settings() {
   }, [effectsVolume])
 
   return (
-    <PageWrapper margin="32px 16px 140px 16px">
+    <PageWrapper margin="12px 16px 140px 16px">
       <BackButton text="Settings" />
 
       <FlexDiv $direction="column" $align="center">

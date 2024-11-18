@@ -19,7 +19,7 @@ const S = {
 const SkinConfirm = () => {
   const { buyItem, setRouter } = useGameContext();
   return (
-    <PageWrapper margin="32px 16px 140px 16px">
+    <PageWrapper margin="12px 16px 140px 16px">
       <BackButton text="Confirm your order" />
       <FlexDiv $direction="column" $gap="10px">
         <P $fontSize="16px">Wallet</P>

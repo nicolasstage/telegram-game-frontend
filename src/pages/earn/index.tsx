@@ -435,7 +435,7 @@ export default function Earn() {
 
   return (
     <>
-      <PageWrapper margin="32px 16px 160px 16px">
+      <PageWrapper margin="12px 16px 160px 16px">
         <BackButton text="Earn" />
 
         <FlexDiv $direction="column" $gap="8px">
