@@ -4,13 +4,27 @@ import { GradientP, P } from "@/components/p";
 import UserData from "@/components/userData";
 import { Img } from "@/utilitiy/images";
 import Image from "next/image";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Skeleton from "react-loading-skeleton";
 import { useGameContext } from "@/utilitiy/providers/GameProvider";
 import { formatToken } from "@/utilitiy/functions";
 import PageWrapper from "@/components/pageWrapper";
 import { capitalizeFirstLetter } from "@/shared/functions";
 import { DEFAULT_EFFECTS_VOLUME, DEFAULT_MUSIC_VOLUME } from "@/shared/constants";
+
+const floatAnimation = keyframes`
+	0% {
+    transform: translate(-48%, -40%);
+	}
+
+	50% {
+    transform: translate(-48%, calc(-40% - 10px));
+	}
+
+	100% {
+    transform: translate(-48%, -40%);
+  }
+`
 
 const S = {
   PlayButton: styled(Div)`
@@ -25,9 +39,21 @@ const S = {
     box-shadow: 0 0px 25px 0 rgba(0, 0, 0, 0.2), 0 0px 40px 0 rgba(0, 0, 0, 0.6);
     position: relative;
 
-    img {
+    img:first-child {
       width: 28vh !important;
       height: 28vh !important;
+    }
+
+    img:last-child {
+      width: 16vh !important;
+      height: 16vh !important;
+
+      top: 40% !important;
+      left: 50% !important;
+
+      transform: translate(-48%, -45%);
+
+      animation: ${floatAnimation} 4s ease-in-out infinite;
     }
   `,
 };
@@ -158,7 +184,12 @@ export default function Home() {
             <Image
               width={269}
               height={269}
-              src={Img.PlayImg}
+              src={Img.BackgroundAstronaut}
+              alt="play image"
+            />
+            <Image
+              fill
+              src={Img.Astronaut}
               alt="play image"
             />
           </S.PlayButton>
