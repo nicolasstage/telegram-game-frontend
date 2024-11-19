@@ -38,10 +38,6 @@ const S = {
   Main: styled.div`
     max-width: 430px;
     margin: 0 auto;
-    min-height: 99vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   `,
 };
 

@@ -39,6 +39,8 @@ const S = {
     box-shadow: 0 0px 25px 0 rgba(0, 0, 0, 0.2), 0 0px 40px 0 rgba(0, 0, 0, 0.6);
     position: relative;
 
+    cursor: pointer;
+
     img:first-child {
       width: 28vh !important;
       height: 28vh !important;
@@ -75,7 +77,7 @@ export default function Home() {
   }
 
   return (
-    <PageWrapper margin="12px 16px 88px 16px" vhGap="1.8vh">
+    <PageWrapper margin="12px 16px 88px 16px" vhGap="1.8vh" centralizeVertically>
       <FlexDiv $justify="space-between">
         <FlexDiv $gap="16px">
           <UserData />
