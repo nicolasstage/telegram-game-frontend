@@ -310,4 +310,47 @@ export const _partnerTasks: TaskCategory[] = [
       },
     ],
   },
+  {
+    categoryId: "waviewai",
+    nftId: 21,
+    title: "WaViewAI",
+    icon: Img.TaskExtras,
+    reward: 1,
+    rewardAsset: "Ticket",
+    completed: false,
+    tasks: [
+      {
+        taskId: "waviewai_task-1",
+        title: "Follow WaViewAI on X",
+        type: "partner",
+        completed: false,
+        caption:
+          "WaView is a next-generation social commerce platfrom by combining a Instagram like reels with a live e-commerce.",
+        resource: "https://x.com/WaViewAi",
+        logo: {
+          uri: PartnerLogos.WaViewAiLogo,
+          size: 100,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open X",
+      },
+      {
+        taskId: "waviewai_task-2",
+        title: "Join WaViewAI dApp",
+        type: "partner",
+        completed: false,
+        caption:
+          "WaView is a next-generation social commerce platfrom by combining a Instagram like reels with a live e-commerce.",
+        resource: "https://t.me/Waview_bot/Waviewapp?startapp=1764895145",
+        logo: {
+          uri: PartnerLogos.WaViewAiLogo,
+          size: 100,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open Telegram",
+      },
+    ],
+  },
 ];
