@@ -20,7 +20,7 @@ const SpinButton = ({ ticketBalance, spinningCounter, pageState, isTicketUnlocke
   }
 
   if (!isTicketUnlocked) {
-    return <Button $width="196px" $height="45px" $index={30} $radius="8px" $border="1px solid #04DAE8" onClick={handleTicketUnlock}>
+    return <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" onClick={handleTicketUnlock}>
       Unlock Ticket Use
     </Button>
   }
@@ -43,7 +43,7 @@ const SpinButton = ({ ticketBalance, spinningCounter, pageState, isTicketUnlocke
     </Button>
   }
 
-  return <Button $width="196px" $height="45px" $index={30} $radius="8px" $border="1px solid #04DAE8" onClick={handleSpin}>
+  return <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" onClick={handleSpin}>
     {pageState === 1 ? "Spin" : "Spin Again"}
   </Button>
 }
