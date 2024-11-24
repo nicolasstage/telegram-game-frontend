@@ -31,7 +31,7 @@ export default function DailyClaim({ chosenTask }: Props) {
 
   const getTodayAssetImage = () => {
     if (dailyClaimInfo?.todayAsset) {
-      return dailyClaimTypeImage[dailyClaimInfo?.todayAsset.asset.toUpperCase()].uri
+      return dailyClaimTypeImage[dailyClaimInfo?.todayAsset?.asset?.toUpperCase()]?.uri
     }
     return Img.Coin
   }
@@ -39,16 +39,16 @@ export default function DailyClaim({ chosenTask }: Props) {
   const getTodayQuantity = () => {
     if (!dailyClaimInfo?.todayAsset) return 0
 
-    if (dailyClaimInfo?.todayAsset.asset.toLowerCase() === "cntp") {
-      return parseInt(formatToken(parseInt(dailyClaimInfo?.todayAsset.quantity)))
+    if (dailyClaimInfo?.todayAsset?.asset?.toLowerCase() === "cntp") {
+      return parseInt(formatToken(parseInt(dailyClaimInfo?.todayAsset?.quantity)))
     }
     else {
-      return parseInt(dailyClaimInfo?.todayAsset.quantity)
+      return parseInt(dailyClaimInfo?.todayAsset?.quantity)
     }
   }
 
   const getTaskImage = (day: number, isTaken: boolean) => {
-    if (dailyClaimInfo?.todayDayOfWeek.toString()) {
+    if (dailyClaimInfo?.todayDayOfWeek?.toString()) {
       if (isTaken)
         return <Image src={Img.CheckImg} alt="Reward Taken" width={24} height={24} className="reward-taken" />
 
@@ -64,24 +64,27 @@ export default function DailyClaim({ chosenTask }: Props) {
     return days[number]
   }
 
-  return (
-    <FlexDiv $direction="column" $gap="16px">
-      <P>{chosenTask?.caption}</P>
-
-      {chosenTask?.extraInstruction && <P $fontSize="10px" $color="#ADAAAD">{chosenTask?.extraInstruction}</P>}
-
-      {dailyClaimInfo?.todayDayOfWeek.toString() ? (
+  const renderDailyClaimInfo = () => {
+    if (dailyClaimInfo && !dailyClaimInfo?.todayDayOfWeek?.toString()) {
+      return <div style={{
+        color: '#FFB4AB'
+      }}
+      >
+        There was an error fetching the daily claim info. Please try again later.
+      </div>
+    } else {
+      return dailyClaimInfo?.todayDayOfWeek?.toString() ? (
         <div className="daily-claim-grid">
           {profile?.dailyClaimWeek?.map((isTaken: boolean, index: number) => (
             <FlexDiv
               className={index === dailyClaimInfo?.todayDayOfWeek ? "current" : ""}
               $position="relative" key={index}
               $padding="12px"
-              $border={`1px solid ${dailyClaimInfo?.todayDayOfWeek.toString() && dailyClaimInfo?.todayDayOfWeek !== index ? "#79F8FF26" : "#61C6CC"}`}
-              $background={isTaken || (dailyClaimInfo?.todayDayOfWeek.toString() && dailyClaimInfo?.todayDayOfWeek > index) ? "#79F8FF26" : "#17181F"}
+              $border={`1px solid ${dailyClaimInfo?.todayDayOfWeek?.toString() && dailyClaimInfo?.todayDayOfWeek !== index ? "#79F8FF26" : "#61C6CC"}`}
+              $background={isTaken || (dailyClaimInfo?.todayDayOfWeek?.toString() && dailyClaimInfo?.todayDayOfWeek > index) ? "#79F8FF26" : "#17181F"}
               $direction="column"
               $align="center"
-              $justify={dailyClaimInfo?.todayDayOfWeek.toString() && dailyClaimInfo?.todayDayOfWeek >= index ? "center" : "flex-start"}
+              $justify={dailyClaimInfo?.todayDayOfWeek?.toString() && dailyClaimInfo?.todayDayOfWeek >= index ? "center" : "flex-start"}
               $radius="16px"
               $gap="8px"
             >
@@ -90,11 +93,11 @@ export default function DailyClaim({ chosenTask }: Props) {
               {getTaskImage(index, isTaken)}
 
               {index === dailyClaimInfo?.todayDayOfWeek &&
-                <P>{getTodayQuantity()} {dailyClaimInfo?.todayAsset?.asset.toUpperCase()}</P>
+                <P>{getTodayQuantity()} {dailyClaimInfo?.todayAsset?.asset?.toUpperCase()}</P>
               }
 
               {
-                dailyClaimInfo?.todayDayOfWeek.toString() && dailyClaimInfo?.todayDayOfWeek < index && (
+                dailyClaimInfo?.todayDayOfWeek?.toString() && dailyClaimInfo?.todayDayOfWeek < index && (
                   <FlexDiv className="blocked" $justify="center" $align="center" $background="#1B1B1D1A" $radius="17px">
                     <Image src={Img.Lock} alt="Blocked" width={36} height={36} />
                   </FlexDiv>
@@ -105,7 +108,18 @@ export default function DailyClaim({ chosenTask }: Props) {
         </div>
       ) : (
         <Loading />
-      )}
+      )
+    }
+  }
+
+  return (
+    <FlexDiv $direction="column" $gap="16px">
+      <P>{chosenTask?.caption}</P>
+
+      {chosenTask?.extraInstruction && <P $fontSize="10px" $color="#ADAAAD">{chosenTask?.extraInstruction}</P>}
+
+      {renderDailyClaimInfo()}
+
     </FlexDiv>
   )
 }

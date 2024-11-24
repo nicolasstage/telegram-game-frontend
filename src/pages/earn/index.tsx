@@ -745,7 +745,7 @@ export default function Earn() {
                   )
                 }
 
-                {chosenTask?.claim && dailyClaimInfo?.todayDayOfWeek.toString() && (
+                {chosenTask?.claim && dailyClaimInfo?.todayDayOfWeek?.toString() && (
                   isTodayRewardTaken ?
                     <Button $cursor='not-allowed !important' $width="100%" $minHeight='55px' $radius="999px" $background={"gray"} disabled $padding="18px">
                       <FlexDiv $align="center" $gap="8px">
