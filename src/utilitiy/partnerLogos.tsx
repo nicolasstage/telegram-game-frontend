@@ -13,4 +13,6 @@ export const PartnerLogos = {
   TonFlashLogo: "/partners/tonflash-logo.jpg",
   NotMushLogo: "/partners/notmush-logo.jpg",
   WaViewAiLogo: "/partners/waviewai-logo.jpg",
+  GalacticGoldLogo: "/partners/galacticgold-logo.jpg",
+  DratonLogo: "/partners/draton-logo.jpg",
 }

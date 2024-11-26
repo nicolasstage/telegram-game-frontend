@@ -610,7 +610,7 @@ export default function Earn() {
                     )
                   }
                   <FlexDiv className="text-content" $direction="column" $gap="4px">
-                    <P $fontSize="24px">{task.title}</P>
+                    <P $fontSize={task.titleSize || "24px"}>{task.title}</P>
                   </FlexDiv>
                   {
                     task.completed ? (
