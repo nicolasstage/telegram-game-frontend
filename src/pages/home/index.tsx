@@ -240,10 +240,6 @@ export default function Home() {
           </GradientButton>
         </FlexDiv>
       </FlexDiv>
-      <FlexDiv $justify="center" $gap="8px">
-        <Image width={16} height={16} src={Img.ArbitrumLogo} alt="logo" />
-        <P $fontSize="14px">built on Arbitrum</P>
-      </FlexDiv>
     </PageWrapper>
   );
 }
