@@ -594,7 +594,7 @@ export default function Earn() {
                 {group.icon && <Image alt={group.title} width={24} height={24} src={group.icon} />}
                 <P $fontSize="24px">{group.title}</P>
               </FlexDiv>
-              <P $fontSize="14px">Complete all tasks and receive {group.reward} {group.rewardAsset}</P>
+              {group.tasks.filter((task) => task.active).length > 1 && <P $fontSize="14px">Complete all tasks and receive {group.reward} {group.rewardAsset}</P>}
             </FlexDiv>
 
             {

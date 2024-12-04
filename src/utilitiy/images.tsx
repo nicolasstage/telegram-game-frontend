@@ -72,6 +72,7 @@ export const Img = {
   Telegram: "/Telegram.svg",
   Youtube: "/youtube-icon.png",
   Instagram: "/instagram-icon.png",
+  SilentPassVpn: "/silentpassvpn-icon.jpg",
   WatchVideo: "/WatchVideo.svg",
   CommonTask: "/CommonTask.svg",
   TaskDaily: "/taskDaily.svg",

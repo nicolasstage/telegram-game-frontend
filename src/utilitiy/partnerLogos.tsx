@@ -15,4 +15,6 @@ export const PartnerLogos = {
   WaViewAiLogo: "/partners/waviewai-logo.jpg",
   GalacticGoldLogo: "/partners/galacticgold-logo.jpg",
   DratonLogo: "/partners/draton-logo.jpg",
+  BullsLogo: "/partners/bulls-logo.jpg",
+  TonPokeLogo: "/partners/tonpoke-logo.jpg",
 }

@@ -2,7 +2,7 @@ import { Img } from "@/utilitiy/images";
 import { PartnerLogos } from "@/utilitiy/partnerLogos";
 
 type RewardType = "CNTP" | "Key" | "Ticket";
-type TaskType = "social" | "partner" | "video-task";
+type TaskType = "social" | "partner" | "video-task" | "silentpassvpn";
 
 export interface Quiz {
   title: string;
@@ -243,41 +243,49 @@ export const _socialTasks: TaskCategory = {
 
 export const _partnerTasks: TaskCategory[] = [
   {
-    categoryId: "galacticgold",
-    nftId: 22,
-    title: "Galactic Gold Rush",
+    categoryId: "silentpass-tasks",
+    nftId: 24,
+    title: "SilentPass VPN",
+    icon: Img.TaskExtras,
+    completed: false,
+    tasks: [
+      {
+        taskId: "silentpass-tasks_task-1",
+        type: "partner",
+        title: "Follow our SilentPass VPN page on X",
+        titleSize: "20px",
+        caption:
+          "Decentralized Privacy Redefined - No IP Tracking, Wallet-to-Wallet Encryption 🌐 Powered by CoNET 🚀",
+        completed: false,
+        resource: "https://x.com/silentpassvpn",
+        logo: {
+          uri: Img.SilentPassVpn,
+          size: 50,
+        },
+        active: true,
+        comingSoon: false,
+        cta: "Open X",
+      },
+    ],
+  },
+  {
+    categoryId: "bulls",
+    nftId: 25,
+    title: "Bulls Miniapp",
     icon: Img.TaskExtras,
     reward: 1,
     rewardAsset: "Ticket",
     completed: false,
     tasks: [
       {
-        taskId: "galacticgold_task-1",
-        title: "Play Galactic Gold Rush",
+        taskId: "bulls_task-1",
+        title: "Join Bulls Miniapp",
         type: "partner",
         completed: false,
-        caption:
-          "Embark on an interstellar adventure where you're at the helm of constructing a revolutionary blockchain protocol. ",
-        resource: "https://t.me/galactic_gold_rush_bot?start=8048922416",
+        caption: "Enter bruno's den and earn $BULL.",
+        resource: "https://t.me/bullsonton_bot/bulls?startapp=DHXU2VP",
         logo: {
-          uri: PartnerLogos.GalacticGoldLogo,
-          size: 100,
-        },
-        active: true,
-        comingSoon: false,
-        cta: "Open Telegram",
-      },
-      {
-        taskId: "galacticgold_task-2",
-        title: "Join Galactic Gold Rush Telegram Chat",
-        type: "partner",
-        completed: false,
-        caption:
-          "Embark on an interstellar adventure where you're at the helm of constructing a revolutionary blockchain protocol. ",
-        resource: "https://t.me/stargating",
-        titleSize: "20px",
-        logo: {
-          uri: PartnerLogos.GalacticGoldLogo,
+          uri: PartnerLogos.BullsLogo,
           size: 100,
         },
         active: true,
@@ -287,24 +295,24 @@ export const _partnerTasks: TaskCategory[] = [
     ],
   },
   {
-    categoryId: "draton",
-    nftId: 23,
-    title: "Draton",
+    categoryId: "tonpoke",
+    nftId: 26,
+    title: "TonPoké Explore",
     icon: Img.TaskExtras,
     reward: 1,
     rewardAsset: "Ticket",
     completed: false,
     tasks: [
       {
-        taskId: "draton_task-1",
-        title: "Join Draton Bot",
+        taskId: "tonpoke_task-1",
+        title: "Play & Earn with TonPoké",
         type: "partner",
         completed: false,
         caption:
-          "DRATON is an easy-to-use Telegram app featuring Auto Trading Bot on TON ecosystem, utilizing AI technology to deliver the best trading experience and efficiency.",
-        resource: "https://t.me/DratonTrading_bot/Launch?startapp=1aCSTypLcH",
+          "TonPoké is a decentralized application, developed on the TON blockchain, designed for virtual pet rearing and player versus environment (PVE) combat encounters with various bosses across numerous gameplay scenarios featuring diverse Pokemon characters.",
+        resource: "https://t.me/tonpoke_game_bot/play?startapp=qlxqyi046",
         logo: {
-          uri: PartnerLogos.DratonLogo,
+          uri: PartnerLogos.TonPokeLogo,
           size: 100,
         },
         active: true,
@@ -312,15 +320,15 @@ export const _partnerTasks: TaskCategory[] = [
         cta: "Open Telegram",
       },
       {
-        taskId: "draton_task-2",
-        title: "Join Draton Telegram Channel",
+        taskId: "tonpoke_task-2",
+        title: "Join TonPoké Channel",
         type: "partner",
         completed: false,
         caption:
-          "DRATON is an easy-to-use Telegram app featuring Auto Trading Bot on TON ecosystem, utilizing AI technology to deliver the best trading experience and efficiency.",
-        resource: "https://t.me/draton_channel",
+          "TonPoké is a decentralized application, developed on the TON blockchain, designed for virtual pet rearing and player versus environment (PVE) combat encounters with various bosses across numerous gameplay scenarios featuring diverse Pokemon characters.",
+        resource: "https://t.me/tonpoke_explore",
         logo: {
-          uri: PartnerLogos.DratonLogo,
+          uri: PartnerLogos.TonPokeLogo,
           size: 100,
         },
         active: true,
@@ -328,15 +336,15 @@ export const _partnerTasks: TaskCategory[] = [
         cta: "Open Telegram",
       },
       {
-        taskId: "draton_task-3",
-        title: "Follow Draton on X",
+        taskId: "tonpoke_task-3",
+        title: "Follow TonPoké X",
         type: "partner",
         completed: false,
         caption:
-          "DRATON is an easy-to-use Telegram app featuring Auto Trading Bot on TON ecosystem, utilizing AI technology to deliver the best trading experience and efficiency.",
-        resource: "https://x.com/dratonbot",
+          "TonPoké is a decentralized application, developed on the TON blockchain, designed for virtual pet rearing and player versus environment (PVE) combat encounters with various bosses across numerous gameplay scenarios featuring diverse Pokemon characters.",
+        resource: "https://x.com/TonPokeExplore",
         logo: {
-          uri: PartnerLogos.DratonLogo,
+          uri: PartnerLogos.TonPokeLogo,
           size: 100,
         },
         active: true,
