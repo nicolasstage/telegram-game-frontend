@@ -221,23 +221,6 @@ export const _socialTasks: TaskCategory = {
       active: true,
       comingSoon: false,
     },
-    {
-      taskId: "social_task-5",
-      nftId: 15,
-      title: "Join our Server",
-      type: "social",
-      completed: false,
-      logo: {
-        uri: Img.Discord,
-        color: "#5865F2",
-      },
-      caption:
-        "Join our Server on Discord and earn Tickets just for staying connected!",
-      cta: "Open Discord",
-      resource: "https://discord.gg/JrpMBFkewd",
-      active: true,
-      comingSoon: true,
-    },
   ],
 };
 
@@ -261,91 +244,6 @@ export const _partnerTasks: TaskCategory[] = [
         logo: {
           uri: Img.SilentPassVpn,
           size: 50,
-        },
-        active: true,
-        comingSoon: false,
-        cta: "Open X",
-      },
-    ],
-  },
-  {
-    categoryId: "bulls",
-    nftId: 25,
-    title: "Bulls Miniapp",
-    icon: Img.TaskExtras,
-    reward: 1,
-    rewardAsset: "Ticket",
-    completed: false,
-    tasks: [
-      {
-        taskId: "bulls_task-1",
-        title: "Join Bulls Miniapp",
-        type: "partner",
-        completed: false,
-        caption: "Enter bruno's den and earn $BULL.",
-        resource: "https://t.me/bullsonton_bot/bulls?startapp=DHXU2VP",
-        logo: {
-          uri: PartnerLogos.BullsLogo,
-          size: 100,
-        },
-        active: true,
-        comingSoon: false,
-        cta: "Open Telegram",
-      },
-    ],
-  },
-  {
-    categoryId: "tonpoke",
-    nftId: 26,
-    title: "TonPoké Explore",
-    icon: Img.TaskExtras,
-    reward: 1,
-    rewardAsset: "Ticket",
-    completed: false,
-    tasks: [
-      {
-        taskId: "tonpoke_task-1",
-        title: "Play & Earn with TonPoké",
-        type: "partner",
-        completed: false,
-        caption:
-          "TonPoké is a decentralized application, developed on the TON blockchain, designed for virtual pet rearing and player versus environment (PVE) combat encounters with various bosses across numerous gameplay scenarios featuring diverse Pokemon characters.",
-        resource: "https://t.me/tonpoke_game_bot/play?startapp=qlxqyi046",
-        logo: {
-          uri: PartnerLogos.TonPokeLogo,
-          size: 100,
-        },
-        active: true,
-        comingSoon: false,
-        cta: "Open Telegram",
-      },
-      {
-        taskId: "tonpoke_task-2",
-        title: "Join TonPoké Channel",
-        type: "partner",
-        completed: false,
-        caption:
-          "TonPoké is a decentralized application, developed on the TON blockchain, designed for virtual pet rearing and player versus environment (PVE) combat encounters with various bosses across numerous gameplay scenarios featuring diverse Pokemon characters.",
-        resource: "https://t.me/tonpoke_explore",
-        logo: {
-          uri: PartnerLogos.TonPokeLogo,
-          size: 100,
-        },
-        active: true,
-        comingSoon: false,
-        cta: "Open Telegram",
-      },
-      {
-        taskId: "tonpoke_task-3",
-        title: "Follow TonPoké X",
-        type: "partner",
-        completed: false,
-        caption:
-          "TonPoké is a decentralized application, developed on the TON blockchain, designed for virtual pet rearing and player versus environment (PVE) combat encounters with various bosses across numerous gameplay scenarios featuring diverse Pokemon characters.",
-        resource: "https://x.com/TonPokeExplore",
-        logo: {
-          uri: PartnerLogos.TonPokeLogo,
-          size: 100,
         },
         active: true,
         comingSoon: false,
