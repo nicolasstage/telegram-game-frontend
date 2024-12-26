@@ -1,6 +1,7 @@
 import BackButton from '@/components/backButton';
 import { Button } from '@/components/button';
 import { FlexDiv } from '@/components/div';
+import Languages from '@/components/languages';
 import { P } from '@/components/p';
 import PageWrapper from '@/components/pageWrapper';
 import { ButtonClick } from '@/shared/assets';
@@ -106,6 +107,7 @@ export default function Settings() {
           />
         </FlexDiv>
       </FlexDiv>
+      <Languages />
       <Button $padding="18px" $radius="32px" $border="1px solid #04DAE8" onClick={() => setRouter?.("/about")}>
         About The CoNETian
       </Button>

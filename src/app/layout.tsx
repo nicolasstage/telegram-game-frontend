@@ -4,6 +4,7 @@ import "./globals.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import { GameProvider } from "@/utilitiy/providers/GameProvider";
 import { SkeletonTheme } from "react-loading-skeleton";
+import { LanguageProvider } from '@/utilitiy/providers/LanguageProvider';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,7 +20,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <SkeletonTheme baseColor="#202020" highlightColor="#444">
-          <GameProvider>{children}</GameProvider>
+          <GameProvider>
+            <LanguageProvider>
+              {children}
+            </LanguageProvider>
+          </GameProvider>
         </SkeletonTheme>
       </body>
     </html>

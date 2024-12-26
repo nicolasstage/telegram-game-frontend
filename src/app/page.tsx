@@ -16,7 +16,6 @@ import Roulette from "@/pages/roulette";
 import Earn from "@/pages/earn";
 import ConfirmProgress from "@/pages/progress";
 import SkinConfirm from "@/pages/skinConfirm";
-import { Toaster } from "react-hot-toast";
 import { BackgroundAudio, ButtonClick } from "../shared/assets";
 import { playAudio, stopAudio } from "@/shared/functions";
 import { useAudioPlayer } from "react-use-audio-player";
@@ -33,6 +32,7 @@ import SendCNTPConfirm from "@/pages/sendCNTPConfirm";
 import { ToasterWithMax } from '@/components/toasterWithMax';
 import SendTicket from "@/pages/sendTicket";
 import SendTicketConfirm from "@/pages/sendTicketConfirm";
+import '../i18n';
 
 const S = {
   Main: styled.div`
