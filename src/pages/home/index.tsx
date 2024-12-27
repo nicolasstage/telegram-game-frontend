@@ -128,18 +128,14 @@ export default function Home() {
         <GradientButton
           flex={2}
           onClick={() => {
-            setRouter?.("/leaderboard");
+            setRouter?.("/purchaseConetian");
           }}
           cursor="pointer"
         >
-          <FlexDiv $align="center" $gap="8px">
-            <Image
-              width={24}
-              height={24}
-              src={Img.UserGroupImg}
-              alt="user group image"
-            />
-            Leaderboard
+          <FlexDiv $align="center" $gap="8px" >
+            <GradientP $first="#79F8FF" $second="#499599">
+              CoNETian NFT
+            </GradientP>
           </FlexDiv>
         </GradientButton>
 

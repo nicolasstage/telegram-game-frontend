@@ -33,6 +33,8 @@ import SendCNTPConfirm from "@/pages/sendCNTPConfirm";
 import { ToasterWithMax } from '@/components/toasterWithMax';
 import SendTicket from "@/pages/sendTicket";
 import SendTicketConfirm from "@/pages/sendTicketConfirm";
+import PurchaseConetian from "@/pages/purchaseConetian";
+import PurchaseConetianConfirm from "@/pages/purchaseConetianConfirm";
 
 const S = {
   Main: styled.div`
@@ -142,6 +144,8 @@ function CurrentPage() {
     "/sendCNTPConfirm": <SendCNTPConfirm />,
     "/sendTicket": <SendTicket />,
     "/sendTicketConfirm": <SendTicketConfirm />,
+    "/purchaseConetian": <PurchaseConetian />,
+    "/purchaseConetianConfirm": <PurchaseConetianConfirm />,
   };
 
   return pages[router as keyof typeof pages] ?? null;
@@ -153,6 +157,7 @@ export default function App() {
     setProfile,
     setLeaderboard,
     setDailyClaimInfo,
+    setOracleAssets,
     setMiningRate,
     setOnlineMiners,
     leaderboard,
@@ -205,10 +210,11 @@ export default function App() {
 
   listeningProfileHook((response: any) => {
     try {
-      const [_profile, _leaderboard, _dailyClaimInfo] = response;
+      const [_profile, _leaderboard, _dailyClaimInfo, oracleAssets] = response;
       setProfile?.(_profile);
       if (leaderboard?.allTime.length === 0) setLeaderboard?.(_leaderboard);
       setDailyClaimInfo?.(_dailyClaimInfo);
+      setOracleAssets?.(oracleAssets)
     } catch (error) {
       console.error("Error parsing balance data", error);
     }

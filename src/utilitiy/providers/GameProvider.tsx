@@ -89,6 +89,8 @@ type GameContext = {
   spinningCounter?: number;
   setSpinningCounter?: (e: any) => void;
   spinningCounterInterval?: any;
+  oracleAssets?: any;
+  setOracleAssets?: (e: any) => void;
 };
 
 const Game = createContext<GameContext>({});
@@ -130,6 +132,7 @@ export function GameProvider({ children }: GameProps) {
     todayAsset: { asset: "", quantity: "", nft_number: 0 },
     todayDayOfWeek: 0,
   });
+  const [oracleAssets, setOracleAssets] = useState<any>(null)
   const [mining, setMining] = useState<boolean>(false);
   const [onlineMiners, setOnlineMiners] = useState<number>(0);
   const [miningRate, setMiningRate] = useState<number>(0);
@@ -287,6 +290,8 @@ export function GameProvider({ children }: GameProps) {
         spinningCounter,
         setSpinningCounter,
         spinningCounterInterval,
+        oracleAssets,
+        setOracleAssets
       }}
     >
       {children}

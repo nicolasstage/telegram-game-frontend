@@ -130,4 +130,9 @@ export const Img = {
   SlowItemImg: "/items/slow.png",
   SpeedItemImg: "/items/speed.png",
   StarBgImg: "/stars-bg.png",
+  BuyConetianBanner: "/assets/buyConetianBanner.png",
+  MinusIcon: "/assets/minusIcon.svg",
+  PlusIcon: "/assets/plusIcon.svg",
+  UsdtIcon: "/assets/usdtIcon.svg",
+  BnbIcon: "/assets/bnbIcon.svg"
 };
