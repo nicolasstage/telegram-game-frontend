@@ -50,8 +50,6 @@ const S = {
 const CONETIAN_PRICE = 100
 
 const PurchaseConetian = () => {
-  const assetName = "cCNTP";
-
   const [amount, setAmount] = useState<number>(0);
   const [isValidAmount, setIsValidAmount] = useState<boolean>(false);
   const [agentWallet, setAgentWallet] = useState<string>("");
@@ -62,7 +60,7 @@ const PurchaseConetian = () => {
   const [coinImage, setCoinImage] = useState<string>("");
   const [displayCoin, setDisplayCoin] = useState<string>("usdt");
   const [asset, setAsset] = useState("");
-  const [selectedCoin, setSelectedCoin] = useState<string>("");
+  const [selectedCoin, setSelectedCoin] = useState<string>("usdt");
   const [isLoadingPrices, setIsLoadingPrices] = useState<boolean>(false)
   const [nftPriceByCoin, setNftPriceByCoin] = useState<number>(100);
   const [total, setTotal] = useState<number>(0);
@@ -73,16 +71,6 @@ const PurchaseConetian = () => {
     if (asset === 'arbETH') asset = 'arb_eth'
 
     let userBalance = profile?.tokens?.[asset]
-
-    if (asset == 'tron') {
-      userBalance = parseFloat(profile?.tokens?.tron?.tron?.balance)
-      return !!userBalance
-    }
-
-    if (asset == 'tron-usdt') {
-      userBalance = parseFloat(profile?.tokens?.tron?.usdt?.balance)
-      return !!userBalance
-    }
 
     if (!oracleAssets) return false
 
@@ -222,7 +210,7 @@ const PurchaseConetian = () => {
 
   const handlePurchase = async () => {
     // return if amount is 0
-    if (!isAgentWallet || amount <= 0 || !isAgreementSigned) {
+    if ((agentWallet && !isAgentWallet) || amount <= 0 || !isAgreementSigned) {
       return;
     }
 
@@ -730,7 +718,7 @@ const PurchaseConetian = () => {
           <GradientButton
             width="100%"
             onClick={handlePurchase}
-            disabled={(agentWallet && !isAgentWallet) || amount <= 0 || !isAgreementSigned}
+            disabled={(agentWallet && !isAgentWallet) || amount <= 0 || !isAgreementSigned || !validateFunds(selectedCoin)}
             cursor="pointer"
           >
             Estimate Gas

@@ -14,21 +14,20 @@ const PurchaseConetianProgress = () => {
   const { setRouter, profile, conetianPurchaseDetails } = useGameContext();
   useEffect(() => {
     const purchaseConetian = async () => {
-      const response =
-        conetianPurchaseDetails?.amount &&
+      if (conetianPurchaseDetails?.amount &&
         conetianPurchaseDetails?.selectedCoin &&
-        conetianPurchaseDetails?.total &&
-        conetianPurchaseDetails?.agentWallet &&
-        (await fetchPurchaseConetian(
+        conetianPurchaseDetails?.total) {
+        const response = await fetchPurchaseConetian(
           profile?.keyID,
           Number(conetianPurchaseDetails?.amount),
           conetianPurchaseDetails?.selectedCoin,
           conetianPurchaseDetails?.total,
           conetianPurchaseDetails?.agentWallet
-        ));
+        );
 
-      if (response) {
-        setRouter?.("/transactionsuccess");
+        if (response) {
+          setRouter?.("/purchaseConetianSuccess");
+        }
       }
     };
 

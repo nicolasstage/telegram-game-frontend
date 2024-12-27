@@ -225,7 +225,7 @@ const PurchaseConetianConfirm = () => {
           disabled={hasInsufficientFee || errorGettingGasFee}
           onClick={() => {
             if (hasInsufficientFee || errorGettingGasFee) return;
-            setRouter?.("/confirmprogress");
+            setRouter?.("/purchaseConetianProgress");
           }}
         >
           Confirm payment

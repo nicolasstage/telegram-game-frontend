@@ -35,6 +35,8 @@ import SendTicket from "@/pages/sendTicket";
 import SendTicketConfirm from "@/pages/sendTicketConfirm";
 import PurchaseConetian from "@/pages/purchaseConetian";
 import PurchaseConetianConfirm from "@/pages/purchaseConetianConfirm";
+import PurchaseConetianProgress from "@/pages/purchaseConetianProgress";
+import PurchaseConetianSuccess from "@/pages/purchaseConetianSuccess";
 
 const S = {
   Main: styled.div`
@@ -146,6 +148,8 @@ function CurrentPage() {
     "/sendTicketConfirm": <SendTicketConfirm />,
     "/purchaseConetian": <PurchaseConetian />,
     "/purchaseConetianConfirm": <PurchaseConetianConfirm />,
+    "/purchaseConetianProgress": <PurchaseConetianProgress />,
+    "/purchaseConetianSuccess": <PurchaseConetianSuccess />,
   };
 
   return pages[router as keyof typeof pages] ?? null;

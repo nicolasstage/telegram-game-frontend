@@ -532,14 +532,14 @@ export const fetchPurchaseConetian = async (
       if (status === "SUCCESS") {
         return data;
       } else {
-        console.error("Failed to get native balance");
+        console.error("Failed to purchase conetian");
       }
     }
   } catch (error) {
-    console.error("Failed to get native balance", error);
+    console.error("Failed to purchase conetian", error);
   }
 
-  return { error: true, message: "Failed to get native balance" };
+  return { error: true, message: "Failed to purchase conetian" };
 };
 
 export const fetchIsAddress = async (address: string): Promise<any> => {
