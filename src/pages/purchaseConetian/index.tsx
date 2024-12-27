@@ -556,137 +556,140 @@ const PurchaseConetian = () => {
               marginTop={"16px"}
               padding={"0 24px"}
               gap={2}
-              color={"#FFFFFF"}
+              color={
+                localStorage.getItem("mui-mode") === "light"
+                  ? "#5F5E60"
+                  : "#FFFFFF"
+              }
             >
               <Typography fontWeight={700}>
-                IGO (Initial Guardian Offering) AGREEMENT
+                NFT Token Presale Purchase Agreement
               </Typography>
               <Typography>
-                This IGO Agreement (the "Agreement") is entered into as of Oct 5, 2024, by and
-                between CoNET Network Foundation (hereinafter referred to as the "Issuer"),
-                and the undersigned public participant (hereinafter referred to as the
-                "Participant").
+                This Conetian Plan NFT Presale Agreement (the "Agreement") is entered into as
+                of 11/06/2024, by and between CoNET Network Foundation (hereinafter
+                referred to as the "Issuer"), and the undersigned public participant (hereinafter
+                referred to as the "Participant").
               </Typography>
               <Typography fontWeight={700}>
                 1. DEFINITIONS
               </Typography>
               <Typography>
-                1.1 "IGO" refers to the Initial Guardian Offering conducted by the Issuer for the
-                sale of its CoNET Guardian Plan.
+                1.1 "Conetian Plan Presale" refers to the sale of Conetian Plan non-fungible
+                tokens (NFTs) conducted by the Issuer, granting participation rights and
+                benefits within the CoNET network and its ecosystem.
               </Typography>
               <Typography>
-                1.2 "CNTP" refers to the CoNET Super Node Points, and "Guardian Plan" refers
-                to the product offered during the IGO for participation in the CoNET network..
+                1.2 "NFT" refers to the unique digital asset offered by the Issuer as part of the
+                Conetian Plan, representing specific benefits, access, and incentives in the
+                CoNET network, including $CONET tokens, discount privileges, and eligibility
+                for node operation.
+              </Typography>
+              <Typography>
+                1.3 "$CONET" refers to the CoNET tokens allocated to Conetian Plan NFT
+                holders, distributed after the Token Generation Event (TGE).
               </Typography>
               <Typography fontWeight={700}>
                 2. PARTICIPATION
               </Typography>
               <Typography>
-                2.1 The Participant agrees to purchase a Guardian Plan at the price specified in
-                the IGO official CoNET Platform.
+                2.1 The Participant agrees to purchase the Conetian Plan NFT at the price
+                specified on the official CoNET Presale Platform.
               </Typography>
               <Typography>
-                2.2 The Participant acknowledges that participation in the IGO carries inherent
-                risks and is solely responsible for conducting independent research before
-                participating.
+                2.2 The Participant acknowledges that participation in the Conetian Plan NFT
+                Token Presale carries inherent risks and is responsible for conducting
+                independent research before purchasing.
               </Typography>
               <Typography fontWeight={700}>
-                3. Guardian Plan PRICE AND PAYMENT
+                3. PRICE AND PAYMENT
               </Typography>
               <Typography>
-                3.1 The price per Guardian Plan during the IGO is set at USDT$1,250 per
-                Guardian Plan. Payments can be made in USDT, BUSD, ETH, or BNB.
+                3.1 The price for each Conetian Plan NFT during the presale phase corresponds
+                to the bundled token value of $CONET at the pre-sale pricing. Payments may
+                be made in USDT, BUSD, ETH, or BNB.
               </Typography>
               <Typography>
-                3.2 The Guardian Plan is available for sale to users worldwide, including all
-                CoNET community members.
-              </Typography>
-              <Typography>
-                3.3  New Benefits:
-              </Typography>
-              <Typography>
-                Daily Earnings: Participants of the Guardian Plan will earn daily
-                rewards by validating transactions and contributing resources
-                (bandwidth, CPU) as part of CoNET’s Decentralized Physical
-                Infrastructure Network (DePIN).
-              </Typography>
-              <Typography>
-                Revenue Sharing: After the Token Generation Event (TGE), Guardian
-                Plan holders will benefit from revenue-sharing opportunities as the
-                network grows.
-              </Typography>
-              <Typography>
-                No More Repurchase: The previous repurchase program has been
-                discontinued for new purchases. However, the Guardian Plan now
-                includes enhanced benefits such as larger airdrop allocations,
-                validator node functionality, and earning opportunities from network
-                services like Silent Pass VPN and CoNET’s decentralized applications.
-              </Typography>
-              <Typography>
-                Validator and Full Node: Guardian Plan holders will function as
-                validators and full nodes without the need for staking additional
-                tokens, earning rewards from transaction validation and resourcesharing
-                activities.
-              </Typography>
-              <Typography>
-                3.4 The Participant agrees to pay the total amount in full at the time of
-                participation.
+                3.2 NFTs are available for purchase globally, subject to applicable legal
+                restrictions in the Participant’s jurisdiction.
               </Typography>
               <Typography fontWeight={700}>
-                4. RESPONSIBILITIES OF THE ISSUER
+                4. BENEFITS OF THE NFT PURCHASE
               </Typography>
               <Typography>
-                4.1 The Issuer shall use its best efforts to conduct the IGO in a fair and
-                transparent manner.
+                4.1 $CONET Token Allocation: Each Conetian Plan NFT includes an allocation
+                of 1,000 $CONET tokens at the presale price.
               </Typography>
               <Typography>
-                4.2 The Issuer makes no guarantees regarding the future value of digital assets
-                issued, and the Participant acknowledges the speculative nature of investing in
-                digital assets.
-              </Typography>
-              <Typography fontWeight={700}>5. RISKS</Typography>
-              <Typography>
-                5.1 The Participant acknowledges that the purchase of Guardian Plans involves
-                risks, including but not limited to market risks, regulatory risks, and technology
-                risks.
+                4.2 Power Card Discount: NFT holders are entitled to a 20% discount on
+                Power Card purchases within the CoNET ecosystem.
               </Typography>
               <Typography>
-                5.2 The Participant understands and accepts that the value of Guardian Plans
-                may fluctuate, and there is a risk of losing the entire investment.
+                4.3 Node Participation Rights: Conetian Plan NFT holders gain eligibility to
+                operate either a Full or Partial Node in the CoNET network, enabling them to
+                earn rewards for contributing resources to the decentralized infrastructure.
+              </Typography>
+              <Typography>
+                4.4 Airdrop Allocation: Conetian Plan NFT holders receive enhanced
+                allocations for future $CONET airdrops and exclusive access to additional
+                benefits within the CoNET ecosystem.
+              </Typography>
+              <Typography fontWeight={700}>5. RESPONSIBILITIES OF THE ISSUER</Typography>
+              <Typography>
+                5.1 The Issuer shall make every effort to conduct the Conetian Plan NFT Token
+                Presale in a fair and transparent manner.
+              </Typography>
+              <Typography>
+                5.2 The Issuer makes no guarantee of future value for NFTs or $CONET tokens.
+                The Participant acknowledges the speculative nature of digital asset
+                investment.
               </Typography>
               <Typography fontWeight={700}>
-                6. COMPLIANCE WITH LAWS
+                6. RISKS
               </Typography>
               <Typography>
-                6.1 The Participant agrees to comply with all applicable laws and regulations in
-                their jurisdiction regarding the purchase and possession of Guardian Plans.
+                6.1 The Participant acknowledges that purchasing Conetian Plan NFTs involves
+                risks, including but not limited to market volatility, regulatory uncertainties, and
+                technology risks.
+              </Typography>
+              <Typography>
+                6.2 The Participant understands and accepts that the value of Conetian Plan
+                NFTs and $CONET tokens may fluctuate and carries a risk of loss.
               </Typography>
               <Typography fontWeight={700}>
-                7. DISCLAIMERS
+                7. COMPLIANCE WITH LAWS
               </Typography>
               <Typography>
-                7.1 The Issuer disclaims any warranties, express or implied, regarding the
-                Guardian Plans, Super Nodes, and the IGO, including but not limited to
-                merchantability and fitness for a particular purpose.
+                7.1 The Participant agrees to comply with all applicable laws and regulations
+                regarding the purchase, holding, and potential transfer of Conetian Plan NFTs
+                and digital assets within their jurisdiction.
               </Typography>
               <Typography fontWeight={700}>
-                8. MISCELLANEOUS
+                8. DISCLAIMERS
               </Typography>
               <Typography>
-                8.1 This Agreement constitutes the entire understanding between the parties
-                and supersedes all prior agreements.
+                8.1 The Issuer disclaims any warranties, express or implied, regarding the
+                Conetian Plan NFTs and the presale, including but not limited to
+                merchantability, fitness for a particular purpose, and any anticipated success of
+                the project.
+              </Typography>
+              <Typography fontWeight={700}>
+                9. MISCELLANEOUS
               </Typography>
               <Typography>
-                8.2 Amendments to this Agreement must be in writing and signed by both
+                9.1 This Agreement constitutes the entire understanding between the parties,
+                superseding all prior agreements related to the Conetian Plan NFT Token
+                Presale.
+              </Typography>
+              <Typography>
+                9.2 Amendments to this Agreement must be made in writing and signed by both
                 parties.
               </Typography>
               <Typography>
-                IN WITNESS WHEREOF, the parties hereto have executed this IGO Agreement
-                as of the date first above written.
+                IN WITNESS WHEREOF, the parties hereto have executed this Conetian Plan
+                NFT Token Presale Purchase Agreement as of the date first above written.
               </Typography>
-              <Typography>CoNET Foundation</Typography>
-              <Typography>Oct 5, 2024</Typography>
-
+              <Typography>CoNET Labs</Typography>
               <Box
                 display={"flex"}
                 flexDirection={"row"}
