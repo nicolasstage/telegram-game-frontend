@@ -351,3 +351,39 @@ export const isAddress: (address: string) => Promise<string> = (
     };
     return _postMessage(cmd, true, resolve);
   });
+
+export const prePurchase: (
+  address: string,
+  total: number,
+  selectedCoin: string
+) => Promise<string> = (address: string, total: number, selectedCoin: string) =>
+  new Promise((resolve) => {
+    const cmd: WorkerCommand = {
+      cmd: "prePurchase",
+      uuid: v4(),
+      data: [address, total, selectedCoin],
+    };
+    return _postMessage(cmd, true, resolve);
+  });
+
+export const purchaseConetian: (
+  address: string,
+  amount: number,
+  selectedCoin: string,
+  total: number,
+  agentWallet: string
+) => Promise<string> = (
+  address: string,
+  amount: number,
+  selectedCoin: string,
+  total: number,
+  agentWallet: string
+) =>
+  new Promise((resolve) => {
+    const cmd: WorkerCommand = {
+      cmd: "purchaseConetian",
+      uuid: v4(),
+      data: [address, amount, selectedCoin, total, agentWallet],
+    };
+    return _postMessage(cmd, true, resolve);
+  });

@@ -29,6 +29,16 @@ export type TransferTokenDetails = {
   gasPrice: number;
 };
 
+export type ConetianPurchaseDetails = {
+  agentWallet: string;
+  selectedCoin: string;
+  amount: number;
+  nftPriceByCoin: number;
+  total: number;
+  gasFee: number;
+  gasPrice: number;
+};
+
 type GameContext = {
   router?: string;
   setRouter?: (props: string) => void;
@@ -91,6 +101,8 @@ type GameContext = {
   spinningCounterInterval?: any;
   oracleAssets?: any;
   setOracleAssets?: (e: any) => void;
+  conetianPurchaseDetails?: ConetianPurchaseDetails;
+  setConetianPurchaseDetails?: (e: any) => void;
 };
 
 const Game = createContext<GameContext>({});
@@ -169,8 +181,17 @@ export function GameProvider({ children }: GameProps) {
       toAddress: "",
     });
   const [spinningCounter, setSpinningCounter] = useState<number>(0);
-  const spinningCounterInterval = useRef<NodeJS.Timeout | undefined>(undefined);
+  const [conetianPurchaseDetails, setConetianPurchaseDetails] = useState<ConetianPurchaseDetails>({
+    agentWallet: "",
+    selectedCoin: "",
+    amount: 0,
+    nftPriceByCoin: 0,
+    total: 0,
+    gasFee: 0,
+    gasPrice: 0,
+  });
 
+  const spinningCounterInterval = useRef<NodeJS.Timeout | undefined>(undefined);
   const miningErrorTimeout = useRef<NodeJS.Timeout | null>(null);
   const walletAddress = useRef<string>("");
 
@@ -291,7 +312,9 @@ export function GameProvider({ children }: GameProps) {
         setSpinningCounter,
         spinningCounterInterval,
         oracleAssets,
-        setOracleAssets
+        setOracleAssets,
+        conetianPurchaseDetails,
+        setConetianPurchaseDetails
       }}
     >
       {children}

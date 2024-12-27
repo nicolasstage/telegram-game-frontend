@@ -54,8 +54,8 @@ const PurchaseConetian = () => {
 
   const [amount, setAmount] = useState<number>(0);
   const [isValidAmount, setIsValidAmount] = useState<boolean>(false);
-  const [toAddress, setToAddress] = useState<string>("");
-  const [isValidAddress, setIsValidAddress] = useState<boolean>(false);
+  const [agentWallet, setAgentWallet] = useState<string>("");
+  const [isAgentWallet, setIsAgentWallet] = useState<boolean>(false);
   const [isAddressChecking, setIsAddressChecking] = useState<boolean>(false);
   const [isAgreementOpen, setIsAgreementOpen] = useState<boolean>(false)
   const [isAgreementSigned, setIsAgreementSigned] = useState<boolean>(false)
@@ -65,8 +65,9 @@ const PurchaseConetian = () => {
   const [selectedCoin, setSelectedCoin] = useState<string>("");
   const [isLoadingPrices, setIsLoadingPrices] = useState<boolean>(false)
   const [nftPriceByCoin, setNftPriceByCoin] = useState<number>(100);
+  const [total, setTotal] = useState<number>(0);
 
-  const { setRouter, setTransferTokenDetails, profile, oracleAssets } = useGameContext();
+  const { setRouter, setConetianPurchaseDetails, profile, oracleAssets } = useGameContext();
 
   function validateFunds(asset: string): boolean {
     if (asset === 'arbETH') asset = 'arb_eth'
@@ -95,16 +96,18 @@ const PurchaseConetian = () => {
     }
   }
 
-  const handleToAddressChange = async (
+  const handleAgentWalletChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     e.preventDefault();
-    setToAddress(e.target.value);
+    setAgentWallet(e.target.value);
     try {
       setIsAddressChecking(true);
-      const isAddress = await fetchIsAddress(e.target.value);
-      if (isAddress[0]) setIsValidAddress(true);
-      else setIsValidAddress(false);
+      /* TODO: check if agent wallet is valid */
+      // const _isAgentWallet = await fetchIsAddress(e.target.value);
+      const _isAgentWallet = [true];
+      if (_isAgentWallet[0]) setIsAgentWallet(true);
+      else setIsAgentWallet(false);
     } catch (e) {
       console.error(e);
     } finally {
@@ -127,8 +130,7 @@ const PurchaseConetian = () => {
     setAmount(prev => prev - 1)
   }
 
-  const handleChange = async (event: any) => {
-    console.log("IMAGEM", event.target.value)
+  const handleCoinChange = async (event: any) => {
     changeCoinImage(event.target.value);
     selectAsset(event.target.value.split("-")[0].toLowerCase());
     setSelectedCoin(event.target.value.split("-")[1]);
@@ -154,10 +156,10 @@ const PurchaseConetian = () => {
         setAsset("bnb");
         break;
       case "eth":
-        setAsset("eth");
+        setAsset("usdt");
         break;
       default:
-        setAsset("eth");
+        setAsset("usdt");
         break;
     }
   };
@@ -214,17 +216,23 @@ const PurchaseConetian = () => {
     updateNftPrice();
   }, [selectedCoin]);
 
-  const handleSend = async () => {
+  useEffect(() => {
+    setTotal(amount * nftPriceByCoin);
+  }, [amount, nftPriceByCoin]);
+
+  const handlePurchase = async () => {
     // return if amount is 0
-    if (!isValidAddress || !isValidAmount) {
+    if (!isAgentWallet || amount <= 0 || !isAgreementSigned) {
       return;
     }
 
     // set transfer token details for confirmation page
-    setTransferTokenDetails?.({
-      assetName,
-      toAddress,
+    setConetianPurchaseDetails?.({
+      agentWallet,
+      selectedCoin,
       amount,
+      nftPriceByCoin,
+      total
     });
 
     setRouter?.("/purchaseConetianConfirm");
@@ -337,14 +345,14 @@ const PurchaseConetian = () => {
               <FlexDiv $direction="column" $grow="1">
                 <S.ToInput
                   placeholder="Wallet Address"
-                  value={toAddress}
-                  onChange={handleToAddressChange}
+                  value={agentWallet}
+                  onChange={handleAgentWalletChange}
                 />
               </FlexDiv>
 
               {isAddressChecking ? (
                 <Image src={SendImg.LoadingImg} width={20} height={20} alt="" />
-              ) : isValidAddress ? (
+              ) : isAgentWallet ? (
                 <Image src={SendImg.CheckedImg} width={20} height={20} alt="" />
               ) : (
                 <></>
@@ -371,7 +379,7 @@ const PurchaseConetian = () => {
               id='coin-select'
               defaultValue={"select-token"}
               label='ETH'
-              onChange={handleChange}
+              onChange={handleCoinChange}
               IconComponent={(props) => (
                 <KeyboardArrowDownIcon {...props} sx={{ color: '#FFF !important' }} />
               )}
@@ -446,7 +454,7 @@ const PurchaseConetian = () => {
                   background: "none",
                 }}
               >
-                ETH
+                Ethereum
               </ListSubheader>
 
               {validateFunds('usdt') ? (
@@ -721,8 +729,9 @@ const PurchaseConetian = () => {
         <FlexDiv $margin="0 0 100px 0" $width="100%" $direction="column">
           <GradientButton
             width="100%"
-            onClick={handleSend}
-            disabled={!isValidAddress || !isValidAmount}
+            onClick={handlePurchase}
+            disabled={(agentWallet && !isAgentWallet) || amount <= 0 || !isAgreementSigned}
+            cursor="pointer"
           >
             Estimate Gas
           </GradientButton>
