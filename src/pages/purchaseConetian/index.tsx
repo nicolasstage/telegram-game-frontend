@@ -74,9 +74,9 @@ const PurchaseConetian = () => {
     if (!oracleAssets) return false
 
     const _oracleAssets: { name: string, price: string }[] = oracleAssets.assets
-    const foundAsset = findAsset(asset)
+    const foundAsset: any = findAsset(asset)
 
-    return parseFloat(userBalance?.balance) >= parseFloat((CONETIAN_PRICE / parseFloat(foundAsset?.price).toFixed(4)) * amount).toFixed(4)
+    return (parseFloat(userBalance?.balance) >= parseFloat(((CONETIAN_PRICE / parseFloat(foundAsset.price)) * amount).toFixed(4)))
 
     function findAsset(asset: string): { name: string, price: string } | undefined {
       if (asset === 'wusdt') asset = 'usdt'
@@ -193,9 +193,7 @@ const PurchaseConetian = () => {
       setNftPriceByCoin(100);
     } else {
       coin_price
-        ? await setNftPriceByCoin(
-          (100 / parseFloat(coin_price)).toFixed(4)
-        )
+        ? await setNftPriceByCoin(100 / parseFloat(coin_price))
         : 1;
     }
 
@@ -553,27 +551,27 @@ const PurchaseConetian = () => {
                 NFT Token Presale Purchase Agreement
               </Typography>
               <Typography>
-                This Conetian Plan NFT Presale Agreement (the "Agreement") is entered into as
+                This Conetian Plan NFT Presale Agreement (the &quot;Agreement&quot;) is entered into as
                 of 11/06/2024, by and between CoNET Network Foundation (hereinafter
-                referred to as the "Issuer"), and the undersigned public participant (hereinafter
-                referred to as the "Participant").
+                referred to as the &quot;Issuer&quot;), and the undersigned public participant (hereinafter
+                referred to as the &quot;Participant&quot;).
               </Typography>
               <Typography fontWeight={700}>
                 1. DEFINITIONS
               </Typography>
               <Typography>
-                1.1 "Conetian Plan Presale" refers to the sale of Conetian Plan non-fungible
+                1.1 &quot;Conetian Plan Presale&quot; refers to the sale of Conetian Plan non-fungible
                 tokens (NFTs) conducted by the Issuer, granting participation rights and
                 benefits within the CoNET network and its ecosystem.
               </Typography>
               <Typography>
-                1.2 "NFT" refers to the unique digital asset offered by the Issuer as part of the
+                1.2 &quot;NFT&quot; refers to the unique digital asset offered by the Issuer as part of the
                 Conetian Plan, representing specific benefits, access, and incentives in the
                 CoNET network, including $CONET tokens, discount privileges, and eligibility
                 for node operation.
               </Typography>
               <Typography>
-                1.3 "$CONET" refers to the CoNET tokens allocated to Conetian Plan NFT
+                1.3 &quot;$CONET&quot; refers to the CoNET tokens allocated to Conetian Plan NFT
                 holders, distributed after the Token Generation Event (TGE).
               </Typography>
               <Typography fontWeight={700}>
