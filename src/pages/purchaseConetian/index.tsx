@@ -263,18 +263,12 @@ const PurchaseConetian = () => {
 
             <FlexDiv $direction="column">
               <ul style={{ paddingLeft: "20px", color: "#C8C6C8", fontSize: "14px" }}>
-                <li>
-                  NFT and Early Access Tokens
-                </li>
-                <li>
-                  Node Participation Rights
-                </li>
-                <li>
-                  Potential Earnings from Token Launch Price
-                </li>
-                <li>
-                  $CONET Compensation for Silent Pass Usage
-                </li>
+                <li>  Exclusive CoNETian NFT</li>
+                <li>  1,000 $CONET token after TGE</li>
+                <li>  Node Participation Rights</li>
+                <li>  Free use of Silent Pass for 1 year</li>
+                <li>  20% off on Power Card Purchase</li>
+                <li>  Exclusive Airdrop allocation</li>
               </ul>
             </FlexDiv>
           </FlexDiv>
