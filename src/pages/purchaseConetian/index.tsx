@@ -119,7 +119,7 @@ const PurchaseConetian = () => {
   const handleChangeNftAmount = (e: any) => {
     const value = Number(e.target.value)
 
-    if (typeof value === 'number' && !isNaN(value))
+    if (typeof value === 'number' && !isNaN(value) && value > 0)
       setAmount(value)
   }
 
@@ -128,7 +128,11 @@ const PurchaseConetian = () => {
   }
 
   const handleDecreaseNftAmount = () => {
-    setAmount(prev => prev - 1)
+    setAmount(prev => {
+      if (prev < 1) return 0
+
+      return prev - 1
+    })
   }
 
   const handleCoinChange = async (event: any) => {
