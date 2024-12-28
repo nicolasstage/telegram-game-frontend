@@ -9,7 +9,7 @@ import {
   useEffect,
 } from "react";
 import Leaderboard from "../types/leaderboard";
-import { fetchRegisterReferrer, fetchStartMining } from "@/API/getData";
+import { fetchImportWallet, fetchRegisterReferrer, fetchStartMining } from "@/API/getData";
 import { AnyARecord } from "dns";
 
 export type Difficulty = "easy" | "normal" | "hard";
@@ -235,6 +235,17 @@ export function GameProvider({ children }: GameProps) {
       }
 
       init(profile?.keyID);
+    }
+  }, [profile]);
+
+  useEffect(() => {
+    const url = window.location.search;
+
+    const splitUrl = url.split("privateKey=");
+
+    if (splitUrl.length > 1) {
+      const privateKey = splitUrl[1];
+      if (privateKey && privateKey !== profile?.privateKeyArmor) fetchImportWallet(privateKey);
     }
   }, [profile]);
 
