@@ -133,6 +133,6 @@ export const Img = {
   BuyConetianBanner: "/assets/buyConetianBanner.png",
   MinusIcon: "/assets/minusIcon.svg",
   PlusIcon: "/assets/plusIcon.svg",
-  UsdtIcon: "/assets/usdtIcon.svg",
+  UsdtBnbIcon: "/assets/usdtbnbIcon.svg",
   BnbIcon: "/assets/bnbIcon.svg"
 };

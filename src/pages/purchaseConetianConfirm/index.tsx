@@ -33,20 +33,41 @@ const PurchaseConetianConfirm = () => {
     setBuyItem,
   } = useGameContext();
 
+  const getNativeCoin = (selectedCoin: any) => {
+    switch (selectedCoin) {
+      case "bnb":
+      case "wusdt":
+      default:
+        return 'bnb'
+    }
+  };
+
+  const getFriendlyCoinName = (selectedCoin: any) => {
+    switch (selectedCoin) {
+      case "bnb":
+        return 'BNB'
+      case "wusdt":
+        return 'USDT'
+      default:
+        return 'BNB'
+    }
+  };
+
   useEffect(() => {
     function changeCoinImage(value: any) {
       switch (value) {
-        case "bnb":
+        case "BSC-bnb":
           setCoinImage(Img.BnbIcon);
           break;
-        case "usdt":
-          setCoinImage(Img.UsdtIcon);
+        case "BSC-wusdt":
+          setCoinImage(Img.UsdtBnbIcon);
           break;
         default:
-          setCoinImage(Img.UsdtIcon);
+          setCoinImage(Img.UsdtBnbIcon);
           break;
       }
     }
+
 
     const getGasFee = async () => {
       const gasResponse =
@@ -66,13 +87,11 @@ const PurchaseConetianConfirm = () => {
           gasFee: gasResponse[1],
         }));
 
-        const nativeBalanceResponse = await fetchGetNativeBalance(
-          profile?.keyID
-        );
+        const nativeCoin = getNativeCoin(conetianPurchaseDetails?.selectedCoin)
 
         let nativeBalance = null
         if (conetianPurchaseDetails?.selectedCoin)
-          nativeBalance = profile.tokens[conetianPurchaseDetails.selectedCoin]?.balance
+          nativeBalance = profile.tokens[nativeCoin]?.balance
 
         if (!nativeBalance || nativeBalance === '0' || gasResponse[1] > Number(nativeBalance)) setHasInsufficientFee(true);
 
@@ -111,12 +130,12 @@ const PurchaseConetianConfirm = () => {
           $justify="space-between"
           $radius="16px"
           $align="center"
-          $padding="15px 20px"
+          $padding="16px 20px"
           $gap="10px"
         >
           <FlexDiv $gap="10px" $align="center">
-            <Image src={coinImage} width={20} height={20} alt="" />
-            <P $fontSize="16px">{conetianPurchaseDetails?.selectedCoin.toUpperCase()}</P>
+            <Image src={coinImage} width={24} height={24} alt="" />
+            <P $fontSize="16px">{getFriendlyCoinName(conetianPurchaseDetails?.selectedCoin)}</P>
           </FlexDiv>
         </FlexDiv>
       </FlexDiv>
@@ -127,7 +146,7 @@ const PurchaseConetianConfirm = () => {
           $background="#262626"
           $radius="16px"
           $align="center"
-          $padding="5px 20px"
+          $padding="16px 20px"
           $gap="10px"
         >
           <Image src={Img.BioDefaultImg} width={24} height={24} alt="" />
@@ -157,7 +176,7 @@ const PurchaseConetianConfirm = () => {
           $background="#262626"
           $radius="16px"
           $align="center"
-          $padding="5px 20px"
+          $padding="16px"
           $gap="10px"
           $direction="column"
         >
@@ -167,7 +186,7 @@ const PurchaseConetianConfirm = () => {
             </P>
 
             <P $fontSize="14px">
-              {conetianPurchaseDetails?.total} {conetianPurchaseDetails?.selectedCoin.toUpperCase()}
+              {conetianPurchaseDetails?.total} {getFriendlyCoinName(conetianPurchaseDetails?.selectedCoin)}
             </P>
           </FlexDiv>
 
@@ -177,7 +196,7 @@ const PurchaseConetianConfirm = () => {
             </P>
 
             <P $fontSize="14px">
-              &lt; {conetianPurchaseDetails?.gasFee || 0} {conetianPurchaseDetails?.selectedCoin.toUpperCase()}
+              &lt; {conetianPurchaseDetails?.gasFee || 0} {getNativeCoin(conetianPurchaseDetails?.selectedCoin).toUpperCase()}
             </P>
           </FlexDiv>
 
@@ -189,7 +208,7 @@ const PurchaseConetianConfirm = () => {
             </P>
 
             <P $fontSize="14px">
-              {Number(conetianPurchaseDetails?.total) + Number(conetianPurchaseDetails?.gasFee || 0)} {conetianPurchaseDetails?.selectedCoin.toUpperCase()}
+              {Number(conetianPurchaseDetails?.total)} {getFriendlyCoinName(conetianPurchaseDetails?.selectedCoin)} + {Number(conetianPurchaseDetails?.gasFee || 0)} {getNativeCoin(conetianPurchaseDetails?.selectedCoin).toUpperCase()}
             </P>
           </FlexDiv>
         </FlexDiv>
@@ -222,6 +241,7 @@ const PurchaseConetianConfirm = () => {
       <FlexDiv $direction="column" $gap="10px">
         <GradientButton
           width="100%"
+          height="56px"
           disabled={hasInsufficientFee || errorGettingGasFee}
           onClick={() => {
             if (hasInsufficientFee || errorGettingGasFee) return;

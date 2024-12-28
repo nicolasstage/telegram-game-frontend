@@ -387,3 +387,20 @@ export const purchaseConetian: (
     };
     return _postMessage(cmd, true, resolve);
   });
+
+export const isWalletAgent: (walletAddress: string) => Promise<boolean> = (
+  walletAddress
+) =>
+  new Promise(async (resolve) => {
+    const cmd: WorkerCommand = {
+      cmd: "isWalletAgent",
+      uuid: v4(),
+      data: [walletAddress],
+    };
+    return _postMessage(cmd, false, (err: any, data: any) => {
+      if (err) {
+        return resolve(err);
+      }
+      return resolve(data[0]);
+    });
+  });

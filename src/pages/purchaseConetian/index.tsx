@@ -15,6 +15,7 @@ import UserData from "@/components/userData";
 import { Img } from "@/utilitiy/images";
 import { Box, Checkbox, ListSubheader, MenuItem, Select, Skeleton, Stack, SvgIcon, Typography } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { isWalletAgent } from "@/API";
 
 const S = {
   ToInput: styled.input`
@@ -58,18 +59,16 @@ const PurchaseConetian = () => {
   const [isAgreementOpen, setIsAgreementOpen] = useState<boolean>(false)
   const [isAgreementSigned, setIsAgreementSigned] = useState<boolean>(false)
   const [coinImage, setCoinImage] = useState<string>("");
-  const [displayCoin, setDisplayCoin] = useState<string>("usdt");
-  const [asset, setAsset] = useState("");
-  const [selectedCoin, setSelectedCoin] = useState<string>("usdt");
+  const [displayCoin, setDisplayCoin] = useState<string>("wusdt");
+  const [selectedCoin, setSelectedCoin] = useState<string>("wusdt");
   const [isLoadingPrices, setIsLoadingPrices] = useState<boolean>(false)
   const [nftPriceByCoin, setNftPriceByCoin] = useState<number>(100);
   const [total, setTotal] = useState<number>(0);
+  const [agentError, setAgentError] = useState<string>('')
 
   const { setRouter, setConetianPurchaseDetails, profile, oracleAssets } = useGameContext();
 
   function validateFunds(asset: string): boolean {
-    if (asset === 'arbETH') asset = 'arb_eth'
-
     let userBalance = profile?.tokens?.[asset]
 
     if (!oracleAssets) return false
@@ -80,27 +79,41 @@ const PurchaseConetian = () => {
     return parseFloat(userBalance?.balance) >= parseFloat((CONETIAN_PRICE / parseFloat(foundAsset?.price).toFixed(4)) * amount).toFixed(4)
 
     function findAsset(asset: string): { name: string, price: string } | undefined {
+      if (asset === 'wusdt') asset = 'usdt'
       return _oracleAssets.find((a) => a.name === asset)
     }
   }
+
+  useEffect(() => {
+    async function validateAddress(): Promise<void> {
+      const isAgent: any = await isWalletAgent(agentWallet)
+
+      if (isAgent.length >= 1 && typeof isAgent[0] === 'string' && (isAgent[0] === 'INVALID DATA' || isAgent[0] === 'false')) {
+        setIsAgentWallet(false);
+        setAgentError('Insert a valid wallet')
+      } else if (isAgent[1][0] === true) {
+        setIsAgentWallet(true);
+        setAgentError('')
+      }
+    }
+
+    setIsAddressChecking(true);
+
+    if (agentWallet !== '')
+      validateAddress()
+    else {
+      setAgentError('')
+    }
+
+    setIsAddressChecking(false);
+  }, [agentWallet])
+
 
   const handleAgentWalletChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     e.preventDefault();
     setAgentWallet(e.target.value);
-    try {
-      setIsAddressChecking(true);
-      /* TODO: check if agent wallet is valid */
-      // const _isAgentWallet = await fetchIsAddress(e.target.value);
-      const _isAgentWallet = [true];
-      if (_isAgentWallet[0]) setIsAgentWallet(true);
-      else setIsAgentWallet(false);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setIsAddressChecking(false);
-    }
   };
 
   const handleChangeNftAmount = (e: any) => {
@@ -120,7 +133,6 @@ const PurchaseConetian = () => {
 
   const handleCoinChange = async (event: any) => {
     changeCoinImage(event.target.value);
-    selectAsset(event.target.value.split("-")[0].toLowerCase());
     setSelectedCoin(event.target.value.split("-")[1]);
   };
 
@@ -129,28 +141,14 @@ const PurchaseConetian = () => {
       case "BSC-bnb":
         setCoinImage(Img.BnbIcon);
         break;
-      case "ETH-usdt":
-        setCoinImage(Img.UsdtIcon);
+      case "BSC-wusdt":
+        setCoinImage(Img.UsdtBnbIcon);
         break;
       default:
-        setCoinImage(Img.UsdtIcon);
+        setCoinImage(Img.UsdtBnbIcon);
         break;
     }
   }
-
-  const selectAsset = (asset: string) => {
-    switch (asset) {
-      case "bsc":
-        setAsset("bnb");
-        break;
-      case "eth":
-        setAsset("usdt");
-        break;
-      default:
-        setAsset("usdt");
-        break;
-    }
-  };
 
   const updateNftPrice = async () => {
     setIsLoadingPrices(true);
@@ -348,6 +346,7 @@ const PurchaseConetian = () => {
             </FlexDiv>
           </Button>
           <Typography fontSize={'12px'} color="#E4E4E5">*Get extra tokens if referral from an agent</Typography>
+          <Typography fontSize={'12px'} color="#C70039">{agentError}</Typography>
         </FlexDiv>
 
         {/* Token Select */}
@@ -403,25 +402,25 @@ const PurchaseConetian = () => {
                 Binance
               </ListSubheader>
 
-              {validateFunds('bnb') ? (
+              {validateFunds('wusdt') ? (
                 <MenuItem
-                  value={`${profile?.tokens?.bnb?.network}-${profile?.tokens?.bnb?.name}`}
+                  value={`${profile?.tokens?.wusdt?.network}-${profile?.tokens?.wusdt?.name}`}
                 >
                   <Image
                     width={25}
                     height={25}
-                    src={Img.BnbIcon}
+                    src={Img.UsdtBnbIcon}
                     alt='bnb-icon'
                     style={{
                       cursor: "pointer",
                       marginRight: "10px",
                     }}
                   />
-                  BNB
+                  USDT
                 </MenuItem>
               ) : (
                 <ListSubheader
-                  key={`insuficient-bnb-solo`}
+                  key={`insuficient-bnb-nwusdt`}
                   style={{
                     fontSize: "12px",
                     lineHeight: "14px",
@@ -433,37 +432,25 @@ const PurchaseConetian = () => {
                 </ListSubheader>
               )}
 
-              <ListSubheader
-                key={`subheader-eth`}
-                style={{
-                  padding: "8px",
-                  fontSize: "14px",
-                  lineHeight: "14px",
-                  background: "none",
-                }}
-              >
-                Ethereum
-              </ListSubheader>
-
-              {validateFunds('usdt') ? (
+              {validateFunds('bnb') ? (
                 <MenuItem
-                  value={`${profile?.tokens?.usdt?.network}-${profile?.tokens?.usdt?.name}`}
+                  value={`${profile?.tokens?.bnb?.network}-${profile?.tokens?.bnb?.name}`}
                 >
                   <Image
                     width={25}
                     height={25}
-                    src={Img.UsdtIcon}
+                    src={Img.BnbIcon}
                     alt='usdt-icon'
                     style={{
                       cursor: "pointer",
                       marginRight: "10px",
                     }}
                   />
-                  USDT
+                  BNB
                 </MenuItem>
               ) : (
                 <ListSubheader
-                  key={`insuficient-eth-usdth`}
+                  key={`insuficient-bnb-solo`}
                   style={{
                     fontSize: "12px",
                     lineHeight: "14px",
@@ -556,11 +543,7 @@ const PurchaseConetian = () => {
               marginTop={"16px"}
               padding={"0 24px"}
               gap={2}
-              color={
-                localStorage.getItem("mui-mode") === "light"
-                  ? "#5F5E60"
-                  : "#FFFFFF"
-              }
+              color={"#FFFFFF"}
             >
               <Typography fontWeight={700}>
                 NFT Token Presale Purchase Agreement
@@ -720,6 +703,7 @@ const PurchaseConetian = () => {
         <FlexDiv $margin="0 0 100px 0" $width="100%" $direction="column">
           <GradientButton
             width="100%"
+            height="56px"
             onClick={handlePurchase}
             disabled={(agentWallet && !isAgentWallet) || amount <= 0 || !isAgreementSigned || !validateFunds(selectedCoin)}
             cursor="pointer"

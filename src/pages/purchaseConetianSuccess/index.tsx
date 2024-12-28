@@ -7,7 +7,27 @@ import { ReadableAssetType, useGameContext } from "@/utilitiy/providers/GameProv
 import Image from "next/image";
 
 const PurchaseConetianSuccess = () => {
-  const { setRouter, buyItem, transferTokenDetails } = useGameContext();
+  const { setRouter, buyItem, conetianPurchaseDetails } = useGameContext();
+
+  const getFriendlyCoinName = (selectedCoin: any) => {
+    switch (selectedCoin) {
+      case "bnb":
+        return 'BNB'
+      case "wusdt":
+        return 'USDT'
+      default:
+        return 'BNB'
+    }
+  };
+
+  const getNativeCoin = (selectedCoin: any) => {
+    switch (selectedCoin) {
+      case "bnb":
+      case "wusdt":
+      default:
+        return 'bnb'
+    }
+  };
 
   return (
     <PageWrapper>
@@ -28,23 +48,28 @@ const PurchaseConetianSuccess = () => {
             $margin="10px 0 0 0"
           >
             <FlexDiv $justify="space-between">
-              <P $fontSize="14px">Sent</P>
-              <P $fontSize="14px">{buyItem?.price} {ReadableAssetType[transferTokenDetails ? transferTokenDetails.assetName : 'cCNTP']}</P>
+              <P $fontSize="14px">CoNETian NFT</P>
+              <P $fontSize="14px">{conetianPurchaseDetails?.total} {getFriendlyCoinName(conetianPurchaseDetails?.selectedCoin)}</P>
             </FlexDiv>
             <FlexDiv $justify="space-between" $margin="10px 0">
               <P $fontSize="14px">GAS fee</P>
-              <P $fontSize="14px">{transferTokenDetails?.gasFee} $CONET</P>
+              <P $fontSize="14px">{conetianPurchaseDetails?.gasFee} {getNativeCoin(conetianPurchaseDetails?.selectedCoin).toUpperCase()} </P>
             </FlexDiv>
           </Div>
         </Div>
+
         <FlexDiv
+          $width="100%"
           $justify="center"
           $direction="column"
           $align="center"
           $margin="50px 0 100px 0"
           $gap="5px"
         >
-          <GradientButton onClick={() => setRouter?.("/")}>
+          <GradientButton
+            width="100%"
+            height="56px"
+            onClick={() => setRouter?.("/")}>
             Back to Home
           </GradientButton>
 
