@@ -103,6 +103,8 @@ type GameContext = {
   setOracleAssets?: (e: any) => void;
   conetianPurchaseDetails?: ConetianPurchaseDetails;
   setConetianPurchaseDetails?: (e: any) => void;
+  isDebox?: boolean;
+  setIsDebox?: (e: any) => void;
 };
 
 const Game = createContext<GameContext>({});
@@ -190,6 +192,7 @@ export function GameProvider({ children }: GameProps) {
     gasFee: 0,
     gasPrice: 0,
   });
+  const [isDebox, setIsDebox] = useState<boolean>(false);
 
   const spinningCounterInterval = useRef<NodeJS.Timeout | undefined>(undefined);
   const miningErrorTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -314,7 +317,9 @@ export function GameProvider({ children }: GameProps) {
         oracleAssets,
         setOracleAssets,
         conetianPurchaseDetails,
-        setConetianPurchaseDetails
+        setConetianPurchaseDetails,
+        isDebox,
+        setIsDebox
       }}
     >
       {children}

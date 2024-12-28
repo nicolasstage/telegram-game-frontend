@@ -12,9 +12,10 @@ interface Props {
   inline?: boolean;
   asset: Asset;
   secondaryAsset?: Asset;
+  showBnb?: boolean;
 }
 
-export default function CurrentBalance({ inline = false, asset = 'cntp', secondaryAsset }: Props) {
+export default function CurrentBalance({ inline = false, asset = 'cntp', secondaryAsset, showBnb = false }: Props) {
   const fontSize = inline ? 16 : 20;
   const { profile } = useGameContext();
 
@@ -87,6 +88,22 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
                   </FlexDiv>
                 )
               }
+              {showBnb && (
+                <>
+                  <FlexDiv $align="center" $gap="6px">
+                    <P $fontSize="12px">
+                      {profile?.tokens?.bnb?.balance}
+                    </P>
+                    <P $fontSize="12px">BNB</P>
+                  </FlexDiv>
+                  <FlexDiv $align="center" $gap="6px">
+                    <P $fontSize="12px">
+                      {profile?.tokens?.wusdt?.balance}
+                    </P>
+                    <P $fontSize="12px">USDT</P>
+                  </FlexDiv>
+                </>
+              )}
             </FlexDiv>
           </>
         )

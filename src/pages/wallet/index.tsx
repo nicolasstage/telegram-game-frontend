@@ -36,7 +36,7 @@ export default function Wallet() {
     useState<boolean>(false);
   const [isImportingWallet, setIsImportingWallet] = useState<boolean>(false);
 
-  const { profile, setProfile, setMining, miningErrorTimeout, setRouter } =
+  const { profile, setProfile, setMining, miningErrorTimeout, setRouter, isDebox } =
     useGameContext();
 
   useEffect(() => {
@@ -118,7 +118,7 @@ export default function Wallet() {
         <BackButton text="My Wallet" />
 
         <FlexDiv>
-          <CurrentBalance asset="cntp" secondaryAsset="conet" />
+          <CurrentBalance asset="cntp" secondaryAsset="conet" showBnb={isDebox} />
         </FlexDiv>
 
         {/* uncomment this to show the asset transfer button */}
@@ -231,36 +231,39 @@ export default function Wallet() {
             </>
           )}
         </FlexDiv>
-        <FlexDiv $direction="column" $gap="18px">
-          <FlexDiv $direction="column" $gap="8px">
-            <P $fontSize="24px">Import Another Wallet</P>
-            <P $color="#C8C6C8">
-              Import a wallet from CoNET platform into CoNETian for easier
-              management and boosted benefits!
-            </P>
-          </FlexDiv>
-          <input
-            value={newWalletPrivateKey}
-            onChange={(e) => setNewWalletPrivateKey(e.target.value)}
-            placeholder="Enter Private Key"
-            style={{
-              padding: "14px 16px",
-              fontSize: "16px",
-              background: "rgba(99, 99, 99, 0.4)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-              borderRadius: "16px",
-            }}
-          />
-          <Button
-            $padding="18px"
-            $radius="32px"
-            $border="1px solid #04DAE8"
-            onClick={isImportingWallet ? () => { } : handleImportWalletButton}
-            disabled={isImportingWallet}
-          >
-            Import Wallet
-          </Button>
-        </FlexDiv>
+
+        {!isDebox && (
+          <FlexDiv $direction="column" $gap="18px">
+            <FlexDiv $direction="column" $gap="8px">
+              <P $fontSize="24px">Import Another Wallet</P>
+              <P $color="#C8C6C8">
+                Import a wallet from CoNET platform into CoNETian for easier
+                management and boosted benefits!
+              </P>
+            </FlexDiv>
+            <input
+              value={newWalletPrivateKey}
+              onChange={(e) => setNewWalletPrivateKey(e.target.value)}
+              placeholder="Enter Private Key"
+              style={{
+                padding: "14px 16px",
+                fontSize: "16px",
+                background: "rgba(99, 99, 99, 0.4)",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                borderRadius: "16px",
+              }}
+            />
+            <Button
+              $padding="18px"
+              $radius="32px"
+              $border="1px solid #04DAE8"
+              onClick={isImportingWallet ? () => { } : handleImportWalletButton}
+              disabled={isImportingWallet}
+            >
+              Import Wallet
+            </Button>
+          </FlexDiv>)}
+
       </FlexDiv>
 
       <ConfirmModal

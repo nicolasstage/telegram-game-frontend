@@ -168,12 +168,18 @@ export default function App() {
     audio,
     musicVolume,
     effectsVolume,
+    setIsDebox
   } = useGameContext();
 
   const backAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const { load, setVolume, play } = useAudioPlayer();
   const [loading, setLoading] = useState<Boolean>(true);
+
+  useEffect(() => {
+    const _isDeBox = !!window?.navigator?.userAgent?.includes('DeBox')
+    setIsDebox?.(_isDeBox)
+  }, []);
 
   useEffect(() => {
     // Simulate a loading process (like fetching data)
