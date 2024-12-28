@@ -66,7 +66,7 @@ const PurchaseConetian = () => {
   const [total, setTotal] = useState<number>(0);
   const [agentError, setAgentError] = useState<string>('')
 
-  const { setRouter, setConetianPurchaseDetails, profile, oracleAssets } = useGameContext();
+  const { setRouter, setConetianPurchaseDetails, profile, oracleAssets, isDebox } = useGameContext();
 
   function validateFunds(asset: string): boolean {
     let userBalance = profile?.tokens?.[asset]
@@ -313,37 +313,39 @@ const PurchaseConetian = () => {
           </Button>
         </FlexDiv>
 
-        <FlexDiv $direction="column" $gap="4px">
-          <P>Agent Wallet</P>
+        {!isDebox && (
+          <FlexDiv $direction="column" $gap="4px">
+            <P>Agent Wallet</P>
 
-          <Button
-            $background="#262626"
-            $padding="12px 16px"
-            $radius="16px"
-            $width="100%"
-            $height="52px"
-          >
-            <FlexDiv $justify="space-between" $width="100%" $align="center">
-              <FlexDiv $direction="column" $grow="1">
-                <S.ToInput
-                  placeholder="Wallet Address"
-                  value={agentWallet}
-                  onChange={handleAgentWalletChange}
-                />
+            <Button
+              $background="#262626"
+              $padding="12px 16px"
+              $radius="16px"
+              $width="100%"
+              $height="52px"
+            >
+              <FlexDiv $justify="space-between" $width="100%" $align="center">
+                <FlexDiv $direction="column" $grow="1">
+                  <S.ToInput
+                    placeholder="Wallet Address"
+                    value={agentWallet}
+                    onChange={handleAgentWalletChange}
+                  />
+                </FlexDiv>
+
+                {isAddressChecking ? (
+                  <Image src={SendImg.LoadingImg} width={20} height={20} alt="" />
+                ) : isAgentWallet ? (
+                  <Image src={SendImg.CheckedImg} width={20} height={20} alt="" />
+                ) : (
+                  <></>
+                )}
               </FlexDiv>
-
-              {isAddressChecking ? (
-                <Image src={SendImg.LoadingImg} width={20} height={20} alt="" />
-              ) : isAgentWallet ? (
-                <Image src={SendImg.CheckedImg} width={20} height={20} alt="" />
-              ) : (
-                <></>
-              )}
-            </FlexDiv>
-          </Button>
-          <Typography fontSize={'12px'} color="#E4E4E5">*Get extra tokens if referral from an agent</Typography>
-          <Typography fontSize={'12px'} color="#C70039">{agentError}</Typography>
-        </FlexDiv>
+            </Button>
+            <Typography fontSize={'12px'} color="#E4E4E5">*Get extra tokens if referral from an agent</Typography>
+            <Typography fontSize={'12px'} color="#C70039">{agentError}</Typography>
+          </FlexDiv>
+        )}
 
         {/* Token Select */}
         <Box display={'flex'} flexDirection={'column'} gap={'4px'}>
