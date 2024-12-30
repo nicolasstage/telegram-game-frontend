@@ -9,7 +9,7 @@ import {
   useEffect,
 } from "react";
 import Leaderboard from "../types/leaderboard";
-import { fetchRegisterReferrer, fetchStartMining } from "@/API/getData";
+import { fetchImportWallet, fetchRegisterReferrer, fetchStartMining } from "@/API/getData";
 import { AnyARecord } from "dns";
 
 export type Difficulty = "easy" | "normal" | "hard";
@@ -25,6 +25,16 @@ export type TransferTokenDetails = {
   amount: string;
   assetName: AssetType;
   toAddress: string;
+  gasFee: number;
+  gasPrice: number;
+};
+
+export type ConetianPurchaseDetails = {
+  agentWallet: string;
+  selectedCoin: string;
+  amount: number;
+  nftPriceByCoin: number;
+  total: number;
   gasFee: number;
   gasPrice: number;
 };
@@ -89,6 +99,12 @@ type GameContext = {
   spinningCounter?: number;
   setSpinningCounter?: (e: any) => void;
   spinningCounterInterval?: any;
+  oracleAssets?: any;
+  setOracleAssets?: (e: any) => void;
+  conetianPurchaseDetails?: ConetianPurchaseDetails;
+  setConetianPurchaseDetails?: (e: any) => void;
+  isDebox?: boolean;
+  setIsDebox?: (e: any) => void;
 };
 
 const Game = createContext<GameContext>({});
@@ -130,6 +146,7 @@ export function GameProvider({ children }: GameProps) {
     todayAsset: { asset: "", quantity: "", nft_number: 0 },
     todayDayOfWeek: 0,
   });
+  const [oracleAssets, setOracleAssets] = useState<any>(null)
   const [mining, setMining] = useState<boolean>(false);
   const [onlineMiners, setOnlineMiners] = useState<number>(0);
   const [miningRate, setMiningRate] = useState<number>(0);
@@ -166,8 +183,18 @@ export function GameProvider({ children }: GameProps) {
       toAddress: "",
     });
   const [spinningCounter, setSpinningCounter] = useState<number>(0);
-  const spinningCounterInterval = useRef<NodeJS.Timeout | undefined>(undefined);
+  const [conetianPurchaseDetails, setConetianPurchaseDetails] = useState<ConetianPurchaseDetails>({
+    agentWallet: "",
+    selectedCoin: "",
+    amount: 0,
+    nftPriceByCoin: 0,
+    total: 0,
+    gasFee: 0,
+    gasPrice: 0,
+  });
+  const [isDebox, setIsDebox] = useState<boolean>(false);
 
+  const spinningCounterInterval = useRef<NodeJS.Timeout | undefined>(undefined);
   const miningErrorTimeout = useRef<NodeJS.Timeout | null>(null);
   const walletAddress = useRef<string>("");
 
@@ -208,6 +235,17 @@ export function GameProvider({ children }: GameProps) {
       }
 
       init(profile?.keyID);
+    }
+  }, [profile]);
+
+  useEffect(() => {
+    const url = window.location.search;
+
+    const splitUrl = url.split("privateKey=");
+
+    if (splitUrl.length > 1) {
+      const privateKey = splitUrl[1];
+      if (privateKey && privateKey !== profile?.privateKeyArmor) fetchImportWallet(privateKey);
     }
   }, [profile]);
 
@@ -287,6 +325,12 @@ export function GameProvider({ children }: GameProps) {
         spinningCounter,
         setSpinningCounter,
         spinningCounterInterval,
+        oracleAssets,
+        setOracleAssets,
+        conetianPurchaseDetails,
+        setConetianPurchaseDetails,
+        isDebox,
+        setIsDebox
       }}
     >
       {children}

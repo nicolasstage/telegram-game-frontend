@@ -38,7 +38,7 @@ export default function Wallet() {
     useState<boolean>(false);
   const [isImportingWallet, setIsImportingWallet] = useState<boolean>(false);
 
-  const { profile, setProfile, setMining, miningErrorTimeout, setRouter } =
+  const { profile, setProfile, setMining, miningErrorTimeout, setRouter, isDebox } =
     useGameContext();
 
   useEffect(() => {
@@ -119,7 +119,7 @@ export default function Wallet() {
         <MiningStatus />
         <BackButton text={t("wallet.backButtonText")} />
         <FlexDiv>
-          <CurrentBalance asset="cntp" secondaryAsset="conet" />
+          <CurrentBalance asset="cntp" secondaryAsset="conet" showBnb={isDebox} />
         </FlexDiv>
         <div className="split"></div>
         <FlexDiv $direction="column" $gap="10px">

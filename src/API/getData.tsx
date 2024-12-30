@@ -18,6 +18,8 @@ import {
   isAddress,
   estimateGasForNftContract,
   transferNft,
+  prePurchase,
+  purchaseConetian,
 } from ".";
 
 export const fetchImportWallet = async (
@@ -490,6 +492,54 @@ export const fetchGetNativeBalance = async (
   }
 
   return { error: true, message: "Failed to get native balance" };
+};
+
+export const fetchPrePurchase = async (
+  walletAddress: string,
+  total: number,
+  selectedCoin: string
+): Promise<any> => {
+  try {
+    const response = await prePurchase(walletAddress, total, selectedCoin);
+
+    if (Array.isArray(response) && response.length >= 2) {
+      const [status, data] = response;
+      if (status === "SUCCESS") {
+        return data;
+      } else {
+        console.error("Failed to get native balance");
+      }
+    }
+  } catch (error) {
+    console.error("Failed to get native balance", error);
+  }
+
+  return { error: true, message: "Failed to get native balance" };
+};
+
+export const fetchPurchaseConetian = async (
+  walletAddress: string,
+  amount: number,
+  selectedCoin: string,
+  total: number,
+  agentWallet: string
+): Promise<any> => {
+  try {
+    const response = await purchaseConetian(walletAddress, amount, selectedCoin, total, agentWallet);
+
+    if (Array.isArray(response) && response.length >= 2) {
+      const [status, data] = response;
+      if (status === "SUCCESS") {
+        return data;
+      } else {
+        console.error("Failed to purchase conetian");
+      }
+    }
+  } catch (error) {
+    console.error("Failed to purchase conetian", error);
+  }
+
+  return { error: true, message: "Failed to purchase conetian" };
 };
 
 export const fetchIsAddress = async (address: string): Promise<any> => {

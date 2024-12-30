@@ -33,6 +33,10 @@ import { ToasterWithMax } from '@/components/toasterWithMax';
 import SendTicket from "@/pages/sendTicket";
 import SendTicketConfirm from "@/pages/sendTicketConfirm";
 import '../i18n';
+import PurchaseConetian from "@/pages/purchaseConetian";
+import PurchaseConetianConfirm from "@/pages/purchaseConetianConfirm";
+import PurchaseConetianProgress from "@/pages/purchaseConetianProgress";
+import PurchaseConetianSuccess from "@/pages/purchaseConetianSuccess";
 
 const S = {
   Main: styled.div`
@@ -142,6 +146,10 @@ function CurrentPage() {
     "/sendCNTPConfirm": <SendCNTPConfirm />,
     "/sendTicket": <SendTicket />,
     "/sendTicketConfirm": <SendTicketConfirm />,
+    "/purchaseConetian": <PurchaseConetian />,
+    "/purchaseConetianConfirm": <PurchaseConetianConfirm />,
+    "/purchaseConetianProgress": <PurchaseConetianProgress />,
+    "/purchaseConetianSuccess": <PurchaseConetianSuccess />,
   };
 
   return pages[router as keyof typeof pages] ?? null;
@@ -153,18 +161,25 @@ export default function App() {
     setProfile,
     setLeaderboard,
     setDailyClaimInfo,
+    setOracleAssets,
     setMiningRate,
     setOnlineMiners,
     leaderboard,
     audio,
     musicVolume,
     effectsVolume,
+    setIsDebox
   } = useGameContext();
 
   const backAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const { load, setVolume, play } = useAudioPlayer();
   const [loading, setLoading] = useState<Boolean>(true);
+
+  useEffect(() => {
+    const _isDeBox = !!window?.navigator?.userAgent?.includes('DeBox')
+    setIsDebox?.(_isDeBox)
+  }, []);
 
   useEffect(() => {
     // Simulate a loading process (like fetching data)
@@ -205,10 +220,11 @@ export default function App() {
 
   listeningProfileHook((response: any) => {
     try {
-      const [_profile, _leaderboard, _dailyClaimInfo] = response;
+      const [_profile, _leaderboard, _dailyClaimInfo, oracleAssets] = response;
       setProfile?.(_profile);
       if (leaderboard?.allTime.length === 0) setLeaderboard?.(_leaderboard);
       setDailyClaimInfo?.(_dailyClaimInfo);
+      setOracleAssets?.(oracleAssets)
     } catch (error) {
       console.error("Error parsing balance data", error);
     }
