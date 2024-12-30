@@ -31,6 +31,8 @@ export const componentsEn = {
   mining: {
     rate: "Mining Rate",
     online: "Online Miners",
+    up: "Mining UP",
+    down: "Mining DOWN",
   },
   profile: {
     "backButton": {
@@ -161,6 +163,8 @@ export const componentsZh = {
   mining: {
     rate: "挖矿速率",
     online: "在线矿工",
+    up: "挖矿增加",
+    down: "挖矿减少"
   },
   "profile": {
     "backButton": {
