@@ -16,6 +16,7 @@ import { Img } from "@/utilitiy/images";
 import { Box, Checkbox, ListSubheader, MenuItem, Select, Skeleton, Stack, SvgIcon, Typography } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { isWalletAgent } from "@/API";
+import { useTranslation } from "react-i18next";
 
 const S = {
   ToInput: styled.input`
@@ -65,6 +66,8 @@ const PurchaseConetian = () => {
   const [nftPriceByCoin, setNftPriceByCoin] = useState<number>(CONETIAN_PRICE);
   const [total, setTotal] = useState<number>(0);
   const [agentError, setAgentError] = useState<string>('')
+
+  const { t } = useTranslation()
 
   const { setRouter, setConetianPurchaseDetails, profile, oracleAssets, isDebox } = useGameContext();
 
@@ -233,7 +236,7 @@ const PurchaseConetian = () => {
 
   return (
     <PageWrapper>
-      <BackButton text="Become a CoNETian" to="/" />
+      <BackButton text={t('purchaseConetian.backButton')} to="/" />
 
       {/* user information */}
       <FlexDiv $gap="16px">
@@ -262,24 +265,24 @@ const PurchaseConetian = () => {
           <FlexDiv $direction="column" $gap="8px">
             <FlexDiv>
               <P $color="#79F8FF" $fontSize="14px">
-                CoNETian Benefits
+                {t("purchaseConetian.conetianBenefits")}
               </P>
             </FlexDiv>
 
             <FlexDiv $direction="column">
               <ul style={{ paddingLeft: "20px", color: "#C8C6C8", fontSize: "14px" }}>
-                <li>  Exclusive CoNETian NFT</li>
-                <li>  1,000 $CONET token after TGE</li>
-                <li>  Node Participation Rights</li>
-                <li>  Free use of Silent Pass for 1 year</li>
-                <li>  20% off on Power Card Purchase</li>
-                <li>  Exclusive Airdrop allocation</li>
+                <li> {t("purchaseConetian.benefitsList.first")}</li>
+                <li> {t("purchaseConetian.benefitsList.second")}</li>
+                <li> {t("purchaseConetian.benefitsList.third")}</li>
+                <li> {t("purchaseConetian.benefitsList.fourth")}</li>
+                <li> {t("purchaseConetian.benefitsList.fifth")}</li>
+                <li> {t("purchaseConetian.benefitsList.sixth")}</li>
               </ul>
             </FlexDiv>
           </FlexDiv>
 
           <FlexDiv >
-            <P $color="#929092" $fontSize="12px">Duration: Ongoing benefits until further notice</P>
+            <P $color="#929092" $fontSize="12px">{t("purchaseConetian.duration")}: {t("purchaseConetian.benefitsDuration")}</P>
           </FlexDiv>
         </FlexDiv>
       </FlexDiv>
@@ -287,14 +290,14 @@ const PurchaseConetian = () => {
       {/* title */}
       <FlexDiv $justify="space-between" $align="center" $margin="18px 0 0 0">
         <P $fontSize="24px">
-          Become a CoNETian
+          {t("purchaseConetian.title")}
         </P>
       </FlexDiv>
 
       {/* inputs */}
       <FlexDiv $direction="column" $padding="0 10px" $gap="32px">
         <FlexDiv $direction="column" $gap="4px">
-          <P>Select Quantity</P>
+          <P>{t("purchaseConetian.selectQuantity")}</P>
 
           <Button
             $background="#262626"
@@ -320,7 +323,7 @@ const PurchaseConetian = () => {
 
         {!isDebox && (
           <FlexDiv $direction="column" $gap="4px">
-            <P>Agent Wallet</P>
+            <P>{t("purchaseConetian.agentWallet")}</P>
 
             <Button
               $background="#262626"
@@ -332,7 +335,7 @@ const PurchaseConetian = () => {
               <FlexDiv $justify="space-between" $width="100%" $align="center">
                 <FlexDiv $direction="column" $grow="1">
                   <S.ToInput
-                    placeholder="Wallet Address"
+                    placeholder={t('purchaseConetian.walletAddress')}
                     value={agentWallet}
                     onChange={handleAgentWalletChange}
                   />
@@ -347,7 +350,7 @@ const PurchaseConetian = () => {
                 )}
               </FlexDiv>
             </Button>
-            <Typography fontSize={'12px'} color="#E4E4E5">*Get extra tokens if referral from an agent</Typography>
+            <Typography fontSize={'12px'} color="#E4E4E5">{t("purchaseConetian.extraTokensNote")}</Typography>
             <Typography fontSize={'12px'} color="#C70039">{agentError}</Typography>
           </FlexDiv>
         )}
@@ -355,7 +358,7 @@ const PurchaseConetian = () => {
         {/* Token Select */}
         <Box display={'flex'} flexDirection={'column'} gap={'4px'}>
           <P>
-            Pay in
+            {t("purchaseConetian.payIn")}
           </P>
 
           <Button
@@ -390,7 +393,7 @@ const PurchaseConetian = () => {
                 disabled
                 style={{ display: "none" }}
               >
-                Select your token
+                {t("purchaseConetian.selectYourToken")}
               </MenuItem>
 
               <ListSubheader
@@ -431,7 +434,7 @@ const PurchaseConetian = () => {
                     paddingBottom: "8px",
                   }}
                 >
-                  Insufficient Funds
+                  {t("purchaseConetian.insufficientFunds")}
                 </ListSubheader>
               )}
 
@@ -461,7 +464,7 @@ const PurchaseConetian = () => {
                     paddingBottom: "8px",
                   }}
                 >
-                  Insufficient Funds
+                  {t("purchaseConetian.insufficientFunds")}
                 </ListSubheader>
               )}
             </Select>
@@ -470,7 +473,7 @@ const PurchaseConetian = () => {
 
         <Box display={'flex'} flexDirection={'row'} gap={'8px'} justifyContent={'center'} alignItems={'center'}>
           <Box display={'flex'} flexDirection={'column'} alignItems={'flex-start'} justifyContent={'flex-start'} color={'#929092'} fontSize={'16px'}>
-            Total
+            {t('purchaseConetian.total')}
           </Box>
 
           <Box fontSize={'32px'} color={'#F6F1F2'}>
@@ -523,7 +526,7 @@ const PurchaseConetian = () => {
               textAlign='center'
               color={"#FFFFFF"}
             >
-              Agreement
+              {t("purchaseConetian.agreement")}
             </Typography>
             <SvgIcon
               style={{
@@ -549,133 +552,101 @@ const PurchaseConetian = () => {
               color={"#FFFFFF"}
             >
               <Typography fontWeight={700}>
-                NFT Token Presale Purchase Agreement
+                {t('purchaseConetian.agreementText.first')}
               </Typography>
               <Typography>
-                This Conetian Plan NFT Presale Agreement (the &quot;Agreement&quot;) is entered into as
-                of 11/06/2024, by and between CoNET Network Foundation (hereinafter
-                referred to as the &quot;Issuer&quot;), and the undersigned public participant (hereinafter
-                referred to as the &quot;Participant&quot;).
+                {t('purchaseConetian.agreementText.second')}
               </Typography>
               <Typography fontWeight={700}>
-                1. DEFINITIONS
+                {t('purchaseConetian.agreementText.third')}
               </Typography>
               <Typography>
-                1.1 &quot;Conetian Plan Presale&quot; refers to the sale of Conetian Plan non-fungible
-                tokens (NFTs) conducted by the Issuer, granting participation rights and
-                benefits within the CoNET network and its ecosystem.
+                {t('purchaseConetian.agreementText.fourth')}
               </Typography>
               <Typography>
-                1.2 &quot;NFT&quot; refers to the unique digital asset offered by the Issuer as part of the
-                Conetian Plan, representing specific benefits, access, and incentives in the
-                CoNET network, including $CONET tokens, discount privileges, and eligibility
-                for node operation.
+                {t('purchaseConetian.agreementText.fifth')}
               </Typography>
               <Typography>
-                1.3 &quot;$CONET&quot; refers to the CoNET tokens allocated to Conetian Plan NFT
-                holders, distributed after the Token Generation Event (TGE).
+                {t('purchaseConetian.agreementText.sixth')}
               </Typography>
               <Typography fontWeight={700}>
-                2. PARTICIPATION
+                {t('purchaseConetian.agreementText.seventh')}
               </Typography>
               <Typography>
-                2.1 The Participant agrees to purchase the Conetian Plan NFT at the price
-                specified on the official CoNET Presale Platform.
+                {t('purchaseConetian.agreementText.eighth')}
               </Typography>
               <Typography>
-                2.2 The Participant acknowledges that participation in the Conetian Plan NFT
-                Token Presale carries inherent risks and is responsible for conducting
-                independent research before purchasing.
+                {t('purchaseConetian.agreementText.ninth')}
               </Typography>
               <Typography fontWeight={700}>
-                3. PRICE AND PAYMENT
+                {t('purchaseConetian.agreementText.tenth')}
               </Typography>
               <Typography>
-                3.1 The price for each Conetian Plan NFT during the presale phase corresponds
-                to the bundled token value of $CONET at the pre-sale pricing. Payments may
-                be made in USDT, BUSD, ETH, or BNB.
+                {t('purchaseConetian.agreementText.eleventh')}
               </Typography>
               <Typography>
-                3.2 NFTs are available for purchase globally, subject to applicable legal
-                restrictions in the Participant’s jurisdiction.
+                {t('purchaseConetian.agreementText.twelfth')}
               </Typography>
               <Typography fontWeight={700}>
-                4. BENEFITS OF THE NFT PURCHASE
+                {t('purchaseConetian.agreementText.thirteenth')}
               </Typography>
               <Typography>
-                4.1 $CONET Token Allocation: Each Conetian Plan NFT includes an allocation
-                of 1,000 $CONET tokens at the presale price.
+                {t('purchaseConetian.agreementText.fourteenth')}
               </Typography>
               <Typography>
-                4.2 Power Card Discount: NFT holders are entitled to a 20% discount on
-                Power Card purchases within the CoNET ecosystem.
+                {t('purchaseConetian.agreementText.fifteenth')}
               </Typography>
               <Typography>
-                4.3 Node Participation Rights: Conetian Plan NFT holders gain eligibility to
-                operate either a Full or Partial Node in the CoNET network, enabling them to
-                earn rewards for contributing resources to the decentralized infrastructure.
+                {t('purchaseConetian.agreementText.sixteenth')}
               </Typography>
               <Typography>
-                4.4 Airdrop Allocation: Conetian Plan NFT holders receive enhanced
-                allocations for future $CONET airdrops and exclusive access to additional
-                benefits within the CoNET ecosystem.
-              </Typography>
-              <Typography fontWeight={700}>5. RESPONSIBILITIES OF THE ISSUER</Typography>
-              <Typography>
-                5.1 The Issuer shall make every effort to conduct the Conetian Plan NFT Token
-                Presale in a fair and transparent manner.
-              </Typography>
-              <Typography>
-                5.2 The Issuer makes no guarantee of future value for NFTs or $CONET tokens.
-                The Participant acknowledges the speculative nature of digital asset
-                investment.
+                {t('purchaseConetian.agreementText.seventeenth')}
               </Typography>
               <Typography fontWeight={700}>
-                6. RISKS
+                {t('purchaseConetian.agreementText.eighteenth')}
               </Typography>
               <Typography>
-                6.1 The Participant acknowledges that purchasing Conetian Plan NFTs involves
-                risks, including but not limited to market volatility, regulatory uncertainties, and
-                technology risks.
+                {t('purchaseConetian.agreementText.nineteenth')}
               </Typography>
               <Typography>
-                6.2 The Participant understands and accepts that the value of Conetian Plan
-                NFTs and $CONET tokens may fluctuate and carries a risk of loss.
+                {t('purchaseConetian.agreementText.twentieth')}
               </Typography>
               <Typography fontWeight={700}>
-                7. COMPLIANCE WITH LAWS
+                {t('purchaseConetian.agreementText.twentyFirst')}
               </Typography>
               <Typography>
-                7.1 The Participant agrees to comply with all applicable laws and regulations
-                regarding the purchase, holding, and potential transfer of Conetian Plan NFTs
-                and digital assets within their jurisdiction.
+                {t('purchaseConetian.agreementText.twentySecond')}
+              </Typography>
+              <Typography>
+                {t('purchaseConetian.agreementText.twentyThird')}
               </Typography>
               <Typography fontWeight={700}>
-                8. DISCLAIMERS
+                {t('purchaseConetian.agreementText.twentyFourth')}
               </Typography>
               <Typography>
-                8.1 The Issuer disclaims any warranties, express or implied, regarding the
-                Conetian Plan NFTs and the presale, including but not limited to
-                merchantability, fitness for a particular purpose, and any anticipated success of
-                the project.
+                {t('purchaseConetian.agreementText.twentyFifth')}
               </Typography>
               <Typography fontWeight={700}>
-                9. MISCELLANEOUS
+                {t('purchaseConetian.agreementText.twentySixth')}
               </Typography>
               <Typography>
-                9.1 This Agreement constitutes the entire understanding between the parties,
-                superseding all prior agreements related to the Conetian Plan NFT Token
-                Presale.
+                {t('purchaseConetian.agreementText.twentySeventh')}
+              </Typography>
+              <Typography fontWeight={700}>
+                {t('purchaseConetian.agreementText.twentyEighth')}
               </Typography>
               <Typography>
-                9.2 Amendments to this Agreement must be made in writing and signed by both
-                parties.
+                {t('purchaseConetian.agreementText.twentyNinth')}
               </Typography>
               <Typography>
-                IN WITNESS WHEREOF, the parties hereto have executed this Conetian Plan
-                NFT Token Presale Purchase Agreement as of the date first above written.
+                {t('purchaseConetian.agreementText.thirtieth')}
               </Typography>
-              <Typography>CoNET Labs</Typography>
+              <Typography fontWeight={700}>
+                {t('purchaseConetian.agreementText.thirtyFirst')}
+              </Typography>
+              <Typography>
+                {t('purchaseConetian.agreementText.thirtySecond')}
+              </Typography>
               <Box
                 display={"flex"}
                 flexDirection={"row"}
@@ -696,7 +667,7 @@ const PurchaseConetian = () => {
                   }}
                   color={"#FFFFFF"}
                 >
-                  I agree with the terms and conditions above
+                  {t("purchaseConetian.confirmAgreement")}
                 </Typography>
               </Box>
             </Stack>
@@ -711,7 +682,7 @@ const PurchaseConetian = () => {
             disabled={(agentWallet && !isAgentWallet) || amount <= 0 || !isAgreementSigned || !validateFunds(selectedCoin)}
             cursor="pointer"
           >
-            Estimate Gas
+            {t("purchaseConetian.estimateGas")}
           </GradientButton>
         </FlexDiv>
       </FlexDiv>
