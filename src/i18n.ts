@@ -14,7 +14,13 @@ import { skinEn, skinZh } from "./translations/skin";
 import { transactionEn, transactionZh } from "./translations/transaction";
 import { purchaseConetian } from "./API";
 import {
+  purchaseConetianConfirmEn,
+  purchaseConetianConfirmZh,
   purchaseConetianEn,
+  purchaseConetianProgressEn,
+  purchaseConetianProgressZh,
+  purchaseConetianSuccessEn,
+  purchaseConetianSuccessZh,
   purchaseConetianZh,
 } from "./translations/purchaseConetian";
 
@@ -32,6 +38,9 @@ const resources = {
       skin: skinEn,
       transaction: transactionEn,
       purchaseConetian: purchaseConetianEn,
+      purchaseConetianConfirm: purchaseConetianConfirmEn,
+      purchaseConetianProgress: purchaseConetianProgressEn,
+      purchaseConetianSuccess: purchaseConetianSuccessEn,
     },
   },
   "zh-CN": {
@@ -47,6 +56,9 @@ const resources = {
       skin: skinZh,
       transaction: transactionZh,
       purchaseConetian: purchaseConetianZh,
+      purchaseConetianConfirm: purchaseConetianConfirmZh,
+      purchaseConetianProgress: purchaseConetianProgressZh,
+      purchaseConetianSuccess: purchaseConetianSuccessZh,
     },
   },
 };

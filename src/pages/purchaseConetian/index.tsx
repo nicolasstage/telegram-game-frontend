@@ -50,6 +50,7 @@ const S = {
 };
 
 const CONETIAN_PRICE = 100
+const DEBOX_AGENT_WALLET = '0x13Ce806fDA865c3bc341a1C487C8d3F15f543807'
 
 const PurchaseConetian = () => {
   const [amount, setAmount] = useState<number>(0);
@@ -145,10 +146,10 @@ const PurchaseConetian = () => {
 
   function changeCoinImage(value: any) {
     switch (value) {
-      case "BSC-bnb":
+      case "bnb":
         setCoinImage(Img.BnbIcon);
         break;
-      case "BSC-wusdt":
+      case "wusdt":
         setCoinImage(Img.UsdtBnbIcon);
         break;
       default:
@@ -219,12 +220,12 @@ const PurchaseConetian = () => {
 
     let agentToUse: string = agentWallet;
 
-    if (isDebox)
-      agentToUse = '0x13Ce806fDA865c3bc341a1C487C8d3F15f543807'
+    if (!isDebox)
+      agentToUse = DEBOX_AGENT_WALLET
 
     // set transfer token details for confirmation page
     setConetianPurchaseDetails?.({
-      agentToUse,
+      agentWallet: agentToUse,
       selectedCoin,
       amount,
       nftPriceByCoin,
