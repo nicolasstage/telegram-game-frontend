@@ -25,7 +25,7 @@ export default function Start() {
     useState<boolean>(false);
   const [isImportingWallet, setIsImportingWallet] = useState<boolean>(false);
   const [isCreatingWallet, setIsCreatingWallet] = useState<boolean>(false);
-  const { profile, setProfile, setMining, miningErrorTimeout, setRouter, isDebox } =
+  const { profile, setProfile, setMining, miningErrorTimeout, setRouter } =
     useGameContext();
 
   const handleImportWalletButton = () => {
