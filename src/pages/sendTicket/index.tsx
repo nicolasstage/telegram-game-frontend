@@ -11,6 +11,7 @@ import { useGameContext } from "@/utilitiy/providers/GameProvider";
 import { SendImg } from "@/utilitiy/send";
 import { formatToken } from "@/utilitiy/functions";
 import { fetchIsAddress } from "@/API/getData";
+import { useTranslation } from 'react-i18next';
 
 const S = {
   ToInput: styled.input`
@@ -109,9 +110,11 @@ const SendTicket = () => {
     setRouter?.("/sendTicketConfirm");
   };
 
+  const { t } = useTranslation();
+
   return (
     <PageWrapper>
-      <BackButton text="Send Ticket" to="/send" />
+      <BackButton text={t("sendCntp.sendTicketBackButton")} to="/send" />
 
       <Div $padding="0 10px">
         <CurrentBalance asset="ticket" />
@@ -130,7 +133,7 @@ const SendTicket = () => {
             <FlexDiv $direction="column" $grow="1">
               <P>To</P>
               <S.ToInput
-                placeholder="Select or paste receiver wallet address"
+                placeholder={t("sendCntp.walletPlaceholder")}
                 value={toAddress}
                 onChange={handleToAddressChange}
               />
@@ -162,7 +165,7 @@ const SendTicket = () => {
             $radius="8px"
             onClick={() => setAmount(balance)}
           >
-            MAX
+            {t("sendCntp.max")}
           </Button>
         </FlexDiv>
 
@@ -172,7 +175,7 @@ const SendTicket = () => {
             onClick={handleSend}
             disabled={!isValidAddress || !isValidAmount}
           >
-            Estimate Gas
+            {t("sendCntp.estimateGas")}
           </GradientButton>
         </FlexDiv>
       </FlexDiv>

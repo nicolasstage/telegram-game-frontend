@@ -12,6 +12,7 @@ import { SkinImg } from "@/utilitiy/skinStoreImage";
 import { formatToken, slice } from "@/utilitiy/functions";
 import { fetchEstimateGas, fetchGetNativeBalance } from "@/API/getData";
 import { TransferTokenDetails } from "@/utilitiy/providers/GameProvider";
+import { useTranslation } from 'react-i18next';
 
 const S = {
   Split: styled.div`
@@ -78,11 +79,13 @@ const SendCNTPConfirm = () => {
     };
   }, []);
 
+  const { t } = useTranslation();
+
   return (
     <PageWrapper margin="12px 16px 140px 16px">
-      <BackButton text="Confirm your order" to="/sendCNTP" />
+      <BackButton text={t("sendCntp.confirmOrder")} to="/sendCNTP" />
       <FlexDiv $direction="column" $gap="10px">
-        <P $fontSize="16px">Wallet</P>
+        <P $fontSize="16px">{t("sendCntp.wallet")}</P>
         <FlexDiv
           $background="#262626"
           $radius="16px"
@@ -92,7 +95,7 @@ const SendCNTPConfirm = () => {
         >
           <Image src={Img.BioDefaultImg} width={24} height={24} alt="" />
           <FlexDiv $direction="column">
-            <P $fontSize="14px">Anonymous User</P>
+            <P $fontSize="14px">{t("sendCntp.anonymousUser")}</P>
             <P $fontSize="12px" $color="#989899">
               {transferTokenDetails?.toAddress &&
                 slice(transferTokenDetails?.toAddress)}
@@ -101,7 +104,7 @@ const SendCNTPConfirm = () => {
         </FlexDiv>
       </FlexDiv>
       <FlexDiv $direction="column" $gap="10px">
-        <P $fontSize="16px">Sending</P>
+        <P $fontSize="16px">{t("sendCntp.sending")}</P>
         <FlexDiv
           $background="#262626"
           $justify="space-between"
@@ -119,18 +122,18 @@ const SendCNTPConfirm = () => {
       </FlexDiv>
       <FlexDiv $direction="column" $gap="5px" $margin="0 0 50px 0">
         <FlexDiv $justify="space-between">
-          <P>Tax</P>
+          <P>{t("sendCntp.tax")}</P>
           <FlexDiv $align="center" $gap="5px">
             <Image src={Img?.AlarmImg} width={16} height={16} alt="" />
             <P $fontSize="12px" $color="#CACACC">
-              Quote updates in {quoteSecs}s
+              {t("sendCntp.quoteUpdates", { secs: quoteSecs })}
             </P>
           </FlexDiv>
         </FlexDiv>
         <S.Split />
         <FlexDiv $justify="space-between">
           <P $fontSize="14px" $color="#989899">
-            Estimated Fee
+            {t("sendCntp.estimatedFee")}
           </P>
           <P $fontSize="14px" $color="#989899">
             &lt; {transferTokenDetails?.gasFee} $CONET
@@ -144,7 +147,7 @@ const SendCNTPConfirm = () => {
               display: hasInsufficientFee ? "block" : "none",
             }}
           >
-            Insufficient Gas Fee
+            {t("sendCntp.insufficientGasFee")}
           </p>
         </FlexDiv>
       </FlexDiv>
@@ -156,12 +159,12 @@ const SendCNTPConfirm = () => {
             setRouter?.("/confirmprogress");
           }}
         >
-          Confirm payment
+          {t("sendCntp.confirmPayment")}
         </GradientButton>
         <FlexDiv $justify="center" $align="center" $gap="5px">
           <Image src={Img?.SecureImg} width={11} height={14} alt="" />
           <P $fontSize="11px" $color="#FFFFFF">
-            Secure payment
+            {t("sendCntp.securePayment")}
           </P>
         </FlexDiv>
       </FlexDiv>

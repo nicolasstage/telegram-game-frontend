@@ -12,6 +12,7 @@ import { SkinImg } from "@/utilitiy/skinStoreImage";
 import { formatToken, slice } from "@/utilitiy/functions";
 import { fetchEstimateGas, fetchEstimateGasForNftContract, fetchGetNativeBalance } from "@/API/getData";
 import { SendImg } from "@/utilitiy/send";
+import { useTranslation } from 'react-i18next';
 
 const S = {
   Split: styled.div`
@@ -32,6 +33,8 @@ const renderAssetImage = (assetName: string = 'ccntp') => {
 const SendTicketConfirm = () => {
   const [quoteSecs, setQuoteSecs] = useState<number>(60);
   const [hasInsufficientFee, setHasInsufficientFee] = useState<boolean>(false);
+
+  const { t } = useTranslation();
 
   const {
     setRouter,
@@ -89,9 +92,9 @@ const SendTicketConfirm = () => {
 
   return (
     <PageWrapper margin="12px 16px 140px 16px">
-      <BackButton text="Confirm your order" to="/sendTicket" />
+      <BackButton text={t("sendCntp.confirmOrder")} to="/sendTicket" />
       <FlexDiv $direction="column" $gap="10px">
-        <P $fontSize="16px">Wallet</P>
+        <P $fontSize="16px">{t("sendCntp.wallet")}</P>
         <FlexDiv
           $background="#262626"
           $radius="16px"
@@ -101,7 +104,7 @@ const SendTicketConfirm = () => {
         >
           <Image src={Img.BioDefaultImg} width={24} height={24} alt="" />
           <FlexDiv $direction="column">
-            <P $fontSize="14px">Anonymous User</P>
+            <P $fontSize="14px">{t("sendCntp.anonymousUser")}</P>
             <P $fontSize="12px" $color="#989899">
               {transferTokenDetails?.toAddress &&
                 slice(transferTokenDetails?.toAddress)}
@@ -110,7 +113,7 @@ const SendTicketConfirm = () => {
         </FlexDiv>
       </FlexDiv>
       <FlexDiv $direction="column" $gap="10px">
-        <P $fontSize="16px">Sending</P>
+        <P $fontSize="16px">{t("sendCntp.sending")}</P>
         <FlexDiv
           $background="#262626"
           $justify="space-between"
@@ -132,14 +135,14 @@ const SendTicketConfirm = () => {
           <FlexDiv $align="center" $gap="5px">
             <Image src={Img?.AlarmImg} width={16} height={16} alt="" />
             <P $fontSize="12px" $color="#CACACC">
-              Quote updates in {quoteSecs}s
+              {t("sendCntp.quoteUpdates", { secs: quoteSecs })}
             </P>
           </FlexDiv>
         </FlexDiv>
         <S.Split />
         <FlexDiv $justify="space-between">
           <P $fontSize="14px" $color="#989899">
-            Estimated Fee
+            {t("sendCntp.estimatedFee")}
           </P>
           <P $fontSize="14px" $color="#989899">
             &lt; {transferTokenDetails?.gasFee} $CONET
@@ -153,7 +156,7 @@ const SendTicketConfirm = () => {
               display: hasInsufficientFee ? "block" : "none",
             }}
           >
-            Insufficient Gas Fee
+            {t("sendCntp.insufficientGasFee")}
           </p>
         </FlexDiv>
       </FlexDiv>
@@ -165,12 +168,12 @@ const SendTicketConfirm = () => {
             setRouter?.("/confirmprogress");
           }}
         >
-          Confirm payment
+          {t("sendCntp.confirmPayment")}
         </GradientButton>
         <FlexDiv $justify="center" $align="center" $gap="5px">
           <Image src={Img?.SecureImg} width={11} height={14} alt="" />
           <P $fontSize="11px" $color="#FFFFFF">
-            Secure payment
+            {t("sendCntp.securePayment")}
           </P>
         </FlexDiv>
       </FlexDiv>

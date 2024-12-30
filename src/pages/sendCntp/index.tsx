@@ -11,6 +11,7 @@ import { useGameContext } from "@/utilitiy/providers/GameProvider";
 import { SendImg } from "@/utilitiy/send";
 import { formatToken } from "@/utilitiy/functions";
 import { fetchIsAddress } from "@/API/getData";
+import { useTranslation } from 'react-i18next';
 
 const S = {
   ToInput: styled.input`
@@ -45,6 +46,8 @@ const S = {
 
 const SendCNTP = () => {
   const assetName = "cCNTP";
+
+  const { t } = useTranslation();
 
   const [amount, setAmount] = useState<string>("0");
   const [isValidAmount, setIsValidAmount] = useState<boolean>(false);
@@ -111,7 +114,7 @@ const SendCNTP = () => {
 
   return (
     <PageWrapper>
-      <BackButton text="Send CNTP" to="/send" />
+      <BackButton text={t("sendCntp.sendCNTPBackButton")} to="/send" />
       <Div $padding="0 10px">
         <CurrentBalance asset="cntp" />
       </Div>
@@ -127,7 +130,7 @@ const SendCNTP = () => {
             <FlexDiv $direction="column" $grow="1">
               <P>To</P>
               <S.ToInput
-                placeholder="Select or paste receiver wallet address"
+                placeholder={t("sendCntp.walletPlaceholder")}
                 value={toAddress}
                 onChange={handleToAddressChange}
               />
@@ -159,7 +162,7 @@ const SendCNTP = () => {
             $radius="8px"
             onClick={() => setAmount(balance)}
           >
-            MAX
+            {t("sendCntp.max")}
           </Button>
         </FlexDiv>
 
@@ -169,7 +172,7 @@ const SendCNTP = () => {
             onClick={handleSend}
             disabled={!isValidAddress || !isValidAmount}
           >
-            Estimate Gas
+            {t("sendCntp.estimateGas")}
           </GradientButton>
         </FlexDiv>
       </FlexDiv>

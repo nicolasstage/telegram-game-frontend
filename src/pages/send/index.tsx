@@ -7,6 +7,7 @@ import { useGameContext } from "@/utilitiy/providers/GameProvider";
 import { SendImg } from "@/utilitiy/send";
 import { SkinImg } from "@/utilitiy/skinStoreImage";
 import Image from "next/image";
+import { useTranslation } from 'react-i18next';
 import styled from "styled-components";
 
 const actives = [
@@ -54,16 +55,17 @@ const S = {
     padding: 1px;
   `,
 };
+
 const Send = () => {
   const { setRouter } = useGameContext();
+
+  const { t } = useTranslation();
+
   return (
     <PageWrapper>
-      <BackButton text="Send" to="/wallet" />
+      <BackButton text={{t("sendCntp.sendBackButton")}} to="/wallet" />
       <Div $padding="0 10px">
-        <P $color="#C8C6C8">
-          Send CNTP or select an asset to exchange with someone, enter
-          recipient&apos;s wallet and make your offer.
-        </P>
+        <P $color="#C8C6C8">{t("sendCntp.sendCta")}</P>
       </Div>
       <div className="split"></div>
       <FlexDiv $wrap="wrap" $align="center" $justify="center" $gap="10px">
