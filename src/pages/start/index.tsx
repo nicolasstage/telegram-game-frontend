@@ -90,11 +90,11 @@ export default function Start() {
           />
 
           <Typography fontSize={'40px'} fontWeight={700} color="#FFFFFF">
-            The NEW Internet
+            {t("start.title")}
           </Typography>
 
           <Typography fontSize={'14px'} color="#FFFFFF">
-            with a New Generation of Transmission Protocols
+            {t("start.subtitle")}
           </Typography>
         </FlexDiv>
 
@@ -109,7 +109,7 @@ export default function Start() {
             >
               {isCreatingWallet ?
                 <CircularProgress size={24} color="inherit" />
-                : <> Create a new Wallet </>
+                : <> {t("start.createWalletButton")} </>
               }
             </Button>
           </FlexDiv>
@@ -118,14 +118,14 @@ export default function Start() {
         <FlexDiv $direction="column" $gap="22px" >
           <FlexDiv $direction="column" $gap="18px">
             <FlexDiv $direction="column" $gap="8px">
-              <P $fontSize="24px">{t("wallet.importWalletTitle")}</P>
-              <P $color="#C8C6C8">{t("wallet.importWalletDescription")}</P>
+              <P $fontSize="24px">{t("start.importWalletTitle")}</P>
+              <P $color="#C8C6C8">{t("start.importWalletDescription")}</P>
             </FlexDiv>
 
             <input
               value={newWalletPrivateKey}
               onChange={(e) => setNewWalletPrivateKey(e.target.value)}
-              placeholder={t("wallet.importWalletPlaceholder")}
+              placeholder={t("start.importWalletPlaceholder")}
               style={{
                 padding: "14px 16px",
                 fontSize: "16px",
@@ -142,17 +142,17 @@ export default function Start() {
               onClick={isImportingWallet ? () => { } : handleImportWalletButton}
               disabled={isImportingWallet}
             >
-              {t("wallet.importWalletButton")}
+              {t("start.importWalletButton")}
             </Button>
           </FlexDiv>
         </FlexDiv>
       </FlexDiv>
 
       <ConfirmModal
-        title={t("wallet.importWalletConfirmTitle")}
-        message={t("wallet.importWalletConfirmMessage")}
-        confirmButtonText={t("wallet.importWalletConfirmButton")}
-        cancelButtonText={t("wallet.importWalletCancelButton")}
+        title={t("start.importWalletConfirmTitle")}
+        message={t("start.importWalletConfirmMessage")}
+        confirmButtonText={t("start.importWalletConfirmButton")}
+        cancelButtonText={t("start.importWalletCancelButton")}
         confirmButtonAction={handleImportWalletConfirm}
         cancelButtonAction={() => setShowImportWalletConfirmModal(false)}
         closeButtonAction={() => setShowImportWalletConfirmModal(false)}

@@ -17,10 +17,12 @@ import {
   purchaseConetianEn,
   purchaseConetianZh,
 } from "./translations/purchaseConetian";
+import { startEn, startZh } from "./translations/start";
 
 const resources = {
   "en-US": {
     translation: {
+      start: startEn,
       about: aboutEn,
       settings: settingsEn,
       wallet: MyWalletEn,
@@ -36,6 +38,7 @@ const resources = {
   },
   "zh-CN": {
     translation: {
+      start: startZh,
       about: aboutZh,
       settings: settingsZh,
       wallet: MyWalletZh,
