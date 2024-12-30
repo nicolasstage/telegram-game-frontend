@@ -132,18 +132,18 @@ export const componentsEn = {
 
 export const componentsZh = {
   currentBalance: {
-    assetBalance: "{{asset}} Balance:",
-    currentBalance: "Current Balance",
+    assetBalance: "{{asset}} 余额:",
+    currentBalance: "当前余额",
     assetLabel: "{{asset}}{{plural}}",
     secondaryAssetLabel: "{{secondaryAsset}}",
-    conetAltText: "Conet",
+    conetAltText: "Conet"
   },
   becomeGuardian: {
-    title: "Become a Guardian and boost your game",
-    description: "Helping to build a real Open, Secure and Decentralized Internet"
+    title: "成为守护者，提升你的游戏",
+    description: "帮助建设一个真正的开放、安全和去中心化的互联网"
   },
   languages: {
-    title: "Languages",
+    title: "语言"
   },
   gameOver: {
     currentScore: "当前分数",
