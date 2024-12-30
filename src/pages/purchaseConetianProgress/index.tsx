@@ -9,8 +9,11 @@ import { useEffect } from "react";
 import { useGameContext } from "@/utilitiy/providers/GameProvider";
 import Loading from "@/components/loading";
 import { fetchPurchaseConetian } from "@/API/getData";
+import { useTranslation } from "react-i18next";
 
 const PurchaseConetianProgress = () => {
+  const { t } = useTranslation();
+
   const { setRouter, profile, conetianPurchaseDetails } = useGameContext();
   useEffect(() => {
     const purchaseConetian = async () => {
@@ -37,10 +40,9 @@ const PurchaseConetianProgress = () => {
   return (
     <PageWrapper>
       <Div $padding="0 10px">
-        <P $fontSize="24px">Transaction in progress</P>
+        <P $fontSize="24px">{t('purchaseConetianProgress.title')}</P>
         <P $fontSize="14px" $color="#CACACC" $width="321px" $weight="400">
-          Your order completion time may vary, please wait and we’ll let you
-          know when it’s completed.
+          {t('purchaseConetianProgress.subtitle')}
         </P>
       </Div>
 
@@ -48,7 +50,7 @@ const PurchaseConetianProgress = () => {
 
       <FlexDiv $justify="center">
         <P $fontSize="14px" $align="center" $width="178px">
-          Please wait, this may take a few seconds.
+          {t('purchaseConetianProgress.pleaseWait')}
         </P>
       </FlexDiv>
       <FlexDiv
@@ -72,13 +74,13 @@ const PurchaseConetianProgress = () => {
               alt=""
               className="progress"
             />
-            <P>Processing</P>
+            <P>{t("purchaseConetianProgress.processing")}</P>
           </FlexDiv>
         </Button>
         <FlexDiv $justify="center" $align="center" $gap="5px">
           <Image src={Img.SecureImg} width={11} height={14} alt="" />
           <P $fontSize="11px" $color="#FFFFFF">
-            Secure payment
+            {t("purchaseConetianProgress.securePayment")}
           </P>
         </FlexDiv>
       </FlexDiv>

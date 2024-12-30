@@ -162,3 +162,79 @@ export const purchaseConetianZh = {
   confirmAgreement: "我同意上述条款和条件",
   estimateGas: "估算 Gas",
 };
+
+export const purchaseConetianConfirmEn = {
+  confirmOrder: "Confirm your order",
+  payingWith: "Paying with",
+  wallet: "Wallet",
+  summary: "Summary",
+  quoteUpdates: "Quote updates in",
+  conetianNft: "CoNETian NFT",
+  gasFee: "Gas Fee",
+  total: "Total",
+  insufficientGasFee: "Insufficient Gas Fee",
+  errorGettingGasFee: "Error getting gas fee. Please try again later.",
+  confirmPayment: "Confirm payment",
+  securePayment: "Secure payment",
+  anonymousUser: "Anonymous User",
+  walletAddress: "Wallet Address",
+  insufficientGasFeeText: "Insufficient Gas Fee",
+  errorGettingGasFeeText: "Error getting gas fee. Please try again later.",
+};
+
+export const purchaseConetianConfirmZh = {
+  confirmOrder: "确认您的订单",
+  payingWith: "支付方式",
+  wallet: "钱包",
+  summary: "摘要",
+  quoteUpdates: "报价更新在 {quoteSecs}秒后",
+  conetianNft: "CoNETian NFT",
+  gasFee: "手续费",
+  total: "总计",
+  insufficientGasFee: "燃气费不足",
+  errorGettingGasFee: "获取燃气费时出错。请稍后再试。",
+  confirmPayment: "确认支付",
+  securePayment: "安全支付",
+  anonymousUser: "匿名用户",
+  walletAddress: "钱包地址",
+  insufficientGasFeeText: "燃气费不足",
+  errorGettingGasFeeText: "获取燃气费时出错，请稍后重试",
+};
+
+export const purchaseConetianProgressEn = {
+  title: "Transaction in progress",
+  subtitle:
+    "Your order completion time may vary, please wait and we’ll let you know when it’s completed.",
+  pleaseWait: "Please wait, this may take a few seconds.",
+  processing: "Processing",
+  securePayment: "Secure Payment",
+};
+
+export const purchaseConetianProgressZh = {
+  title: "交易处理中",
+  subtitle:
+    "您的订单完成时间可能会有所不同，请耐心等待，我们会在完成后通知您。",
+  pleaseWait: "请稍候，这可能需要几秒钟。",
+  processing: "处理中",
+  securePayment: "安全支付",
+};
+
+export const purchaseConetianSuccessEn = {
+  title1: "The purchase",
+  title2: "was successful",
+  summary: "Summary",
+  conetianNft: "CoNETian NFT",
+  gasFee: "GAS Fee",
+  backToHome: "Back to Home",
+  securePayment: "Secure Payment",
+};
+
+export const purchaseConetianSuccessZh = {
+  title1: "购买",
+  title2: "成功完成",
+  summary: "摘要",
+  conetianNft: "CoNETian NFT",
+  gasFee: "燃气费",
+  backToHome: "返回主页",
+  securePayment: "安全支付",
+};

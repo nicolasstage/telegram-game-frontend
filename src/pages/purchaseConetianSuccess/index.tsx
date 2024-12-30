@@ -5,9 +5,12 @@ import PageWrapper from "@/components/pageWrapper";
 import { Img } from "@/utilitiy/images";
 import { ReadableAssetType, useGameContext } from "@/utilitiy/providers/GameProvider";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 const PurchaseConetianSuccess = () => {
-  const { setRouter, buyItem, conetianPurchaseDetails } = useGameContext();
+  const { t } = useTranslation()
+
+  const { setRouter, conetianPurchaseDetails } = useGameContext();
 
   const getFriendlyCoinName = (selectedCoin: any) => {
     switch (selectedCoin) {
@@ -34,13 +37,13 @@ const PurchaseConetianSuccess = () => {
       <Div $padding="0 10px">
         <Image src={Img.TransactionCheckImg} width={32} height={32} alt="" />
         <Div>
-          <P $fontSize="45px">The purchase </P>
+          <P $fontSize="45px">{t('purchaseConetianSuccess.title1')}</P>
           <P $fontSize="45px" $color="#79F8FF">
-            was successful
+            {t('purchaseConetianSuccess.title2')}
           </P>
         </Div>
         <Div>
-          <P>Summary</P>
+          <P>{t('purchaseConetianSuccess.summary')}</P>
           <Div
             $background="#262626"
             $padding="20px"
@@ -48,11 +51,11 @@ const PurchaseConetianSuccess = () => {
             $margin="10px 0 0 0"
           >
             <FlexDiv $justify="space-between">
-              <P $fontSize="14px">CoNETian NFT</P>
+              <P $fontSize="14px">{t('purchaseConetianSuccess.conetianNft')}</P>
               <P $fontSize="14px">{conetianPurchaseDetails?.total} {getFriendlyCoinName(conetianPurchaseDetails?.selectedCoin)}</P>
             </FlexDiv>
             <FlexDiv $justify="space-between" $margin="10px 0">
-              <P $fontSize="14px">GAS fee</P>
+              <P $fontSize="14px">{t('purchaseConetianSuccess.gasFee')}</P>
               <P $fontSize="14px">{conetianPurchaseDetails?.gasFee} {getNativeCoin(conetianPurchaseDetails?.selectedCoin).toUpperCase()} </P>
             </FlexDiv>
           </Div>
@@ -70,13 +73,13 @@ const PurchaseConetianSuccess = () => {
             width="100%"
             height="56px"
             onClick={() => setRouter?.("/")}>
-            Back to Home
+            {t('purchaseConetianSuccess.backToHome')}
           </GradientButton>
 
           <FlexDiv $justify="center" $align="center" $gap="5px">
             <Image src={Img.SecureImg} width={11} height={14} alt="" />
             <P $fontSize="11px" $color="#FFFFFF">
-              Secure payment
+              {t('purchaseConetianSuccess.securePayment')}
             </P>
           </FlexDiv>
         </FlexDiv>

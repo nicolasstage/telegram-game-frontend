@@ -11,6 +11,7 @@ import { Img } from "@/utilitiy/images";
 import { SkinImg } from "@/utilitiy/skinStoreImage";
 import { formatToken, slice } from "@/utilitiy/functions";
 import { fetchPrePurchase, fetchGetNativeBalance } from "@/API/getData";
+import { useTranslation } from "react-i18next";
 
 const S = {
   Split: styled.div`
@@ -25,6 +26,8 @@ const PurchaseConetianConfirm = () => {
   const [coinImage, setCoinImage] = useState<string>("");
   const [errorGettingGasFee, setErrorGettingGasFee] = useState<boolean>(false);
 
+  const { t } = useTranslation();
+
   const {
     setRouter,
     conetianPurchaseDetails,
@@ -38,28 +41,28 @@ const PurchaseConetianConfirm = () => {
       case "bnb":
       case "wusdt":
       default:
-        return 'bnb'
+        return 'bnb';
     }
   };
 
   const getFriendlyCoinName = (selectedCoin: any) => {
     switch (selectedCoin) {
       case "bnb":
-        return 'BNB'
+        return 'BNB';
       case "wusdt":
-        return 'USDT'
+        return 'USDT';
       default:
-        return 'BNB'
+        return 'BNB';
     }
   };
 
   useEffect(() => {
     function changeCoinImage(value: any) {
       switch (value) {
-        case "BSC-bnb":
+        case "bnb":
           setCoinImage(Img.BnbIcon);
           break;
-        case "BSC-wusdt":
+        case "wusdt":
           setCoinImage(Img.UsdtBnbIcon);
           break;
         default:
@@ -67,7 +70,6 @@ const PurchaseConetianConfirm = () => {
           break;
       }
     }
-
 
     const getGasFee = async () => {
       const gasResponse =
@@ -80,6 +82,7 @@ const PurchaseConetianConfirm = () => {
         ));
 
       setQuoteSecs(60);
+
       if (gasResponse[0] && gasResponse[1]) {
         setConetianPurchaseDetails?.((prevState: any) => ({
           ...prevState,
@@ -87,11 +90,11 @@ const PurchaseConetianConfirm = () => {
           gasFee: gasResponse[1],
         }));
 
-        const nativeCoin = getNativeCoin(conetianPurchaseDetails?.selectedCoin)
+        const nativeCoin = getNativeCoin(conetianPurchaseDetails?.selectedCoin);
 
-        let nativeBalance = null
+        let nativeBalance = null;
         if (conetianPurchaseDetails?.selectedCoin)
-          nativeBalance = profile.tokens[nativeCoin]?.balance
+          nativeBalance = profile.tokens[nativeCoin]?.balance;
 
         if (!nativeBalance || nativeBalance === '0' || gasResponse[1] > Number(nativeBalance)) setHasInsufficientFee(true);
 
@@ -117,14 +120,14 @@ const PurchaseConetianConfirm = () => {
       clearInterval(interval);
       clearInterval(countdown);
     };
-  }, []);
+  }, [conetianPurchaseDetails]);
 
   return (
     <PageWrapper margin="12px 16px 140px 16px">
-      <BackButton text="Confirm your order" to="/purchaseConetian" />
+      <BackButton text={t('purchaseConetianConfirm.confirmOrder')} to="/purchaseConetian" />
 
       <FlexDiv $direction="column" $gap="10px">
-        <P $fontSize="16px">Paying with</P>
+        <P $fontSize="16px">{t('purchaseConetianConfirm.payingWith')}</P>
         <FlexDiv
           $background="#262626"
           $justify="space-between"
@@ -141,7 +144,7 @@ const PurchaseConetianConfirm = () => {
       </FlexDiv>
 
       <FlexDiv $direction="column" $gap="10px">
-        <P $fontSize="16px">Wallet</P>
+        <P $fontSize="16px">{t('purchaseConetianConfirm.wallet')}</P>
         <FlexDiv
           $background="#262626"
           $radius="16px"
@@ -151,7 +154,7 @@ const PurchaseConetianConfirm = () => {
         >
           <Image src={Img.BioDefaultImg} width={24} height={24} alt="" />
           <FlexDiv $direction="column">
-            <P $fontSize="14px">Anonymous User</P>
+            <P $fontSize="14px">{t('purchaseConetianConfirm.anonymousUser')}</P>
             <P $fontSize="12px" $color="#989899">
               {profile?.keyID &&
                 slice(profile?.keyID)}
@@ -162,12 +165,11 @@ const PurchaseConetianConfirm = () => {
 
       <FlexDiv $direction="column" $gap="5px" $margin="0 0 50px 0">
         <FlexDiv $justify="space-between">
-          <P>Summary</P>
+          <P>{t('purchaseConetianConfirm.summary')}</P>
           <FlexDiv $align="center" $gap="5px">
             <Image src={Img?.AlarmImg} width={16} height={16} alt="" />
-
             <P $fontSize="12px" $color="#CACACC">
-              Quote updates in {quoteSecs}s
+              {t('purchaseConetianConfirm.quoteUpdates')} {quoteSecs}s
             </P>
           </FlexDiv>
         </FlexDiv>
@@ -181,20 +183,14 @@ const PurchaseConetianConfirm = () => {
           $direction="column"
         >
           <FlexDiv $justify="space-between" $width="100%">
-            <P $fontSize="14px">
-              CoNETian NFT
-            </P>
-
+            <P $fontSize="14px">{t('purchaseConetianConfirm.conetianNft')}</P>
             <P $fontSize="14px">
               {conetianPurchaseDetails?.total} {getFriendlyCoinName(conetianPurchaseDetails?.selectedCoin)}
             </P>
           </FlexDiv>
 
           <FlexDiv $justify="space-between" $width="100%">
-            <P $fontSize="14px">
-              Gas Fee
-            </P>
-
+            <P $fontSize="14px">{t('purchaseConetianConfirm.gasFee')}</P>
             <P $fontSize="14px">
               &lt; {conetianPurchaseDetails?.gasFee || 0} {getNativeCoin(conetianPurchaseDetails?.selectedCoin).toUpperCase()}
             </P>
@@ -203,10 +199,7 @@ const PurchaseConetianConfirm = () => {
           <S.Split style={{ width: "100%" }} />
 
           <FlexDiv $justify="space-between" $width="100%">
-            <P $fontSize="14px">
-              Total
-            </P>
-
+            <P $fontSize="14px">{t('purchaseConetianConfirm.total')}</P>
             <P $fontSize="14px">
               {Number(conetianPurchaseDetails?.total)} {getFriendlyCoinName(conetianPurchaseDetails?.selectedCoin)} + {Number(conetianPurchaseDetails?.gasFee || 0)} {getNativeCoin(conetianPurchaseDetails?.selectedCoin).toUpperCase()}
             </P>
@@ -221,7 +214,7 @@ const PurchaseConetianConfirm = () => {
               display: hasInsufficientFee ? "block" : "none",
             }}
           >
-            Insufficient Gas Fee
+            {t('purchaseConetianConfirm.insufficientGasFee')}
           </p>
         </FlexDiv>
 
@@ -233,7 +226,7 @@ const PurchaseConetianConfirm = () => {
               display: errorGettingGasFee ? "block" : "none",
             }}
           >
-            Error getting gas fee. Please try again later.
+            {t('purchaseConetianConfirm.errorGettingGasFee')}
           </p>
         </FlexDiv>
       </FlexDiv>
@@ -248,13 +241,13 @@ const PurchaseConetianConfirm = () => {
             setRouter?.("/purchaseConetianProgress");
           }}
         >
-          Confirm payment
+          {t('purchaseConetianConfirm.confirmPayment')}
         </GradientButton>
 
         <FlexDiv $justify="center" $align="center" $gap="5px">
           <Image src={Img?.SecureImg} width={11} height={14} alt="" />
           <P $fontSize="11px" $color="#FFFFFF">
-            Secure payment
+            {t('purchaseConetianConfirm.securePayment')}
           </P>
         </FlexDiv>
       </FlexDiv>
