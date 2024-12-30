@@ -63,7 +63,7 @@ const Send = () => {
 
   return (
     <PageWrapper>
-      <BackButton text={{t("sendCntp.sendBackButton")}} to="/wallet" />
+      <BackButton text={t("sendCntp.sendBackButton")} to="/wallet" />
       <Div $padding="0 10px">
         <P $color="#C8C6C8">{t("sendCntp.sendCta")}</P>
       </Div>
