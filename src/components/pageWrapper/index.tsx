@@ -8,13 +8,14 @@ interface Props {
   gap?: string;
   vhGap?: string;
   centralizeVertically?: boolean;
+  showMiningStatus?: boolean;
 }
 
 const centralizeVerticallyStyles = {
   minHeight: "84vh",
 }
 
-export default function PageWrapper({ children, margin, gap, vhGap, centralizeVertically }: Props) {
+export default function PageWrapper({ children, margin, gap, vhGap, centralizeVertically, showMiningStatus = true }: Props) {
   return (
     <FlexDiv
       $justify={centralizeVertically ? "center" : "space-evenly"} $direction="column"
@@ -22,7 +23,7 @@ export default function PageWrapper({ children, margin, gap, vhGap, centralizeVe
       $margin={margin || "12px 0 0 0"}
       style={centralizeVertically ? centralizeVerticallyStyles : {}}
     >
-      <MiningStatus />
+      {showMiningStatus && <MiningStatus />}
       {children}
     </FlexDiv>
   )

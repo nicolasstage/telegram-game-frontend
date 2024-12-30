@@ -32,6 +32,7 @@ export const Img = {
   BioDefaultImg: "/bioDefaultImg.png",
   ArrowImg: "/arrow.svg",
   LogoImg: "/conet.svg",
+  ConetLogo: "/assets/conetLogo.svg",
   CheckImg: "/check.svg",
   NotCheckPinkImg: "/notCheckPink.svg",
   CopyImg: "/copy.svg",

@@ -90,6 +90,16 @@ export const importWallet: (walletPrivateKey: string) => Promise<string> = (
     return _postMessage(cmd, true, resolve);
   });
 
+export const createWallet: () => Promise<string> = () =>
+  new Promise((resolve) => {
+    const cmd: WorkerCommand = {
+      cmd: "createWallet",
+      uuid: v4(),
+      data: [],
+    };
+    return _postMessage(cmd, true, resolve);
+  });
+
 export const startMining: (walletAddress: string) => Promise<string> = (
   walletAddress: string
 ) =>

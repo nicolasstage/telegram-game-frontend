@@ -37,6 +37,7 @@ import PurchaseConetian from "@/pages/purchaseConetian";
 import PurchaseConetianConfirm from "@/pages/purchaseConetianConfirm";
 import PurchaseConetianProgress from "@/pages/purchaseConetianProgress";
 import PurchaseConetianSuccess from "@/pages/purchaseConetianSuccess";
+import Start from "@/pages/start";
 
 const S = {
   Main: styled.div`
@@ -124,6 +125,7 @@ function CurrentPage() {
 
   const pages: Record<string, ReactNode> = {
     "/": <Home />,
+    "/start": <Start />,
     "/leaderboard": <Leaderboard />,
     "/wallet": <Wallet />,
     "/about": <About />,
@@ -158,13 +160,12 @@ function CurrentPage() {
 export default function App() {
   const {
     router,
+    setRouter,
     setProfile,
-    setLeaderboard,
     setDailyClaimInfo,
     setOracleAssets,
     setMiningRate,
     setOnlineMiners,
-    leaderboard,
     audio,
     musicVolume,
     effectsVolume,
@@ -221,8 +222,13 @@ export default function App() {
   listeningProfileHook((response: any) => {
     try {
       const [_profile, _leaderboard, _dailyClaimInfo, oracleAssets] = response;
+
+      if (!_profile) {
+        setRouter?.("/start")
+        return
+      }
+
       setProfile?.(_profile);
-      if (leaderboard?.allTime.length === 0) setLeaderboard?.(_leaderboard);
       setDailyClaimInfo?.(_dailyClaimInfo);
       setOracleAssets?.(oracleAssets)
     } catch (error) {
@@ -263,7 +269,7 @@ export default function App() {
       <S.Main>
         <CurrentPage />
       </S.Main>
-      {router !== "/playground" && <Menu />}
+      {router !== "/playground" && router !== "/start" && <Menu />}
       {router !== "/playground" && (
         <audio src={BackgroundAudio} ref={backAudioRef} loop />
       )}

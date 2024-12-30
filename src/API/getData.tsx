@@ -20,6 +20,7 @@ import {
   transferNft,
   prePurchase,
   purchaseConetian,
+  createWallet,
 } from ".";
 
 export const fetchImportWallet = async (
@@ -40,6 +41,24 @@ export const fetchImportWallet = async (
   }
 
   return { error: true, message: "Failed to import wallet" };
+};
+
+export const fetchCreateWallet = async (): Promise<any> => {
+  try {
+    const response = await createWallet();
+    if (Array.isArray(response) && response.length >= 2) {
+      const [status] = response;
+      if (status === "SUCCESS") {
+        return response[1][0];
+      } else {
+        console.error("Failed to create wallet");
+      }
+    }
+  } catch (error) {
+    console.error("Failed to create wallet", error);
+  }
+
+  return { error: true, message: "Failed to create wallet" };
 };
 
 export const fetchStartMining = async (walletAddress: string): Promise<any> => {

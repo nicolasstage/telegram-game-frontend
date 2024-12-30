@@ -239,17 +239,6 @@ export function GameProvider({ children }: GameProps) {
   }, [profile]);
 
   useEffect(() => {
-    const url = window.location.search;
-
-    const splitUrl = url.split("privateKey=");
-
-    if (splitUrl.length > 1) {
-      const privateKey = splitUrl[1];
-      if (privateKey && privateKey !== profile?.privateKeyArmor) fetchImportWallet(privateKey);
-    }
-  }, [profile]);
-
-  useEffect(() => {
     const hScore = localStorage?.getItem("hScore");
 
     if (hScore) {
