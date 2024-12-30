@@ -214,9 +214,14 @@ const PurchaseConetian = () => {
       return;
     }
 
+    let agentToUse: string = agentWallet;
+
+    if (isDebox)
+      agentToUse = '0x13Ce806fDA865c3bc341a1C487C8d3F15f543807'
+
     // set transfer token details for confirmation page
     setConetianPurchaseDetails?.({
-      agentWallet,
+      agentToUse,
       selectedCoin,
       amount,
       nftPriceByCoin,
