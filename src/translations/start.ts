@@ -1,5 +1,5 @@
 const startEn = {
-  title: "The New Internet",
+  title: "Play and Mine",
   subtitle: "with a New Generation of Transmission Protocols",
   createWalletButton: "Create a New Wallet",
   importWalletTitle: "Import Another Wallet",
@@ -17,7 +17,7 @@ const startEn = {
 };
 
 const startZh = {
-  title: "新互联网",
+  title: "玩和挖矿",
   subtitle: "伴随新一代传输协议",
   createWalletButton: "创建一个新钱包",
   importWalletTitle: "导入其他钱包",
