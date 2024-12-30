@@ -4,6 +4,7 @@ import { P } from '@/components/p';
 import { Img } from '@/utilitiy/images';
 import Image from 'next/image';
 import { Task } from '../../../shared/earnTasks';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   chosenTask: Task;
@@ -12,6 +13,8 @@ interface Props {
 }
 
 export default function CommonTask({ chosenTask, categoryId, handleActionButton }: Props) {
+  const { t } = useTranslation();
+
   return (
     <>
       <FlexDiv $gap="12px" $align="center">
@@ -32,8 +35,8 @@ export default function CommonTask({ chosenTask, categoryId, handleActionButton 
 
           {chosenTask?.reward ?
             <FlexDiv $gap="5px" $align="center">
-              <Image src={Img.Tickets} alt="Tickets" width={32} height={32} />
-              <P $fontSize="14px">+ {chosenTask?.reward} Tickets</P>
+              <Image src={Img.Tickets} alt={t("components.supplies.tickets")} width={32} height={32} />
+              <P $fontSize="14px">+ {chosenTask?.reward} {t("components.supplies.tickets")}</P>
             </FlexDiv> : ""
           }
         </FlexDiv>

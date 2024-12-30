@@ -3,10 +3,10 @@ import BackButton from '@/components/backButton';
 import CurrentBalance from '@/components/currentBalance';
 import GuardianCard from '@/components/guardianCard';
 import PageWrapper from '@/components/pageWrapper';
-import { useEffect, useRef, useState } from 'react';
-import { Div, FlexDiv } from '@/components/div';
+import { useEffect, useState } from 'react';
+import { FlexDiv } from '@/components/div';
 import { P } from '@/components/p';
-import { _dailyClaim, _videoTasks, _partnerTasks, _referralTask, _socialTasks, Task, TaskCategory } from '../../shared/earnTasks';
+import useTasks, { Task, TaskCategory } from '../../shared/earnTasks';
 import Image from 'next/image';
 import { Img } from '@/utilitiy/images';
 import Modal from '@/components/modal';
@@ -15,17 +15,13 @@ import "./styles.css";
 import DailyClaim from './page-components/DailyClaim';
 import CommonTask from './page-components/CommonTask';
 import { useGameContext } from '@/utilitiy/providers/GameProvider';
-import { checkSocialMedias, checkTwitter } from '@/API';
+import { checkSocialMedias } from '@/API';
 import { fetchCheckPartner, fetchCheckTelegram, fetchCheckTwitter, fetchClaimDailyReward } from '@/API/getData';
 import copy from 'copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
 
 export default function Earn() {
-  const [dailyClaimTasks, setDailyClaimTasks] = useState<TaskCategory>(_dailyClaim);
-  const [referralTasks, setReferralTasks] = useState<TaskCategory>(_referralTask);
-  const [socialTasks, setSocialTasks] = useState<TaskCategory>(_socialTasks);
-  const [videoTasks, setVideoTasks] = useState<TaskCategory>(_videoTasks);
-  const [partnerTaskGroups, setPartnerTaskGroups] = useState<TaskCategory[]>(_partnerTasks);
+  const { dailyClaimTasks, partnerTaskGroups, referralTasks, setDailyClaimTasks, setPartnerTaskGroups, setReferralTasks, setSocialTasks, setVideoTasks, socialTasks, videoTasks } = useTasks();
 
   const [chosenTask, setChosenTask] = useState<Task>();
   const [chosenTaskCategory, setChosenTaskCategory] = useState<TaskCategory>()
@@ -477,7 +473,7 @@ export default function Earn() {
             onClick={() => chooseTask(task, referralTasks)}
           >
             <FlexDiv className="text-content" $direction="column" $gap="4px">
-              <P $fontSize="24px">{t(`earn.${task.title}`)}</P>
+              <P $fontSize="24px">{task.title}</P>
             </FlexDiv>
             <Image
               src={Img.RightArrowImg}
@@ -538,7 +534,7 @@ export default function Earn() {
               </FlexDiv>
             )}
             <FlexDiv className="text-content" $direction="column" $gap="4px">
-              <P $fontSize={task.titleSize || "24px"}>{t(`earn.${task.title}`)}</P>
+              <P $fontSize={task.titleSize || "24px"}>{task.title}</P>
             </FlexDiv>
             <Image
               src={Img.RightArrowImg}
@@ -652,7 +648,7 @@ export default function Earn() {
                 </FlexDiv>
               )}
               <FlexDiv className="text-content" $direction="column" $gap="4px">
-                <P $fontSize={task.titleSize || "24px"}>{t(`earn.${task.title}`)}</P>
+                <P $fontSize={task.titleSize || "24px"}>{task.title}</P>
               </FlexDiv>
               {task.completed ? (
                 <Image

@@ -3,6 +3,7 @@ import { FlexDiv } from '@/components/div';
 import { P } from '@/components/p';
 import { Img } from '@/utilitiy/images';
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   title: string;
@@ -12,6 +13,8 @@ interface Props {
 }
 
 export default function QuizStart({ title, caption, reward, start }: Props) {
+  const { t } = useTranslation();
+
   return (
     <>
       <FlexDiv $gap="5px" $align="center">
@@ -24,7 +27,7 @@ export default function QuizStart({ title, caption, reward, start }: Props) {
         <P $lineHeight="24px">{caption}</P>
       </FlexDiv>
       <Button $width="100%" $radius="999px" $background="#17181F" $border="1px solid #04DAE8" onClick={start} $padding="18px">
-        Answer quiz
+        {t("components.quiz.start.answerQuiz")}
       </Button>
     </>
   )

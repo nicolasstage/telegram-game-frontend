@@ -110,7 +110,22 @@ export const componentsEn = {
     "spinAgain": "Spin Again",
     "spinning": "Spinning...",
     "wait": "Wait {{seconds}} more seconds"
-  }
+  },
+  "quiz": {
+    "start": {
+      "answerQuiz": "Answer quiz"
+    },
+    "finish": {
+      "rightAnswer": "Right answer!",
+      "congratulations": "Congratulations!",
+      "youWon": "You won",
+      "sorryWrongAnswer": "Sorry! Wrong answer",
+      "tryAgain": "Don’t worry! You can come back tomorrow and try again.",
+      "correctAnswer": "The correct answer is:",
+      "taskCompleted": "Task completed!",
+      "comeBackTomorrow": "Come back tomorrow to keep earning!"
+    }
+  },
 }
 
 export const componentsZh = {
@@ -225,5 +240,20 @@ export const componentsZh = {
     "spinAgain": "再次旋转",
     "spinning": "旋转中...",
     "wait": "再等待 {{seconds}} 秒"
+  },
+  "quiz": {
+    "start": {
+      "answerQuiz": "答题"
+    },
+    "finish": {
+      "rightAnswer": "正确答案!",
+      "congratulations": "恭喜!",
+      "youWon": "你赢了",
+      "sorryWrongAnswer": "抱歉！错过了答案",
+      "tryAgain": "别担心！你可以明天再来试试。",
+      "correctAnswer": "正确答案是：",
+      "taskCompleted": "任务完成!",
+      "comeBackTomorrow": "明天再来继续赚取!"
+    }
   }
 }
