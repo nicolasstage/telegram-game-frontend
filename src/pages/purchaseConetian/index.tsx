@@ -62,7 +62,7 @@ const PurchaseConetian = () => {
   const [displayCoin, setDisplayCoin] = useState<string>("wusdt");
   const [selectedCoin, setSelectedCoin] = useState<string>("wusdt");
   const [isLoadingPrices, setIsLoadingPrices] = useState<boolean>(false)
-  const [nftPriceByCoin, setNftPriceByCoin] = useState<number>(100);
+  const [nftPriceByCoin, setNftPriceByCoin] = useState<number>(CONETIAN_PRICE);
   const [total, setTotal] = useState<number>(0);
   const [agentError, setAgentError] = useState<string>('')
 
@@ -190,10 +190,10 @@ const PurchaseConetian = () => {
       setDisplayCoin(coin);
     }
     if (coin === "usdt") {
-      setNftPriceByCoin(100);
+      setNftPriceByCoin(CONETIAN_PRICE);
     } else {
       coin_price
-        ? await setNftPriceByCoin(100 / parseFloat(coin_price))
+        ? await setNftPriceByCoin(CONETIAN_PRICE / parseFloat(coin_price))
         : 1;
     }
 
@@ -473,7 +473,7 @@ const PurchaseConetian = () => {
               <Box display={"flex"} gap={2} alignItems={"center"}>
                 <Typography fontSize={[20, 40, 60]}>
                   {selectedCoin == "none"
-                    ? 100 * amount
+                    ? CONETIAN_PRICE * amount
                     : Number.isInteger(
                       amount * nftPriceByCoin
                     )
