@@ -137,7 +137,7 @@ export default function Wallet() {
             >
               <FlexDiv $align="center" $gap="5px">
                 <Image src={Img.SendImg} width={24} height={22} alt="" />
-                {t("wallet.sendButtonText")}
+                {t("wallet.sendButton")}
               </FlexDiv>
             </Button>
           </S.BuyButton>
@@ -151,7 +151,7 @@ export default function Wallet() {
             $border="1px solid rgba(255, 255, 255, .1)"
             $radius="16px"
           >
-            <P $fontSize="24px">{t("wallet.walletTitle")}</P>
+            <P $fontSize="24px">{t("wallet.walletSectionTitle")}</P>
             <FlexDiv $direction="column" $gap="16px">
               <FlexDiv $direction="column" $gap="12px">
                 <P $color="#C8C6C8">{t("wallet.walletAddressLabel")}</P>
@@ -245,18 +245,18 @@ export default function Wallet() {
             $padding="18px"
             $radius="32px"
             $border="1px solid #04DAE8"
-            onClick={isImportingWallet ? () => {} : handleImportWalletButton}
+            onClick={isImportingWallet ? () => { } : handleImportWalletButton}
             disabled={isImportingWallet}
           >
-            {t("wallet.importWalletButtonText")}
+            {t("wallet.importWalletButton")}
           </Button>
         </FlexDiv>
       </FlexDiv>
       <ConfirmModal
-        title={t("wallet.importWalletModalTitle")}
-        message={t("wallet.importWalletModalMessage")}
-        confirmButtonText={t("wallet.confirmButtonText")}
-        cancelButtonText={t("wallet.cancelButtonText")}
+        title={t("wallet.importWalletConfirmTitle")}
+        message={t("wallet.importWalletConfirmMessage")}
+        confirmButtonText={t("wallet.importWalletConfirmButton")}
+        cancelButtonText={t("wallet.importWalletCancelButton")}
         confirmButtonAction={handleImportWalletConfirm}
         cancelButtonAction={() => setShowImportWalletConfirmModal(false)}
         closeButtonAction={() => setShowImportWalletConfirmModal(false)}

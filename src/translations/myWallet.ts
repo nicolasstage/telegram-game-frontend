@@ -1,5 +1,6 @@
 export const MyWalletEn = {
   title: "My Wallet",
+  backButtonText: "My Wallet",
   miningStatus: "Mining Status",
   currentBalance: "Current Balance",
   assetsExchangeTitle: "Assets Exchange",
@@ -29,6 +30,7 @@ export const MyWalletEn = {
 
 export const MyWalletZh = {
   title: "我的钱包",
+  backButtonText: "我的钱包",
   miningStatus: "挖矿状态",
   currentBalance: "当前余额",
   assetsExchangeTitle: "资产兑换",
@@ -40,11 +42,13 @@ export const MyWalletZh = {
   copySuccessMessage: "复制成功！",
   referrerLabel: "您的邀请人：",
   importWalletTitle: "导入其他钱包",
-  importWalletDescription: "将钱包从CoNET平台导入到CoNETian，以便更轻松地管理和享受额外的福利！",
+  importWalletDescription:
+    "将钱包从CoNET平台导入到CoNETian，以便更轻松地管理和享受额外的福利！",
   importWalletPlaceholder: "输入私钥",
   importWalletButton: "导入钱包",
   importWalletConfirmTitle: "导入钱包",
-  importWalletConfirmMessage: "如果您导入一个新钱包，您将丢失当前的钱包。确定要继续吗？",
+  importWalletConfirmMessage:
+    "如果您导入一个新钱包，您将丢失当前的钱包。确定要继续吗？",
   importWalletConfirmButton: "是",
   importWalletCancelButton: "否",
   importWalletSuccessMessage: "导入成功！",
