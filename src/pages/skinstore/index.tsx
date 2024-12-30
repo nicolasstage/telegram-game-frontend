@@ -13,6 +13,7 @@ import { SkinImg } from "@/utilitiy/skinStoreImage";
 import styled from "styled-components";
 import Skin from "./skin";
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 
 const S = {
   Preview: styled(Div)`
@@ -48,6 +49,8 @@ interface Skin {
 }
 
 export default function SkinStore() {
+  const { t } = useTranslation();
+
   const { setRouter, profile, setBuyItem } = useGameContext();
   const [skins, setSkins] = useState<Skin[]>([
     {
@@ -55,7 +58,7 @@ export default function SkinStore() {
       Img: SkinImg.Fssuit,
       status: "used",
       title: "FS Suit",
-      desc: "Your first suit to start your CoNETian mission.",
+      desc: t("skin.store.desc.fssuit"), // Placeholder for description
       price: 0,
     },
     {
@@ -63,7 +66,7 @@ export default function SkinStore() {
       Img: SkinImg.Shibnet,
       status: "mine",
       title: "ShibNET",
-      desc: "Much wow, very epic—dominate in style with the iconic ShibNET skin.",
+      desc: t("skin.store.desc.shibnet"), // Placeholder for description
       price: 0,
     },
     {
@@ -71,7 +74,7 @@ export default function SkinStore() {
       Img: SkinImg.Grmpnet,
       status: "buy",
       title: "GrmpNET",
-      desc: "Unleash your inner grump with the iconic, no-nonsense GrmpNET skin.",
+      desc: t("skin.store.desc.grmpnet"), // Placeholder for description
       price: 2,
     },
     {
@@ -79,7 +82,7 @@ export default function SkinStore() {
       Img: SkinImg.Cofrog,
       status: "buy",
       title: "CoFROG",
-      desc: "Fly through all the feels with the CoFROG skin—perfect for every mood.",
+      desc: t("skin.store.desc.cofrog"), // Placeholder for description
       price: 2,
     },
     {
@@ -87,7 +90,7 @@ export default function SkinStore() {
       Img: SkinImg.Johnnyet,
       status: "buy",
       title: "JohnNyET",
-      desc: "Break through the game with the chilling JohnNyET skin—embrace the iconic madness.",
+      desc: t("skin.store.desc.johnnyet"), // Placeholder for description
       price: 2,
     },
     {
@@ -95,7 +98,7 @@ export default function SkinStore() {
       Img: SkinImg.Cowave,
       status: "buy",
       title: "CoWave",
-      desc: "Ride the waves of power with the CoWave skin—where classic art meets epic gameplay.",
+      desc: t("skin.store.desc.cowave"), // Placeholder for description
       price: 5,
     },
     {
@@ -103,7 +106,7 @@ export default function SkinStore() {
       Img: SkinImg.Netarry,
       status: "buy",
       title: "NETarry",
-      desc: "Illuminate the battlefield with the NETarry skin—bring VanG masterpiece to life.",
+      desc: t("skin.store.desc.netarry"), // Placeholder for description
       price: 5,
     },
     {
@@ -111,7 +114,7 @@ export default function SkinStore() {
       Img: SkinImg.Cofry,
       status: "buy",
       title: "CoFRY",
-      desc: "Stay skeptical and stylish with the CoFry skin—because things just don’t add up.",
+      desc: t("skin.store.desc.cofry"), // Placeholder for description
       price: 5,
     },
     {
@@ -119,7 +122,7 @@ export default function SkinStore() {
       Img: SkinImg.Facenet,
       status: "buy",
       title: "FaceNET",
-      desc: "Master frustration in style with the ultimate FaceNET skin—because some moments need no words.",
+      desc: t("skin.store.desc.facenet"), // Placeholder for description
       price: 5,
     },
     {
@@ -127,7 +130,7 @@ export default function SkinStore() {
       Img: SkinImg.Cocpz,
       status: "buy",
       title: "CoCPZ",
-      desc: "Channel the power of Web3 with the CoCPZ skin—innovative and unstoppable.",
+      desc: t("skin.store.desc.cocpz"), // Placeholder for description
       price: 10,
     },
     {
@@ -135,7 +138,7 @@ export default function SkinStore() {
       Img: SkinImg.Cotalik,
       status: "buy",
       title: "CoTalik",
-      desc: "Embrace blockchain brilliance with the CoTalik skin—where innovation meets gameplay.",
+      desc: t("skin.store.desc.cotalik"), // Placeholder for description
       price: 10,
     },
     {
@@ -143,7 +146,7 @@ export default function SkinStore() {
       Img: SkinImg.Emco,
       status: "buy",
       title: "EMCo",
-      desc: "Blast off with the EMCo skin—where visionary style meets out-of-this-world gameplay.",
+      desc: t("skin.store.desc.emco"), // Placeholder for description
       price: 10,
     },
     {
@@ -151,7 +154,7 @@ export default function SkinStore() {
       Img: SkinImg.Tconet,
       status: "buy",
       title: "T-CoNET",
-      desc: "Dominate with the relentless T-CoNET skin—channeling unstoppable power from the future.",
+      desc: t("skin.store.desc.tconet"), // Placeholder for description
       price: 10,
     },
     {
@@ -159,7 +162,7 @@ export default function SkinStore() {
       Img: SkinImg.Conetrix,
       status: "buy",
       title: "CoNETrix",
-      desc: "Enter the digital realm with the CoNETrix skin—unlock your true potential and bend reality.",
+      desc: t("skin.store.desc.conetrix"), // Placeholder for description
       price: 20,
     },
     {
@@ -167,7 +170,7 @@ export default function SkinStore() {
       Img: SkinImg.Corvin,
       status: "buy",
       title: "CoRVIN",
-      desc: "Embrace existential ennui with the CoRVIN skin—your stylishly pessimistic guide through the galaxy.",
+      desc: t("skin.store.desc.corvin"), // Placeholder for description
       price: 20,
     },
     {
@@ -175,7 +178,7 @@ export default function SkinStore() {
       Img: SkinImg.Covdr,
       status: "buy",
       title: "CoVDR",
-      desc: "Rule the galaxy with the CoVDR skin—unleash dark power and iconic presence.",
+      desc: t("skin.store.desc.covdr"), // Placeholder for description
       price: 20,
     },
     {
@@ -183,7 +186,7 @@ export default function SkinStore() {
       Img: SkinImg.Vulconet,
       status: "buy",
       title: "VulCoNET",
-      desc: "Channel logical prowess with the VulCONET skin—embrace calm, cool, and interstellar precision.",
+      desc: t("skin.store.desc.vulconet"), // Placeholder for description
       price: 20,
     },
     {
@@ -191,7 +194,7 @@ export default function SkinStore() {
       Img: SkinImg.Netwid,
       status: "buy",
       title: "NETwid",
-      desc: "Strike with stealth and agility in the NETwid skin—where espionage meets epic action.",
+      desc: t("skin.store.desc.netwid"), // Placeholder for description
       price: 50,
     },
     {
@@ -199,7 +202,7 @@ export default function SkinStore() {
       Img: SkinImg.Spmanet,
       status: "buy",
       title: "SPMaNET",
-      desc: "Swing into action with the SPMaNET skin—bringing web-slinging heroics to the battlefield.",
+      desc: t("skin.store.desc.spmanet"), // Placeholder for description
       price: 50,
     },
     {
@@ -207,7 +210,7 @@ export default function SkinStore() {
       Img: SkinImg.Wwnet,
       status: "buy",
       title: "wwNET",
-      desc: "Embody strength and grace with the wwNET skin—defend justice with legendary power.",
+      desc: t("skin.store.desc.wwnet"), // Placeholder for description
       price: 50,
     },
     {
@@ -215,7 +218,7 @@ export default function SkinStore() {
       Img: SkinImg.Batnet,
       status: "buy",
       title: "BatNET",
-      desc: "Step into the shadows with the BatNET skin—strike fear into the hearts and fight for justice.",
+      desc: t("skin.store.desc.batnet"), // Placeholder for description
       price: 50,
     },
   ]);
@@ -260,7 +263,7 @@ export default function SkinStore() {
               {formatToken(profile?.tokens?.cCNTP?.balance)}
             </P>
             <P $fontSize="12px" style={{ lineHeight: "16px" }}>
-              CNTP EARNED
+              {t("skin.store.cntpEarned")}
             </P>
           </>
         ) : (
@@ -296,7 +299,7 @@ export default function SkinStore() {
             </Div>
             {selected.price === 0 ? (
               <P $color="#79f8ff" $fontSize="14px">
-                Purchased
+                {t("skin.store.purchased")}
               </P>
             ) : (
               <FlexDiv $align="center" $gap="5px" $margin="10px 0">
@@ -312,7 +315,7 @@ export default function SkinStore() {
             <FlexDiv $width="100%" $padding="10px">
               {selected.price === 0 ? (
                 <GradientButton flex={1} height="36px" onClick={choose}>
-                  <P>Choose</P>
+                  <P>{t("skin.store.choose")}</P>
                 </GradientButton>
               ) : (
                 <S.BuyButton>
@@ -324,7 +327,7 @@ export default function SkinStore() {
                     $padding="5px 0"
                     onClick={buy}
                   >
-                    Buy Skin
+                    {t("skin.store.buySkin")}
                   </Button>
                 </S.BuyButton>
               )}

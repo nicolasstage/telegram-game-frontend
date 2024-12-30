@@ -16,6 +16,7 @@ import { fetchImportWallet, fetchstopMining } from "@/API/getData";
 import { toast } from "react-toastify";
 import ConfirmModal from "@/components/modal/confirmModal";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const S = {
   BuyButton: styled(FlexDiv)`
@@ -27,6 +28,7 @@ const S = {
 };
 
 export default function Wallet() {
+  const { t } = useTranslation();
   const [newWalletPrivateKey, setNewWalletPrivateKey] = useState<string>("");
   const [copiedReferrer, setCopiedReferrer] = useState<boolean>(false);
   const [copiedPrivateKey, setCopiedPrivateKey] = useState<boolean>(false);
@@ -59,6 +61,7 @@ export default function Wallet() {
 
   const copyText = (text: string, type: string) => {
     copy(text);
+    toast.success(t("wallet.copySuccessMessage"));
     if (type === "walletAddress") {
       setCopiedWalletAddress(true);
       return;
@@ -77,7 +80,7 @@ export default function Wallet() {
     if (newWalletPrivateKey) {
       setShowImportWalletConfirmModal(true);
     } else {
-      toast.error("Please enter a private key");
+      toast.error(t("wallet.noPrivateKeyError"));
     }
   };
 
@@ -95,15 +98,15 @@ export default function Wallet() {
         if (importResult && !importResult?.error) {
           setProfile?.(importResult);
           setNewWalletPrivateKey("");
-          toast.success("Import Successful!");
+          toast.success(t("wallet.importWalletSuccessMessage"));
         } else {
-          toast.error(importResult?.message);
+          toast.error(importResult?.message || t("wallet.importWalletError"));
         }
       } else {
-        toast.error("Failed to stop mining to import wallet");
+        toast.error(t("wallet.stopMiningError"));
       }
     } else {
-      toast.error("Please enter a private key");
+      toast.error(t("wallet.noPrivateKeyError"));
     }
 
     setIsImportingWallet(false);
@@ -114,21 +117,14 @@ export default function Wallet() {
     <>
       <FlexDiv $direction="column" $gap="22px" $margin="12px 16px 140px 16px">
         <MiningStatus />
-
-        <BackButton text="My Wallet" />
-
+        <BackButton text={t("wallet.backButtonText")} />
         <FlexDiv>
           <CurrentBalance asset="cntp" secondaryAsset="conet" />
         </FlexDiv>
-
-        {/* uncomment this to show the asset transfer button */}
         <div className="split"></div>
         <FlexDiv $direction="column" $gap="10px">
-          <P $fontSize="24px">Assets Exchange</P>
-          <P $color="#C8C6C8">
-            Quickly and securely exchange your CNTP, Skins, Keys, or Tickets
-            with ease.
-          </P>
+          <P $fontSize="24px">{t("wallet.assetsExchangeTitle")}</P>
+          <P $color="#C8C6C8">{t("wallet.assetsExchangeDescription")}</P>
           <S.BuyButton>
             <Button
               $background="#17181F"
@@ -141,12 +137,11 @@ export default function Wallet() {
             >
               <FlexDiv $align="center" $gap="5px">
                 <Image src={Img.SendImg} width={24} height={22} alt="" />
-                Send
+                {t("wallet.sendButtonText")}
               </FlexDiv>
             </Button>
           </S.BuyButton>
         </FlexDiv>
-
         <FlexDiv $direction="column" $gap="8px" $width="100%">
           <FlexDiv
             $direction="column"
@@ -156,10 +151,10 @@ export default function Wallet() {
             $border="1px solid rgba(255, 255, 255, .1)"
             $radius="16px"
           >
-            <P $fontSize="24px">Your CoNETian Wallet</P>
+            <P $fontSize="24px">{t("wallet.walletTitle")}</P>
             <FlexDiv $direction="column" $gap="16px">
               <FlexDiv $direction="column" $gap="12px">
-                <P $color="#C8C6C8">Wallet Address</P>
+                <P $color="#C8C6C8">{t("wallet.walletAddressLabel")}</P>
                 <FlexDiv $padding="0 16px" $justify="space-between">
                   <P>
                     {slice(profile?.keyID)}
@@ -174,7 +169,7 @@ export default function Wallet() {
                       <Image
                         height={24}
                         width={24}
-                        alt="Copy"
+                        alt={t("wallet.copyAltText")}
                         src={Img.CopyImg}
                       />
                     )}
@@ -182,7 +177,7 @@ export default function Wallet() {
                 </FlexDiv>
               </FlexDiv>
               <FlexDiv $direction="column" $gap="12px">
-                <P $color="#C8C6C8">Private key</P>
+                <P $color="#C8C6C8">{t("wallet.privateKeyLabel")}</P>
                 <FlexDiv $padding="0 16px" $justify="space-between">
                   <P>
                     {slice(profile?.privateKeyArmor)}
@@ -199,7 +194,7 @@ export default function Wallet() {
                       <Image
                         height={24}
                         width={24}
-                        alt="Copy"
+                        alt={t("wallet.copyAltText")}
                         src={Img.CopyImg}
                       />
                     )}
@@ -209,40 +204,35 @@ export default function Wallet() {
             </FlexDiv>
           </FlexDiv>
           {profile?.referrer && (
-            <>
-              <FlexDiv $gap="8px" $align="center" $padding="0 0 0 24px">
-                <P $fontSize="14px" $color="#C8C6C8">
-                  Your inviter:
-                </P>
-                <FlexDiv $gap="8px" $align="center">
-                  <P $fontSize="12px">{slice(profile?.referrer)}</P>
-                  <Button
-                    onClick={() => copyText(profile?.referrer, "referrer")}
-                  >
-                    <Image
-                      height={16}
-                      width={16}
-                      alt="Copy"
-                      src={copiedReferrer ? Img.CheckImg : Img.CopyImg}
-                    />
-                  </Button>
-                </FlexDiv>
+            <FlexDiv $gap="8px" $align="center" $padding="0 0 0 24px">
+              <P $fontSize="14px" $color="#C8C6C8">
+                {t("wallet.inviterLabel")}
+              </P>
+              <FlexDiv $gap="8px" $align="center">
+                <P $fontSize="12px">{slice(profile?.referrer)}</P>
+                <Button
+                  onClick={() => copyText(profile?.referrer, "referrer")}
+                >
+                  <Image
+                    height={16}
+                    width={16}
+                    alt={t("wallet.copyAltText")}
+                    src={copiedReferrer ? Img.CheckImg : Img.CopyImg}
+                  />
+                </Button>
               </FlexDiv>
-            </>
+            </FlexDiv>
           )}
         </FlexDiv>
         <FlexDiv $direction="column" $gap="18px">
           <FlexDiv $direction="column" $gap="8px">
-            <P $fontSize="24px">Import Another Wallet</P>
-            <P $color="#C8C6C8">
-              Import a wallet from CoNET platform into CoNETian for easier
-              management and boosted benefits!
-            </P>
+            <P $fontSize="24px">{t("wallet.importWalletTitle")}</P>
+            <P $color="#C8C6C8">{t("wallet.importWalletDescription")}</P>
           </FlexDiv>
           <input
             value={newWalletPrivateKey}
             onChange={(e) => setNewWalletPrivateKey(e.target.value)}
-            placeholder="Enter Private Key"
+            placeholder={t("wallet.importWalletPlaceholder")}
             style={{
               padding: "14px 16px",
               fontSize: "16px",
@@ -255,19 +245,18 @@ export default function Wallet() {
             $padding="18px"
             $radius="32px"
             $border="1px solid #04DAE8"
-            onClick={isImportingWallet ? () => { } : handleImportWalletButton}
+            onClick={isImportingWallet ? () => {} : handleImportWalletButton}
             disabled={isImportingWallet}
           >
-            Import Wallet
+            {t("wallet.importWalletButtonText")}
           </Button>
         </FlexDiv>
       </FlexDiv>
-
       <ConfirmModal
-        title="Import Wallet"
-        message="If you import a new wallet, you will lose your current one. Are you sure you want to continue?"
-        confirmButtonText="Yes"
-        cancelButtonText="No"
+        title={t("wallet.importWalletModalTitle")}
+        message={t("wallet.importWalletModalMessage")}
+        confirmButtonText={t("wallet.confirmButtonText")}
+        cancelButtonText={t("wallet.cancelButtonText")}
         confirmButtonAction={handleImportWalletConfirm}
         cancelButtonAction={() => setShowImportWalletConfirmModal(false)}
         closeButtonAction={() => setShowImportWalletConfirmModal(false)}

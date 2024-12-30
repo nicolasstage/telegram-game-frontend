@@ -61,7 +61,7 @@ export default function Languages() {
 
   return (
     <FlexDiv $direction="column" $gap="24px" $width="100%">
-      <P $fontSize="24px">Languages</P>
+      <P $fontSize="24px">{t("components.languages.title")}</P>
       <Div $radius="40px" $padding="16px" $background="#262626" $width="100%">
         <motion.div
           className="menu-item"

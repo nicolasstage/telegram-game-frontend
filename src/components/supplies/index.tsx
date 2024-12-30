@@ -7,29 +7,32 @@ import { formatToken } from '@/utilitiy/functions';
 import { useGameContext } from '@/utilitiy/providers/GameProvider';
 import Rank from './rank';
 import Skeleton from 'react-loading-skeleton';
+import { useTranslation } from 'react-i18next';
 
 export default function Supplies() {
   const { profile } = useGameContext();
+
+  const { t } = useTranslation();
 
   return (
     <FlexDiv $direction="column" $gap="22px">
       <FlexDiv $align="center" $justify="space-between">
         <FlexDiv $gap="12px" $align="center">
-          <P $fontSize="24px">Supplies</P>
-          <Tooltip message="Each ticket is a valuable asset. Keep playing The CoNETian to earn more tickets!" />
+          <P $fontSize="24px">{t("components.supplies.supplies")}</P>
+          <Tooltip message={t("components.supplies.tooltipMessage")} />
         </FlexDiv>
         <FlexDiv $align="center" $gap="8px" $background="#262527" $padding="8px" $radius="8px">
-          {profile?.tickets?.balance ? (<>
-            <Image src={Img.Tickets} alt="Tickets" width={42.15} height={32} />
-            <P $fontSize='16px'>x {profile?.tickets?.balance}</P>
-          </>
-          )
-            :
+          {profile?.tickets?.balance ? (
+            <>
+              <Image src={Img.Tickets} alt={t("components.supplies.tickets")} width={42.15} height={32} />
+              <P $fontSize='16px'>x {profile?.tickets?.balance}</P>
+            </>
+          ) : (
             <Skeleton width={50} />
-          }
+          )}
         </FlexDiv>
       </FlexDiv>
-      {/* disable rank until real rank implementation is ready*/}
+      {/* Disable rank until real rank implementation is ready */}
       {/* <Rank /> */}
 
       <FlexDiv $gap="8px" $align="center">
@@ -39,11 +42,13 @@ export default function Supplies() {
               {formatToken(profile?.tokens?.cCNTP?.balance)}
             </P>
             <P $fontSize="12px" style={{ lineHeight: '16px' }}>
-              CNTP EARNED
+              {t("components.supplies.cnptEarned")}
             </P>
           </>
-        ) : (<Skeleton width={200} />)}
+        ) : (
+          <Skeleton width={200} />
+        )}
       </FlexDiv>
     </FlexDiv>
-  )
+  );
 }

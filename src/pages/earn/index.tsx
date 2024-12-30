@@ -18,6 +18,7 @@ import { useGameContext } from '@/utilitiy/providers/GameProvider';
 import { checkSocialMedias, checkTwitter } from '@/API';
 import { fetchCheckPartner, fetchCheckTelegram, fetchCheckTwitter, fetchClaimDailyReward } from '@/API/getData';
 import copy from 'copy-to-clipboard';
+import { useTranslation } from 'react-i18next';
 
 export default function Earn() {
   const [dailyClaimTasks, setDailyClaimTasks] = useState<TaskCategory>(_dailyClaim);
@@ -32,6 +33,8 @@ export default function Earn() {
   const [telegramId, setTelegramId] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isTodayRewardTaken, setIsTodayRewardTaken] = useState<boolean>(false)
+
+  const { t } = useTranslation();
 
   const { profile, dailyClaimInfo } = useGameContext();
 
@@ -436,108 +439,241 @@ export default function Earn() {
   return (
     <>
       <PageWrapper margin="12px 16px 160px 16px">
-        <BackButton text="Earn" />
+      <BackButton text={t("earn.earn")} />
 
+      <FlexDiv $direction="column" $gap="8px">
+        <CurrentBalance inline asset="cntp" />
+        <CurrentBalance inline asset="ticket" />
+      </FlexDiv>
+
+      <GuardianCard />
+
+      {/* Referral Task */}
+      <FlexDiv $direction="column" key={referralTasks.title} $gap="12px" className="task-category">
         <FlexDiv $direction="column" $gap="8px">
-          <CurrentBalance inline asset="cntp" />
-          <CurrentBalance inline asset="ticket" />
+          <FlexDiv $gap="5px" $align="center">
+            {referralTasks.icon && (
+              <Image
+                alt={t("earn.referralTask.title")}
+                width={24}
+                height={24}
+                src={referralTasks.icon}
+              />
+            )}
+            <P $fontSize="24px">{t("earn.referralTask.title")}</P>
+          </FlexDiv>
         </FlexDiv>
 
-        <GuardianCard />
-
-        {/* Referral Task */}
-        <FlexDiv $direction="column" key={referralTasks.title} $gap="12px" className="task-category">
-          <FlexDiv $direction="column" $gap="8px">
-            <FlexDiv $gap="5px" $align="center">
-              {referralTasks.icon && <Image alt={referralTasks.title} width={24} height={24} src={referralTasks.icon} />}
-              <P $fontSize="24px">{referralTasks.title}</P>
+        {referralTasks.tasks.filter((task) => task?.active).map((task) => (
+          <FlexDiv
+            key={task.title}
+            $gap="16px"
+            $padding="16px"
+            $border="1px solid #FFFFFF1A"
+            $radius="16px"
+            $align="center"
+            $height="95px"
+            className={`task`}
+            onClick={() => chooseTask(task, referralTasks)}
+          >
+            <FlexDiv className="text-content" $direction="column" $gap="4px">
+              <P $fontSize="24px">{t(`earn.${task.title}`)}</P>
             </FlexDiv>
+            <Image
+              src={Img.RightArrowImg}
+              alt={t("earn.proceed")}
+              width={28}
+              height={28}
+            />
           </FlexDiv>
+        ))}
+      </FlexDiv>
 
-          {referralTasks.tasks.filter((task) => task?.active).map((task) => (
-            <FlexDiv key={task.title} $gap="16px" $padding="16px" $border="1px solid #FFFFFF1A" $radius="16px" $align="center" $height="95px" className={`task`} onClick={() => chooseTask(task, referralTasks)}>
-              <FlexDiv className="text-content" $direction="column" $gap="4px">
-                <P $fontSize="24px">{task.title}</P>
+      {/* Daily Claim */}
+      <FlexDiv $direction="column" key={dailyClaimTasks.title} $gap="12px" className="task-category">
+        <FlexDiv $direction="column" $gap="8px">
+          <FlexDiv $gap="5px" $align="center">
+            {dailyClaimTasks.icon && (
+              <Image
+                alt={t("earn.dailyClaimTask.title")}
+                width={24}
+                height={24}
+                src={dailyClaimTasks.icon}
+              />
+            )}
+            <P $fontSize="24px">{t("earn.dailyClaimTask.title")}</P>
+          </FlexDiv>
+        </FlexDiv>
+
+        {dailyClaimTasks.tasks.filter((task) => task?.active).map((task) => (
+          <FlexDiv
+            key={task.title}
+            $gap="16px"
+            $padding="16px"
+            $border="1px solid #FFFFFF1A"
+            $radius="16px"
+            $align="center"
+            $height="95px"
+            className={`task`}
+            onClick={() => chooseTask(task, dailyClaimTasks)}
+          >
+            {task.logo && (
+              <FlexDiv
+                $width="60px"
+                $height="60px"
+                $background={task.logo?.color || "transparent"}
+                $radius="8px"
+                $justify="center"
+                $align="center"
+              >
+                {task.logo.uri && (
+                  <Image
+                    src={task.logo.uri}
+                    alt={t("earn.taskLogoAlt")}
+                    width={task.logo.color ? 28 : 48}
+                    height={task.logo.color ? 28 : 48}
+                    style={{ borderRadius: "8px" }}
+                  />
+                )}
               </FlexDiv>
-              <Image src={Img.RightArrowImg} alt="Proceed" width={28} height={28} />
+            )}
+            <FlexDiv className="text-content" $direction="column" $gap="4px">
+              <P $fontSize={task.titleSize || "24px"}>{t(`earn.${task.title}`)}</P>
             </FlexDiv>
-          ))}
+            <Image
+              src={Img.RightArrowImg}
+              alt={t("earn.proceed")}
+              width={28}
+              height={28}
+            />
+          </FlexDiv>
+        ))}
+      </FlexDiv>
+
+      {/* Social Tasks */}
+      <FlexDiv $direction="column" key={socialTasks.title} $gap="12px" className="task-category">
+        <FlexDiv $direction="column" $gap="8px">
+          <FlexDiv $gap="5px" $align="center">
+            {socialTasks.icon && (
+              <Image
+                alt={t("earn.socialTask.title")}
+                width={24}
+                height={24}
+                src={socialTasks.icon}
+              />
+            )}
+            <P $fontSize="24px">{t("earn.socialTask.title")}</P>
+          </FlexDiv>
         </FlexDiv>
 
-        {/* Daily Claim */}
-        <FlexDiv $direction="column" key={dailyClaimTasks.title} $gap="12px" className="task-category">
-          <FlexDiv $direction="column" $gap="8px">
-            <FlexDiv $gap="5px" $align="center">
-              {dailyClaimTasks.icon && <Image alt={dailyClaimTasks.title} width={24} height={24} src={dailyClaimTasks.icon} />}
-              <P $fontSize="24px">{dailyClaimTasks.title}</P>
-            </FlexDiv>
-          </FlexDiv>
-
-          {dailyClaimTasks.tasks.filter((task) => task?.active).map((task) => (
-            <FlexDiv key={task.title} $gap="16px" $padding="16px" $border="1px solid #FFFFFF1A" $radius="16px" $align="center" $height="95px" className={`task`} onClick={() => chooseTask(task, dailyClaimTasks)}>
-              {
-                task.logo && (
-                  <FlexDiv $width="60px" $height="60px" $background={task.logo?.color || "transparent"} $radius="8px" $justify="center" $align="center">
-                    {task.logo.uri && (
-                      <Image src={task.logo.uri} alt="Task" width={task.logo.color ? 28 : 48} height={task.logo.color ? 28 : 48} style={{ "borderRadius": "8px" }} />
-                    )}
-                  </FlexDiv>
-                )
-              }
-              <FlexDiv className="text-content" $direction="column" $gap="4px">
-                <P $fontSize={task.titleSize || "24px"}>{task.title}</P>
-              </FlexDiv>
-              <Image src={Img.RightArrowImg} alt="Proceed" width={28} height={28} />
-            </FlexDiv>
-          ))}
-        </FlexDiv>
-
-        {/* Social Tasks */}
-        <FlexDiv $direction="column" key={socialTasks.title} $gap="12px" className="task-category">
-          <FlexDiv $direction="column" $gap="8px">
-            <FlexDiv $gap="5px" $align="center">
-              {socialTasks.icon && <Image alt={socialTasks.title} width={24} height={24} src={socialTasks.icon} />}
-              <P $fontSize="24px">{socialTasks.title}</P>
-            </FlexDiv>
-          </FlexDiv>
-
-          {socialTasks.tasks.filter((task) => task?.active).map((task) => (
-            task.comingSoon ? (
-              <div key={task.title} style={{ position: 'relative', width: '100%', height: '104px', cursor: 'not-allowed', display: 'flex', border: '1px solid #535254', alignItems: 'center', borderRadius: '16px', backgroundColor: '#262527', justifyContent: 'space-between', padding: '16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '14px' }}>
-                  <Image src={task?.logo?.uri || ''} alt="Coming Soon" width={50} height={50} />
-                  <div>
-                    <p style={{ color: '#ADAAAD', fontSize: task.titleSize || '24px', lineHeight: '28px' }}>{task.title}</p>
-                    <p style={{ color: '#ADAAAD', fontSize: '12px', lineHeight: '20px' }}>Coming soon</p>
-                  </div>
+        {socialTasks.tasks.filter((task) => task?.active).map((task) => (
+          task.comingSoon ? (
+            <div
+              key={task.title}
+              style={{
+                position: "relative",
+                width: "100%",
+                height: "104px",
+                cursor: "not-allowed",
+                display: "flex",
+                border: "1px solid #535254",
+                alignItems: "center",
+                borderRadius: "16px",
+                backgroundColor: "#262527",
+                justifyContent: "space-between",
+                padding: "16px",
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "flex-start", gap: "14px" }}>
+                <Image
+                  src={task?.logo?.uri || ""}
+                  alt={t("earn.comingSoonAlt")}
+                  width={50}
+                  height={50}
+                />
+                <div>
+                  <p
+                    style={{
+                      color: "#ADAAAD",
+                      fontSize: task.titleSize || "24px",
+                      lineHeight: "28px",
+                    }}
+                  >
+                    {t(`earn.${task.title}`)}
+                  </p>
+                  <p
+                    style={{
+                      color: "#ADAAAD",
+                      fontSize: "12px",
+                      lineHeight: "20px",
+                    }}
+                  >
+                    {t("earn.comingSoon")}
+                  </p>
                 </div>
-                <Image src={Img.Lock} alt='lock' width={30} height={30} />
               </div>
-            ) : (
-              <FlexDiv key={task.title} $gap="16px" $padding="16px" $border="1px solid #FFFFFF1A" $radius="16px" $align="center" $height="95px" className={`task`} onClick={() => chooseTask(task, socialTasks)}>
-                {
-                  task.logo && (
-                    <FlexDiv $width="60px" $height="60px" $background={task.logo?.color || "transparent"} $radius="8px" $justify="center" $align="center">
-                      {task.logo.uri && (
-                        <Image src={task.logo.uri} alt="Task" width={task.logo.color ? 28 : 48} height={task.logo.color ? 28 : 48} style={{ "borderRadius": "8px" }} />
-                      )}
-                    </FlexDiv>
-                  )
-                }
-                <FlexDiv className="text-content" $direction="column" $gap="4px">
-                  <P $fontSize={task.titleSize || "24px"}>{task.title}</P>
+              <Image
+                src={Img.Lock}
+                alt={t("earn.lockAlt")}
+                width={30}
+                height={30}
+              />
+            </div>
+          ) : (
+            <FlexDiv
+              key={task.title}
+              $gap="16px"
+              $padding="16px"
+              $border="1px solid #FFFFFF1A"
+              $radius="16px"
+              $align="center"
+              $height="95px"
+              className={`task`}
+              onClick={() => chooseTask(task, socialTasks)}
+            >
+              {task.logo && (
+                <FlexDiv
+                  $width="60px"
+                  $height="60px"
+                  $background={task.logo?.color || "transparent"}
+                  $radius="8px"
+                  $justify="center"
+                  $align="center"
+                >
+                  {task.logo.uri && (
+                    <Image
+                      src={task.logo.uri}
+                      alt={t("earn.taskLogoAlt")}
+                      width={task.logo.color ? 28 : 48}
+                      height={task.logo.color ? 28 : 48}
+                      style={{ borderRadius: "8px" }}
+                    />
+                  )}
                 </FlexDiv>
-                {
-                  task.completed ? (
-                    <Image src={Img.TaskCheck} alt="Proceed" width={24} height={24} />
-                  ) : (
-                    <Image src={Img.RightArrowImg} alt="Proceed" width={28} height={28} />
-                  )
-                }
+              )}
+              <FlexDiv className="text-content" $direction="column" $gap="4px">
+                <P $fontSize={task.titleSize || "24px"}>{t(`earn.${task.title}`)}</P>
               </FlexDiv>
-            )
-          ))}
-        </FlexDiv>
+              {task.completed ? (
+                <Image
+                  src={Img.TaskCheck}
+                  alt={t("earn.completedAlt")}
+                  width={24}
+                  height={24}
+                />
+              ) : (
+                <Image
+                  src={Img.RightArrowImg}
+                  alt={t("earn.proceed")}
+                  width={28}
+                  height={28}
+                />
+              )}
+            </FlexDiv>
+          )
+        ))}
+      </FlexDiv>
+
 
         {/* Video Tasks */}
         <FlexDiv $direction="column" key={videoTasks.title} $gap="12px" className="task-category">
@@ -552,10 +688,10 @@ export default function Earn() {
             task.comingSoon ? (
               <div key={task.title} style={{ position: 'relative', width: '100%', height: '104px', cursor: 'not-allowed', display: 'flex', border: '1px solid #535254', alignItems: 'center', borderRadius: '16px', backgroundColor: '#262527', justifyContent: 'space-between', padding: '16px' }}>
                 <div style={{ display: 'flex', justifyContent: 'flex-start', gap: '14px' }}>
-                  <Image src={task?.logo?.uri || ''} alt="Coming Soon" width={50} height={50} />
+                  <Image src={task?.logo?.uri || ''} alt={t("earn.comingSoon")} width={50} height={50} />
                   <div>
                     <p style={{ color: '#ADAAAD', fontSize: task.titleSize || '24px', lineHeight: '28px' }}>{task.title}</p>
-                    <p style={{ color: '#ADAAAD', fontSize: '12px', lineHeight: '20px' }}>Coming soon</p>
+                    <p style={{ color: '#ADAAAD', fontSize: '12px', lineHeight: '20px' }}>{t("earn.comingSoon")}</p>
                   </div>
                 </div>
                 <Image src={Img.Lock} alt='lock' width={30} height={30} />
@@ -576,9 +712,9 @@ export default function Earn() {
                 </FlexDiv>
                 {
                   task.completed ? (
-                    <Image src={Img.TaskCheck} alt="Proceed" width={24} height={24} />
+                    <Image src={Img.TaskCheck} alt={t("earn.proceed")} width={24} height={24} />
                   ) : (
-                    <Image src={Img.RightArrowImg} alt="Proceed" width={28} height={28} />
+                    <Image src={Img.RightArrowImg} alt={t("earn.proceed")} width={28} height={28} />
                   )
                 }
               </FlexDiv>
@@ -594,7 +730,7 @@ export default function Earn() {
                 {group.icon && <Image alt={group.title} width={24} height={24} src={group.icon} />}
                 <P $fontSize="24px">{group.title}</P>
               </FlexDiv>
-              {group.tasks.filter((task) => task.active).length > 1 && <P $fontSize="14px">Complete all tasks and receive {group.reward} {group.rewardAsset}</P>}
+              {group.tasks.filter((task) => task.active).length > 1 && <P $fontSize="14px">{t("earn.completeTasks")} {group.reward} {group.rewardAsset}</P>}
             </FlexDiv>
 
             {
@@ -655,8 +791,8 @@ export default function Earn() {
                     <FlexDiv $padding="10px 16px" $background="#79F8FF26" className="check" $width="100%" $radius="999px" $align="center" $gap="12px">
                       <Image src={Img.TaskCheck} alt="Proceed" width={24} height={24} />
                       <FlexDiv $direction="column" $gap="2px">
-                        <P $color="#79F8FF" >Task completed!</P>
-                        <P>Check your rewards in the Earn Page</P>
+                        <P $color="#79F8FF" >{t("earn.taskCompleted")}</P>
+                        <P>{t("earn.checkRewards")}</P>
                       </FlexDiv>
                     </FlexDiv>
                   ) : (chosenTask?.referral || chosenTask?.type === 'social') && (
@@ -673,10 +809,10 @@ export default function Earn() {
                           </FlexDiv>
                         </Button>
 
-                        <label style={{ color: '#FFFFFF' }}>Enter your X username to confirm interaction tasks</label>
-                        <input style={{ color: '#FFFFFF', borderRadius: '16px', display: 'block', width: '100%', padding: '14px 16px', height: '56px', marginTop: '16px', backgroundColor: isLoading ? '#1B1B1D' : '#63636366', border: 'none', fontSize: '16px' }} disabled={isLoading} className='import-input' value={userName.toLowerCase()} placeholder='Username without @' onChange={(e) => setUserName(e.target.value.toLowerCase())} />
+                        <label style={{ color: '#FFFFFF' }}>{t("earn.enterXUsername")}</label>
+                        <input style={{ color: '#FFFFFF', borderRadius: '16px', display: 'block', width: '100%', padding: '14px 16px', height: '56px', marginTop: '16px', backgroundColor: isLoading ? '#1B1B1D' : '#63636366', border: 'none', fontSize: '16px' }} disabled={isLoading} className='import-input' value={userName.toLowerCase()} placeholder={t("earn.xUsernamePlaceholder")} onChange={(e) => setUserName(e.target.value.toLowerCase())} />
 
-                        <button style={{ color: '#FFFFFF', padding: '16px 24px', borderRadius: '32px', width: '100%', marginTop: '16px', marginBottom: '16px', border: isLoading ? '1px solid #fff' : 'none', backgroundColor: isLoading ? '#363E59' : '#17181F' }} disabled={isLoading} onClick={() => checkTwitterAccount()}>{isLoading ? 'Confirming...' : 'Confirm username'}</button>
+                        <button style={{ color: '#FFFFFF', padding: '16px 24px', borderRadius: '32px', width: '100%', marginTop: '16px', marginBottom: '16px', border: isLoading ? '1px solid #fff' : 'none', backgroundColor: isLoading ? '#363E59' : '#17181F' }} disabled={isLoading} onClick={() => checkTwitterAccount()}>{isLoading ? t("earn.confirmingText") : t("earn.confirmUsername")}</button>
                       </div>
                     ) :
                       chosenTask.cta === 'Open Telegram' && chosenTask?.type === 'social' ? (
@@ -695,7 +831,7 @@ export default function Earn() {
                           <label style={{ color: '#FFFFFF' }}>Send a private message with /id to <a href='https://t.me/conetGameUserBot' target='_blank' rel='noreferrer' style={{ color: '#8DA8FF', textDecoration: 'underline' }}>conetGameUserBot</a>, to get your telegram id, then input it in the field.</label>
                           <input style={{ color: '#FFFFFF', borderRadius: '16px', display: 'block', width: '100%', padding: '14px 16px', height: '56px', marginTop: '40px', backgroundColor: isLoading ? '#1B1B1D' : '#63636366', border: 'none', fontSize: '16px' }} disabled={isLoading} className='import-input' value={telegramId} onChange={(e) => setTelegramId(e.target.value)} />
 
-                          <button style={{ color: '#FFFFFF', padding: '16px 24px', borderRadius: '32px', width: '100%', marginTop: '32px', border: isLoading ? '1px solid #fff' : 'none', backgroundColor: isLoading ? '#363E59' : '#17181F' }} disabled={isLoading} onClick={() => checkTelegramAccount()}>{isLoading ? 'Confirming...' : 'Confirm ID'}</button>
+                          <button style={{ color: '#FFFFFF', padding: '16px 24px', borderRadius: '32px', width: '100%', marginTop: '32px', border: isLoading ? '1px solid #fff' : 'none', backgroundColor: isLoading ? '#363E59' : '#17181F' }} disabled={isLoading} onClick={() => checkTelegramAccount()}>{isLoading ? t("earn.confirmingText") : t("earn.confirmId")}</button>
                         </div>
                       ) : chosenTask.cta === 'Open Instagram' && chosenTask?.type === 'social' ? (
                         <Button $width="100%" $radius="999px" $background="#17181F" $border="1px solid #04DAE8" disabled={chosenTask.claim && isTodayRewardTaken} onClick={checkInstagramAccount} $padding="18px">
@@ -705,7 +841,7 @@ export default function Earn() {
                                 <Image src={chosenTask.referral ? Img.CopyImg : Img.OpenExternal} alt="Open External" width={24} height={24} />
                               )
                             }
-                            <P>{chosenTask.referral ? "Copy Telegram Game Referral Link" : chosenTask.cta}</P>
+                            <P>{chosenTask.referral ? t("earn.telegramGameReferralLink") : chosenTask.cta}</P>
                           </FlexDiv>
                         </Button>
                       ) : chosenTask.cta === 'Open Youtube' && chosenTask?.type === 'social' ? (
@@ -716,7 +852,7 @@ export default function Earn() {
                                 <Image src={chosenTask.referral ? Img.CopyImg : Img.OpenExternal} alt="Open External" width={24} height={24} />
                               )
                             }
-                            <P>{chosenTask.referral ? "Copy Telegram Game Referral Link" : chosenTask.cta}</P>
+                            <P>{chosenTask.referral ? t("earn.telegramGameReferralLink") : chosenTask.cta}</P>
                           </FlexDiv>
                         </Button>) :
                         (
@@ -728,7 +864,7 @@ export default function Earn() {
                                     <Image src={chosenTask.referral ? Img.CopyImg : Img.OpenExternal} alt="Open External" width={24} height={24} />
                                   )
                                 }
-                                <P>{chosenTask.referral ? "Copy Telegram Game Referral Link" : chosenTask.cta}</P>
+                                <P>{chosenTask.referral ? t("earn.telegramGameReferralLink") : chosenTask.cta}</P>
                               </FlexDiv>
                             </Button>
 
@@ -736,7 +872,7 @@ export default function Earn() {
                               <Button $width="100%" $radius="999px" $background="#17181F" $border="1px solid #04DAE8" onClick={() => copyReferralLink(chosenTask.referral ? gameLink + profile?.keyID : "")} $padding="18px">
                                 <FlexDiv $align="center" $gap="8px">
                                   <Image src={Img.CopyImg} alt="Open External" width={24} height={24} />
-                                  <P>Copy Game Referral Link</P>
+                                  <P>{t("earn.copyReferralLink")}</P>
                                 </FlexDiv>
                               </Button>
                             }

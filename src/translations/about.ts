@@ -1,0 +1,43 @@
+export const aboutEn = {
+  "backButtonText": "About The CoNETian",
+  "welcomeTitle": "Welcome to The CoNETian!",
+  "intro": "The CoNETian isn't just a game – it's your gateway to joining the revolutionary CoNET ecosystem.",
+  "miningGame": "We've developed this mining mini-game on Telegram as an innovative way to let everyone participate in our decentralized network.",
+  "whyBuildGame": "Why did we build this game? We created The CoNETian to make it easy for anyone, anywhere in the world, to join our project.",
+  "participation": "By playing this game, you’re not just having fun – you’re actively participating in a decentralized future.",
+  "blockchainRewards": "The CoNETian uses Blockchain technology for rewards distribution, emphasizing our commitment to decentralization.",
+  "miningRewards": "As you play, you’ll start mining and earning $CNTP.",
+  "dailyRewards": "Every day, 200k $CNTP are up for grabs through spinning and other in-game activities.",
+  "biggerParticipation": "This isn’t just about rewards – it’s about giving you a chance to be part of something bigger.",
+  "futurePlans": "Soon, this game will allow players to mine in our DePIN network simply by sharing bandwidth, all while enjoying the gameplay.",
+  "nextSteps": "What’s Next? As we prepare to launch our main-net, The CoNETian will evolve, allowing users to contribute to and benefit from our decentralized infrastructure just by playing and sharing their bandwidth.",
+  "simpleSetup": "No complicated setups – just your mobile device and the game.",
+  "conetTitle": "About CoNET:",
+  "conetIntro": "CoNET is a DePIN project focused on Decentralization, Privacy, and Rewards. Our unique Layer Minus protocol replaces traditional IP addresses with wallet addresses, ensuring your online activities remain private and secure.",
+  "silentPass": "Additionally, we've launched Silent Pass, a fast and secure privacy tool, as part of our commitment to protecting your online presence. Join us in building the future of the internet – decentralized, secure, and rewarding.",
+  "welcomeConclusion": "Welcome to The CoNETian and the new era of online participation!",
+  "openPlatformButton": "Open Platform",
+  "mainMenuButton": "Main Menu"
+}
+
+export const aboutZh = {
+  "backButtonText": "关于 The CoNETian",
+  "welcomeTitle": "欢迎来到 The CoNETian！",
+  "intro": "The CoNETian 不仅仅是一个游戏——它是您加入革命性 CoNET 生态系统的入口。",
+  "miningGame": "我们在 Telegram 上开发了这款挖矿小游戏，为所有人参与我们的去中心化网络提供了一种创新的方式。",
+  "whyBuildGame": "为什么我们要制作这款游戏？我们创建 The CoNETian 是为了让世界上任何地方的任何人都可以轻松加入我们的项目。",
+  "participation": "通过玩这个游戏，您不仅是在娱乐——您是在积极参与去中心化的未来。",
+  "blockchainRewards": "The CoNETian 使用区块链技术进行奖励分发，体现了我们对去中心化的承诺。",
+  "miningRewards": "在游戏中，您将开始挖矿并赚取 $CNTP。",
+  "dailyRewards": "每天，通过转盘和其他游戏内活动可以争夺 200k $CNTP。",
+  "biggerParticipation": "这不仅仅是关于奖励——这是关于让您有机会参与更大的事业。",
+  "futurePlans": "很快，这款游戏将允许玩家通过共享带宽在我们的 DePIN 网络中挖矿，同时享受游戏的乐趣。",
+  "nextSteps": "下一步是什么？在我们准备启动主网时，The CoNETian 将不断发展，允许用户通过玩游戏和共享带宽，为我们的去中心化基础设施做出贡献并从中受益。",
+  "simpleSetup": "无需复杂设置——只需您的移动设备和游戏。",
+  "conetTitle": "关于 CoNET:",
+  "conetIntro": "CoNET 是一个专注于去中心化、隐私和奖励的 DePIN 项目。我们独特的 Layer Minus 协议用钱包地址替代传统的 IP 地址，确保您的在线活动保持私密和安全。",
+  "silentPass": "此外，我们推出了 Silent Pass，这是一款快速安全的隐私工具，体现了我们对保护您在线隐私的承诺。加入我们，共同建设互联网的未来——去中心化、安全且充满奖励。",
+  "welcomeConclusion": "欢迎加入 The CoNETian 和全新的在线参与时代！",
+  "openPlatformButton": "打开平台",
+  "mainMenuButton": "主菜单"
+};

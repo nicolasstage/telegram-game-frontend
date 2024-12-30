@@ -20,9 +20,9 @@ import { Img } from '@/utilitiy/images';
 import Skeleton from 'react-loading-skeleton';
 import { useAudioPlayer } from 'react-use-audio-player';
 import { RouletteSpin } from '@/shared/assets';
+import { useTranslation } from 'react-i18next';
 
 export default function Roulette() {
-
   // 1 - idle roulette
   // 2 - lost roulette
   // 3 - won roulette, show double page
@@ -40,6 +40,7 @@ export default function Roulette() {
 
   const { profile, audio, effectsVolume, spinningCounter, setSpinningCounter, spinningCounterInterval } = useGameContext();
 
+  const { t } = useTranslation();
 
   const { load, play, setVolume } = useAudioPlayer();
 
@@ -211,7 +212,7 @@ export default function Roulette() {
   return (
     <PageWrapper margin="12px 16px 140px 16px">
       <FlexDiv $align="center" $justify="space-between">
-        <BackButton text="Roulette" to="/shopping" />
+        <BackButton text={t("components.roulette.roulette")} to="/shopping" />
 
         {pageState <= 2 &&
           <FlexDiv $align="center" $gap="8px" $background="#262527" $padding="8px" $radius="8px">

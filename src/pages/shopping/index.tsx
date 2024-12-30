@@ -8,59 +8,57 @@ import Image from "next/image";
 import { Img } from "@/utilitiy/images";
 import { Button } from "@/components/button";
 import { useGameContext } from "@/utilitiy/providers/GameProvider";
-import { formatToken } from "@/utilitiy/functions";
 import Supplies from "@/components/supplies";
-
-const shoppingOptions = [
-  {
-    key: 1,
-    title: "Spin the Wheel",
-    caption: "Spin the Roulette and try to earn CNTP",
-    image: Img.RouletteIcon,
-    link: "/roulette",
-  },
-];
-
-const comingSoonOptions = [
-  {
-    key: 2,
-    image: Img.BoxBlurImg,
-    // image: Img.ConetiumBox,
-    title: "Open the Box",
-    caption: "Try your luck and receive special perks",
-    link: "/box",
-  },
-  {
-    key: 3,
-    image: Img.SkinStoreBlurImg,
-    // image: Img.SkinStoreImg,
-    title: "Skin Store",
-    caption: "Fly through the CoNETian galaxy in style",
-    link: "/skinstore",
-  },
-  {
-    key: 4,
-    image: Img.ItemsBlurImg,
-    // image: Img.RandomItemImg,
-    title: "On Game Items",
-    caption: "Customize your gameplay",
-    link: "/gameitem",
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function Shopping() {
   const { setRouter } = useGameContext();
 
+  const { t } = useTranslation();
+
+  const shoppingOptions = [
+    {
+      key: 1,
+      title: t("shopping.spinWheel"),
+      caption: t("shopping.spinCaption"),
+      image: Img.RouletteIcon,
+      link: "/roulette",
+    },
+  ];
+
+  const comingSoonOptions = [
+    {
+      key: 2,
+      image: Img.BoxBlurImg,
+      title: t("shopping.openBox"),
+      caption: t("shopping.boxCaption"),
+      link: "/box",
+    },
+    {
+      key: 3,
+      image: Img.SkinStoreBlurImg,
+      title: t("shopping.skinStore"),
+      caption: t("shopping.skinStoreCaption"),
+      link: "/skinstore",
+    },
+    {
+      key: 4,
+      image: Img.ItemsBlurImg,
+      title: t("shopping.gameItems"),
+      caption: t("shopping.gameItemsCaption"),
+      link: "/gameitem",
+    },
+  ];
+
   return (
     <PageWrapper margin="12px 16px 140px 16px">
-      <BackButton text="Shop" />
+      <BackButton text={t("shopping.shop")} />
       <Supplies />
       <div className="split"></div>
       <FlexDiv $direction="column" $gap="12px">
-        <P $fontSize="24px">Storage and lounge</P>
+        <P $fontSize="24px">{t("shopping.storageLounge")}</P>
         <P $color="#C8C6C8" className="text-max-width">
-          Use your supplies to unlock different items or rest in the lounge and
-          try to earn CNTP
+          {t("shopping.storageCaption")}
         </P>
       </FlexDiv>
       <FlexDiv $direction="column" $gap="16px">
@@ -92,7 +90,7 @@ export default function Shopping() {
               </FlexDiv>
               <Image
                 src={Img.RightArrowImg}
-                alt="Arrow"
+                alt={t("shopping.arrow")}
                 width={32}
                 height={32}
               />
@@ -125,7 +123,7 @@ export default function Shopping() {
             >
               <Image
                 src={option.image}
-                alt="Coming Soon"
+                alt={t("shopping.comingSoon")}
                 width={50}
                 height={50}
               />
@@ -146,11 +144,11 @@ export default function Shopping() {
                     lineHeight: "20px",
                   }}
                 >
-                  Coming soon
+                  {t("shopping.comingSoonText")}
                 </p>
               </div>
             </div>
-            <Image src={Img.Lock} alt="lock" width={30} height={30} />
+            <Image src={Img.Lock} alt={t("shopping.lock")} width={30} height={30} />
           </div>
         ))}
       </FlexDiv>

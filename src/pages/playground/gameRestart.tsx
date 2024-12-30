@@ -6,6 +6,7 @@ import { Button, GradientButton, GradientImage } from "@/components/button";
 import Image from "next/image";
 import { useGameContext } from "@/utilitiy/providers/GameProvider";
 import { formatToken } from "@/utilitiy/functions";
+import { useTranslation } from 'react-i18next';
 
 const S = {
   GameRestartDiv: styled(FlexDiv)`
@@ -33,6 +34,8 @@ type Props = {
 const GameRestart: React.FC<Props> = ({ restart, score, highScore }) => {
   const { profile, setRouter } = useGameContext();
 
+  const { t } = useTranslation();
+
   return (
     <S.GameRestartDiv
       $direction="column"
@@ -46,24 +49,26 @@ const GameRestart: React.FC<Props> = ({ restart, score, highScore }) => {
     >
       <Div></Div>
       <FlexDiv $direction="column" $align="center" $gap="5px">
-        <P $fontSize="32px">Current Score</P>
+        <P $fontSize="32px">{t("components.game.currentScore")}</P>
         <P $fontSize="32px">{score}</P>
-        <P $fontSize="32px">Highest Score</P>
+        <P $fontSize="32px">{t("components.game.highestScore")}</P>
         <P $fontSize="32px">{highScore}</P>
-        {profile?.tokens?.cCNTP?.balance &&
+        {profile?.tokens?.cCNTP?.balance && (
           <>
-            <P $fontSize="32px">CNTP Balance</P>
+            <P $fontSize="32px">{t("components.game.cntpBalance")}</P>
             <P $fontSize="32px">{formatToken(profile?.tokens?.cCNTP?.balance)}</P>
           </>
-        }
+        )}
       </FlexDiv>
       <FlexDiv $direction="column" $margin="0 0 30px 0" $gap="20px">
         <S.GradientImage>
           <GradientButton width="160px" onClick={() => restart()}>
-            Restart
+            {t("components.game.restartButton")}
           </GradientButton>
         </S.GradientImage>
-        <S.MainMenu onClick={() => setRouter?.("/")}>Main Menu</S.MainMenu>
+        <S.MainMenu onClick={() => setRouter?.("/")}>
+          {t("components.game.mainMenuButton")}
+        </S.MainMenu>
       </FlexDiv>
     </S.GameRestartDiv>
   );

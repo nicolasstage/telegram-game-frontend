@@ -4,9 +4,12 @@ import { Img } from "@/utilitiy/images";
 import { Button } from "../button";
 import { P } from "../p";
 import { useGameContext } from "@/utilitiy/providers/GameProvider";
+import { useTranslation } from 'react-i18next';
 
 const Menu = () => {
   const { router, setRouter } = useGameContext();
+
+  const { t } = useTranslation();
 
   return (
     <FlexDiv $position="fixed" $width="100%" $bottom="8px" $justify="center" $index="10">
@@ -26,7 +29,7 @@ const Menu = () => {
               src={router === "/" ? Img.ActiveHomeImg : Img.HomeImg}
               alt="home image"
             />
-            <P $color={router === "/" ? "#79F8FF" : "white"}>Home</P>
+            <P $color={router === "/" ? "#79F8FF" : "white"}>{t("components.menu.home")}</P>
           </FlexDiv>
         </Button>
         <Button onClick={() => setRouter?.("/wallet")}>
@@ -37,7 +40,7 @@ const Menu = () => {
               src={router === "/wallet" ? Img.ActiveWalletImg : Img.WalletImg}
               alt="wallet image"
             />
-            <P $color={router === "/wallet" ? "#C4A6EA" : "white"} >My Wallet</P>
+            <P $color={router === "/wallet" ? "#C4A6EA" : "white"} >{t("components.menu.wallet")}</P>
           </FlexDiv>
         </Button>
         <Button onClick={() => setRouter?.("/earn")}>
@@ -48,7 +51,7 @@ const Menu = () => {
               src={router === "/earn" ? Img.ActiveEarnImg : Img.EarnImg}
               alt="round image"
             />
-            <P $color={router === "/earn" ? "#6AE092" : "white"}>Earn</P>
+            <P $color={router === "/earn" ? "#6AE092" : "white"}>{t("components.menu.earn")}</P>
           </FlexDiv>
         </Button>
         <Button onClick={() => setRouter?.("/settings")}>
@@ -59,7 +62,7 @@ const Menu = () => {
               src={router === "/settings" || router === "/about" ? Img.ActiveSettingImg : Img.SettingImg}
               alt="settings image"
             />
-            <P $color={router === "/settings" || router === "/about" ? "#E39DFF" : "white"}>Settings</P>
+            <P $color={router === "/settings" || router === "/about" ? "#E39DFF" : "white"}>{t("components.menu.home")}</P>
           </FlexDiv>
         </Button>
       </FlexDiv>

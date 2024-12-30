@@ -13,6 +13,7 @@ import SpinButton from './page-components/spinButton';
 import { fetchUnlockTicket } from '@/API/getData';
 import { toast } from 'react-hot-toast';
 import { MemoizedWheel } from '../../components/spinningWheel';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   pageState: 1 | 2 | 3 | 4 | 5;
@@ -30,6 +31,7 @@ const pointerProperties: PointerProps = {
 
 export default function PageState1({ pageState, isSpinning, handleSpin, mustSpin, setMustSpin, prizeNumber, currentTicketAmount }: Props) {
 
+  const { t } = useTranslation();
   const { profile, spinningCounter } = useGameContext();
   const [isUnlockingTicket, setIsUnlockingTicket] = useState<boolean>(false);
 
@@ -58,19 +60,17 @@ export default function PageState1({ pageState, isSpinning, handleSpin, mustSpin
   return (
     <FlexDiv $direction="column" $align="center" $margin="40px 0 0 0" $gap="40px">
       <div style={{ maxWidth: "325px" }}>
-        {pageState === 1 ?
-          <P className="white-text-shadow" $fontSize="24px" $align="center">Spin the wheel for a chance to win extra CNTP</P>
-          :
+        {pageState === 1 ? (
+          <P className="white-text-shadow" $fontSize="24px" $align="center">{t("components.roulette.ps1.spinMessage")}</P>
+        ) : (
           <>
-            <P className="white-text-shadow" $fontSize="24px" $align="center">You lose!</P>
-            <P className="white-text-shadow" $fontSize="24px" $align="center">Sorry, you didn&apos;t get any extra CNTP</P>
+            <P className="white-text-shadow" $fontSize="24px" $align="center">{t("components.roulette.ps1.youLose")}</P>
+            <P className="white-text-shadow" $fontSize="24px" $align="center">{t("components.roulette.ps1.noExtraCNTP")}</P>
           </>
-        }
+        )}
       </div>
       <div style={{ display: "flex", flexDirection: 'column', justifyContent: "center", alignItems: "center" }}>
-
         <img src={rouletteDesign.src} style={{ width: "85%", maxWidth: '483px', position: 'absolute', zIndex: 2 }} />
-
         <div style={{ flex: 1, position: "relative", zIndex: 1, transform: "rotate(43deg)" }}>
           <MemoizedWheel
             mustStartSpinning={mustSpin}
@@ -90,21 +90,19 @@ export default function PageState1({ pageState, isSpinning, handleSpin, mustSpin
       </div>
 
       <FlexDiv $direction="column" $gap="16px" $align='center' $justify='center'>
-
         <SpinButton spinningCounter={spinningCounter} ticketBalance={currentTicketAmount?.toString()} pageState={pageState} isTicketUnlocked={profile?.isTicketUnlocked} isSpinning={isSpinning} handleSpin={handleSpin} handleTicketUnlock={handleTicketUnlock} isUnlockingTicket={isUnlockingTicket} />
 
         <FlexDiv $align="center" $justify="center" $gap="8px">
           {currentTicketAmount === 0 && !mustSpin ? (
-            <P $fontSize="12px" $color='#FFDAD6' $align='center' $width='70%'>You don&apos;t have enough tickets to spin the roulette</P>
+            <P $fontSize="12px" $color='#FFDAD6' $align='center' $width='70%'>{t("components.roulette.ps1.notEnoughTickets")}</P>
           ) : (
             <>
               <Image src={Img.Tickets} alt="Ticket" width={20} height={20} />
-              <P $fontSize="12px">Use 1 ticket to Spin</P>
+              <P $fontSize="12px">{t("components.roulette.ps1.useTicketMessage")}</P>
             </>
           )}
         </FlexDiv>
       </FlexDiv>
-
-    </FlexDiv >
-  )
+    </FlexDiv>
+  );
 }

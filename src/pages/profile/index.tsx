@@ -16,8 +16,10 @@ import { Img } from "@/utilitiy/images";
 import { Button } from "@/components/button";
 import { saveGameProfileInfo } from "@/API";
 import toast from 'react-hot-toast';
+import { useTranslation } from "react-i18next";
 
 export default function Profile() {
+    const { t } = useTranslation();
     const { highScore } = useGameContext();
     const [username, setUsername] = useState<string>('')
     const [bio, setBio] = useState<string>('')
@@ -36,7 +38,7 @@ export default function Profile() {
         const newBio = e.target.value;
 
         if (newBio.length > 140) {
-            setError('* The number of characters exceeded the limit.');
+            setError(t("components.profile.error.characterLimitExceeded"));
         } else {
             setError('');
         }
@@ -49,27 +51,27 @@ export default function Profile() {
     };
 
     const handleSaveChanges = () => {
-        setIsEditing(false)
+        setIsEditing(false);
 
         saveGameProfileInfo(profile?.keyID, {
             nickname: username,
             bio: bio,
-        })
+        });
 
         setUsername(username);
         setBio(bio);
 
-        toast.success("Profile information changed successfully!", {
+        toast.success(t("components.profile.toast.profileSavedSuccessfully"), {
             position: "bottom-center",
-            duration: 2000
-        })
-    }
+            duration: 2000,
+        });
+    };
 
     return (
         <PageWrapper margin="12px 16px 140px 16px">
             <FlexDiv $direction="column" $gap="32px">
                 <FlexDiv $align="center" $justify="space-between">
-                    <BackButton text="My Profile" to="/" />
+                    <BackButton text={t("components.profile.backButton.myProfile")} to="/" />
 
                     {isEditing ? (
                         <Button
@@ -77,8 +79,9 @@ export default function Profile() {
                             $background="#363E59"
                             $padding="8px 32px"
                             $fontSize="16px"
-                            onClick={handleSaveChanges}>
-                            Save Changes
+                            onClick={handleSaveChanges}
+                        >
+                            {t("components.profile.button.saveChanges")}
                         </Button>
                     ) : (
                         <Button
@@ -92,21 +95,40 @@ export default function Profile() {
                                 width={16}
                                 height={16}
                                 src={Img.EditIcon}
-                                alt="edit image"
+                                alt={t("components.profile.alt.editIcon")}
                             />
                         </Button>
-                    )
-                    }
+                    )}
                 </FlexDiv>
 
                 <FlexDiv $justify="space-between" $align="flex-start" $width="100%">
-                    <Image src={conetAnonymousIcon} height={120} width={120} alt="profile-logo" />
+                    <Image
+                        src={conetAnonymousIcon}
+                        height={120}
+                        width={120}
+                        alt={t("components.profile.alt.profileLogo")}
+                    />
 
                     <FlexDiv $direction="column" $justify="space-between">
-                        <input placeholder="Anonymous User" disabled={!isEditing} value={username} onChange={handleUsernameChange} style={{ color: '#FFFFFF', backgroundColor: isEditing ? '#63636366' : 'transparent', border: '1px solid #FFFFFF1A', borderRadius: '16px', height: '56px', padding: '12px 14px', marginBottom: '28px' }} />
+                        <input
+                            placeholder={t("components.profile.placeholder.anonymousUser")}
+                            disabled={!isEditing}
+                            value={username}
+                            onChange={handleUsernameChange}
+                            style={{
+                                color: '#FFFFFF',
+                                backgroundColor: isEditing ? '#63636366' : 'transparent',
+                                border: '1px solid #FFFFFF1A',
+                                borderRadius: '16px',
+                                height: '56px',
+                                padding: '12px 14px',
+                                marginBottom: '28px',
+                            }}
+                        />
 
                         <FlexDiv>
-                            <FlexDiv $direction="column"
+                            <FlexDiv
+                                $direction="column"
                                 $padding="0 12px"
                                 style={{
                                     borderRight: '1px solid',
@@ -115,13 +137,17 @@ export default function Profile() {
                                     borderWidth: '0 1px 0 0',
                                 }}
                             >
-                                <P $color="#929092" $fontSize="12px" style={{ lineHeight: '28px' }}>Highest Score</P>
+                                <P $color="#929092" $fontSize="12px" style={{ lineHeight: '28px' }}>
+                                    {t("components.profile.profile.highestScore")}
+                                </P>
 
                                 <P $fontSize="20px">{highScore}</P>
                             </FlexDiv>
 
                             <FlexDiv $direction="column" $padding="0 16px">
-                                <P $color="#929092" $fontSize="12px" style={{ lineHeight: '28px' }}>World Ranking</P>
+                                <P $color="#929092" $fontSize="12px" style={{ lineHeight: '28px' }}>
+                                    {t("components.profile.profile.worldRanking")}
+                                </P>
                                 <P $fontSize="20px">&infin;</P>
                             </FlexDiv>
                         </FlexDiv>
@@ -129,11 +155,13 @@ export default function Profile() {
                 </FlexDiv>
 
                 <FlexDiv $direction="column">
-                    <P $fontSize="24px" style={{ marginBottom: '16px', lineHeight: '32px', letterSpacing: '0.1px' }}>My Bio</P>
+                    <P $fontSize="24px" style={{ marginBottom: '16px', lineHeight: '32px', letterSpacing: '0.1px' }}>
+                        {t("components.profile.profile.myBio")}
+                    </P>
 
                     <textarea
                         disabled={!isEditing}
-                        placeholder="Add a bio to share a little bit about yourself."
+                        placeholder={t("components.profile.placeholder.bioPlaceholder")}
                         value={bio}
                         onChange={handleBioChange}
                         style={{
@@ -150,12 +178,16 @@ export default function Profile() {
                         }}
                     />
 
-                    {error && <P $color="#FFDAD6" $fontSize="10px" style={{ lineHeight: '12px' }}>{error}</P>}
+                    {error && (
+                        <P $color="#FFDAD6" $fontSize="10px" style={{ lineHeight: '12px' }}>
+                            {error}
+                        </P>
+                    )}
                 </FlexDiv>
 
                 <FlexDiv $direction="column" $gap="16px">
                     <P $fontSize="24px" style={{ lineHeight: '32px', letterSpacing: '0.1px' }}>
-                        My Achievements
+                        {t("components.profile.profile.myAchievements")}
                     </P>
 
                     {profile ? (
@@ -164,12 +196,14 @@ export default function Profile() {
                                 {formatToken(profile?.tokens?.cCNTP?.balance)}
                             </P>
                             <P $fontSize="12px" style={{ lineHeight: '16px' }}>
-                                CNTP EARNED
+                                {t("components.profile.profile.cntpEarned")}
                             </P>
                         </FlexDiv>
-                    ) : (<Skeleton width={200} />)}
+                    ) : (
+                        <Skeleton width={200} />
+                    )}
                 </FlexDiv>
             </FlexDiv>
         </PageWrapper>
-    )
+    );
 }

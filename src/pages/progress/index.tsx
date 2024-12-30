@@ -9,9 +9,12 @@ import { useEffect } from "react";
 import { useGameContext } from "@/utilitiy/providers/GameProvider";
 import Loading from "@/components/loading";
 import { fetchTransferNft, fetchTransferToken } from "@/API/getData";
+import { useTranslation } from "react-i18next";
 
 const ConfirmProgress = () => {
+  const { t } = useTranslation();
   const { setRouter, profile, transferTokenDetails } = useGameContext();
+
   useEffect(() => {
     const transferToken = async () => {
       const response =
@@ -37,7 +40,7 @@ const ConfirmProgress = () => {
           Number(transferTokenDetails?.amount),
           profile?.keyID,
           transferTokenDetails?.assetName,
-          transferTokenDetails?.toAddress,
+          transferTokenDetails?.toAddress
         ));
 
       if (response) {
@@ -45,10 +48,9 @@ const ConfirmProgress = () => {
       }
     };
 
-    if (transferTokenDetails?.assetName.toLowerCase() === 'ccntp') {
+    if (transferTokenDetails?.assetName.toLowerCase() === "ccntp") {
       transferToken();
-    }
-    else if (transferTokenDetails?.assetName.toLowerCase() === 'ticket') {
+    } else if (transferTokenDetails?.assetName.toLowerCase() === "ticket") {
       transferNft();
     }
   }, []);
@@ -56,10 +58,9 @@ const ConfirmProgress = () => {
   return (
     <PageWrapper>
       <Div $padding="0 10px">
-        <P $fontSize="24px">Transaction in progress</P>
+        <P $fontSize="24px">{t("components.progress.transactionInProgress")}</P>
         <P $fontSize="14px" $color="#CACACC" $width="321px" $weight="400">
-          Your order completion time may vary, please wait and we’ll let you
-          know when it’s completed.
+          {t("components.progress.transactionDescription")}
         </P>
       </Div>
 
@@ -67,7 +68,7 @@ const ConfirmProgress = () => {
 
       <FlexDiv $justify="center">
         <P $fontSize="14px" $align="center" $width="178px">
-          Please wait, this may take a few seconds.
+          {t("components.progress.pleaseWait")}
         </P>
       </FlexDiv>
       <FlexDiv
@@ -88,16 +89,21 @@ const ConfirmProgress = () => {
               src={Img.ProgressImg}
               width={21}
               height={20}
-              alt=""
+              alt={t("components.progress.progressImageAlt")}
               className="progress"
             />
-            <P>Processing</P>
+            <P>{t("components.progress.processing")}</P>
           </FlexDiv>
         </Button>
         <FlexDiv $justify="center" $align="center" $gap="5px">
-          <Image src={Img.SecureImg} width={11} height={14} alt="" />
+          <Image
+            src={Img.SecureImg}
+            width={11}
+            height={14}
+            alt={t("components.progress.secureImageAlt")}
+          />
           <P $fontSize="11px" $color="#FFFFFF">
-            Secure payment
+            {t("components.progress.securePayment")}
           </P>
         </FlexDiv>
       </FlexDiv>

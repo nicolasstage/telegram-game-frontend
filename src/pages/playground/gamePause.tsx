@@ -6,6 +6,7 @@ import { Button } from "@/components/button";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Delay from "./delay";
+import { useTranslation } from 'react-i18next';
 
 const S = {
   GamePauseDiv: styled(FlexDiv)`
@@ -34,6 +35,8 @@ const GamePause: React.FC<Props> = ({ resume, zindex }) => {
     }
   }, [delay, number]);
 
+  const { t } = useTranslation();
+
   return (
     <>
       <S.GamePauseDiv
@@ -48,7 +51,7 @@ const GamePause: React.FC<Props> = ({ resume, zindex }) => {
         $background="#000000b8"
         style={{ zIndex: zindex ? "10" : "-10" }}
       >
-        <P $fontSize="32px">Game Paused</P>
+        <P $fontSize="32px">{t("components.game.gamePaused")}</P>
         <Button
           id="game-resume"
           onClick={() => {

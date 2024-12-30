@@ -11,6 +11,7 @@ import { formatToken } from "@/utilitiy/functions";
 import PageWrapper from "@/components/pageWrapper";
 import { capitalizeFirstLetter } from "@/shared/functions";
 import { DEFAULT_EFFECTS_VOLUME, DEFAULT_MUSIC_VOLUME } from "@/shared/constants";
+import { useTranslation } from 'react-i18next';
 
 const floatAnimation = keyframes`
 	0% {
@@ -72,6 +73,8 @@ export default function Home() {
     audio,
   } = useGameContext();
 
+  const { t } = useTranslation();
+
   function handleOpenPlatform() {
     window.open("https://platform.conet.network", "_blank");
   }
@@ -104,12 +107,11 @@ export default function Home() {
           $radius="50%"
           onClick={() => {
             if (audio) {
-              setEffectsVolume?.(0)
-              setMusicVolume?.(0)
-            }
-            else {
-              setEffectsVolume?.(DEFAULT_EFFECTS_VOLUME)
-              setMusicVolume?.(DEFAULT_MUSIC_VOLUME)
+              setEffectsVolume?.(0);
+              setMusicVolume?.(0);
+            } else {
+              setEffectsVolume?.(DEFAULT_EFFECTS_VOLUME);
+              setMusicVolume?.(DEFAULT_MUSIC_VOLUME);
             }
 
             setAudio?.((prev: any) => !prev);
@@ -139,7 +141,7 @@ export default function Home() {
               src={Img.UserGroupImg}
               alt="user group image"
             />
-            Leaderboard
+            {t("home.leaderboard")}
           </FlexDiv>
         </GradientButton>
 
@@ -152,7 +154,7 @@ export default function Home() {
         >
           <FlexDiv $align="center" $gap="8px">
             <Image width={24} height={24} src={Img.Shop} alt="shop page" />
-            Shop
+            {t("home.shop")}
           </FlexDiv>
         </GradientButton>
       </FlexDiv>
@@ -160,10 +162,10 @@ export default function Home() {
       <FlexDiv $justify="space-between" $align="center">
         <FlexDiv $direction="column" $gap="4px">
           <P $fontSize="2.4vh" $color="#F6F1F2">
-            The CoNETian
+            {t("home.theCoNETian")}
           </P>
           <P $fontSize="1.4vh" style={{ margin: "0 0 0 6px" }}>
-            {capitalizeFirstLetter(difficulty || "")} Mode
+            {t("home.mode", { difficulty: capitalizeFirstLetter(difficulty || "") })}
           </P>
         </FlexDiv>
         <FlexDiv
@@ -174,7 +176,7 @@ export default function Home() {
           $justify="space-between"
           $align="center"
         >
-          <P $fontSize="1.8vh">Highest Score</P>
+          <P $fontSize="1.8vh">{t("home.highestScore")}</P>
           <GradientP $first="#79F8FF" $second="#499599" $fontSize="2.2vh">
             {highScore}
           </GradientP>
@@ -187,12 +189,12 @@ export default function Home() {
               width={269}
               height={269}
               src={Img.BackgroundAstronaut}
-              alt="play image"
+              alt={t("home.playButtonAlt")}
             />
             <Image
               fill
               src={Img.Astronaut}
-              alt="play image"
+              alt={t("home.astronautAlt")}
             />
           </S.PlayButton>
         </Button>
@@ -205,7 +207,7 @@ export default function Home() {
           $gap="1vh"
         >
           <FlexDiv $direction="column" $align="center" $gap="4px">
-            <P $fontSize="10px">CNTP earned</P>
+            <P $fontSize="10px">{t("home.cntpEarned")}</P>
             <P $fontSize="2.2vh">
               {profile ? (
                 formatToken(profile?.tokens?.cCNTP?.balance)
@@ -222,7 +224,7 @@ export default function Home() {
               <>
                 <Image
                   src={Img.Tickets}
-                  alt="Tickets"
+                  alt={t("home.tickets")}
                   width={38}
                   height={28.85}
                 />
@@ -236,7 +238,7 @@ export default function Home() {
 
         <FlexDiv $justify="center">
           <GradientButton onClick={handleOpenPlatform} cursor="pointer">
-            Open Platform
+            {t("home.openPlatform")}
           </GradientButton>
         </FlexDiv>
       </FlexDiv>

@@ -4,6 +4,7 @@ import { P } from '@/components/p';
 import { Img } from '@/utilitiy/images';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   pageState: 1 | 2 | 3 | 4 | 5;
@@ -26,6 +27,8 @@ const ImageScheme: Record<ImageStateType, any> = {
 
 export default function PageState2({ pageState, doubleImageState, prizeNumber, handleDouble, backToRoulette, spinningCounter, doubleFinished, doubleRunning }: Props) {
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (spinningCounter === 0) {
       backToRoulette();
@@ -39,21 +42,20 @@ export default function PageState2({ pageState, doubleImageState, prizeNumber, h
           {
             doubleFinished ? (
               pageState === 4 ? (
-                <P $fontSize="24px" $align="center">Sorry, you didn&apos;t get any extra CNTP</P>
+                <P $fontSize="24px" $align="center">{t("components.roulette.ps2.lost")}</P>
               ) : (
                 <>
-                  <P $fontSize="24px" className="white-text-shadow">You won!</P>
-                  <P $fontSize="32px" className="white-text-shadow">{prizeNumber || 0} extra CNTP!</P>
+                  <P $fontSize="24px" className="white-text-shadow">{t("components.roulette.ps2.youWon")}</P>
+                  <P $fontSize="32px" className="white-text-shadow">{prizeNumber || 0} {t("components.roulette.ps2.extraCNTP")}</P>
                 </>
               )
             ) : (
               doubleRunning ? (
-                <>
-                </>
+                <></>
               ) : (
                 <>
-                  <P $fontSize="24px" $align="center" className="white-text-shadow">Try to Double your current Prize!</P>
-                  <P $fontSize="18px" $align="center">You won {prizeNumber || 0} CNTP!</P>
+                  <P $fontSize="24px" $align="center" className="white-text-shadow">{t("components.roulette.ps2.tryDouble")}</P>
+                  <P $fontSize="18px" $align="center">{t("components.roulette.ps2.youWonAmount", { amount: prizeNumber || 0 })}</P>
                 </>
               )
             )
@@ -62,10 +64,10 @@ export default function PageState2({ pageState, doubleImageState, prizeNumber, h
 
         <FlexDiv $gap="20px" $width="100%" $height="400px">
           <FlexDiv $position="relative" style={{ flex: 1 }} $justify="center" $align="center">
-            <Image src={ImageScheme?.[doubleImageState]?.[0]} alt="Win" fill style={{ objectFit: "contain" }} />
+            <Image src={ImageScheme?.[doubleImageState]?.[0]} alt={t("components.roulette.ps2.win")} fill style={{ objectFit: "contain" }} />
           </FlexDiv>
           <FlexDiv $position="relative" style={{ flex: 1 }} $justify="center" $align="center">
-            <Image src={ImageScheme?.[doubleImageState]?.[1]} alt="Lose" fill style={{ objectFit: "contain" }} />
+            <Image src={ImageScheme?.[doubleImageState]?.[1]} alt={t("components.roulette.ps2.lose")} fill style={{ objectFit: "contain" }} />
           </FlexDiv>
         </FlexDiv>
 
@@ -81,7 +83,7 @@ export default function PageState2({ pageState, doubleImageState, prizeNumber, h
           pageState !== 4 && (
             <div className="highlight-button-wrapper">
               <Button $background="#111113" $width="196px" $height="45px" $radius="8px" onClick={handleDouble}>
-                Try to double
+                {t("components.roulette.ps2.tryToDouble")}
               </Button>
             </div>
           )

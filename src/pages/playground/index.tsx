@@ -10,6 +10,7 @@ import GamePause from "./gamePause";
 import GameRestart from "./gameRestart";
 import dynamic from "next/dynamic";
 import { DEFAULT_EFFECTS_VOLUME, DEFAULT_MUSIC_VOLUME } from "@/shared/constants";
+import { useTranslation } from 'react-i18next';
 
 const Game = dynamic<any>(() =>
   import("../game").then((mod) => mod.default),
@@ -21,6 +22,8 @@ const Playground = () => {
   const [pause, setPause] = useState<boolean>(false);
   const [restart, setRestart] = useState<Boolean>(false);
   const [score, setScore] = useState<number>(0);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (restart) {
@@ -122,8 +125,8 @@ const Playground = () => {
                 </Button>
               </FlexDiv>
               <FlexDiv $direction="column" $align="flex-end" $gap="10px">
-                <P>Mining Rate: {mining && miningRate?.toFixed(10)}</P>
-                <P>Online Miners: {mining && onlineMiners}</P>
+                <P>{t("components.mining.rate")}: {mining && miningRate?.toFixed(10)}</P>
+                <P>{t("components.mining.online")}: {mining && onlineMiners}</P>
               </FlexDiv>
             </FlexDiv>
           </FlexDiv>

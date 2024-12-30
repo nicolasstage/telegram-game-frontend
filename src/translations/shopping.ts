@@ -1,0 +1,35 @@
+export const shoppingEn = {
+  "shop": "Shop",
+  "spinWheel": "Spin the Wheel",
+  "spinCaption": "Spin the Roulette and try to earn CNTP",
+  "openBox": "Open the Box",
+  "boxCaption": "Try your luck and receive special perks",
+  "skinStore": "Skin Store",
+  "skinStoreCaption": "Fly through the CoNETian galaxy in style",
+  "gameItems": "On Game Items",
+  "gameItemsCaption": "Customize your gameplay",
+  "storageLounge": "Storage and lounge",
+  "storageCaption": "Use your supplies to unlock different items or rest in the lounge and try to earn CNTP",
+  "arrow": "Arrow",
+  "comingSoon": "Coming Soon",
+  "comingSoonText": "Coming soon",
+  "lock": "lock",
+}
+
+export const shoppingZh = {
+  "shop": "商店",
+  "spinWheel": "旋转幸运轮",
+  "spinCaption": "旋转转盘并尝试赚取 CNTP",
+  "openBox": "开箱",
+  "boxCaption": "尝试运气并获得特殊奖励",
+  "skinStore": "皮肤商店",
+  "skinStoreCaption": "在 CoNETian 银河中飞行，尽显风采",
+  "gameItems": "游戏物品",
+  "gameItemsCaption": "自定义你的游戏体验",
+  "storageLounge": "储物与休息区",
+  "storageCaption": "使用你的物资解锁不同的物品，或者在休息区休息并尝试赚取 CNTP",
+  "arrow": "箭头",
+  "comingSoon": "敬请期待",
+  "comingSoonText": "即将上线",
+  "lock": "锁"
+}

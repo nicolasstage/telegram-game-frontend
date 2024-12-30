@@ -7,6 +7,7 @@ import { Img } from "@/utilitiy/images";
 import { useGameContext } from "@/utilitiy/providers/GameProvider";
 import { SkinImg } from "@/utilitiy/skinStoreImage";
 import Image from "next/image";
+import { useTranslation } from 'react-i18next';
 import styled from "styled-components";
 
 const S = {
@@ -18,11 +19,13 @@ const S = {
 
 const SkinConfirm = () => {
   const { buyItem, setRouter } = useGameContext();
+  const { t } = useTranslation();
+
   return (
     <PageWrapper margin="12px 16px 140px 16px">
-      <BackButton text="Confirm your order" />
+      <BackButton text={t("skin.confirm.backButton")} />
       <FlexDiv $direction="column" $gap="10px">
-        <P $fontSize="16px">Wallet</P>
+        <P $fontSize="16px">{t("skin.confirm.wallet")}</P>
         <FlexDiv
           $background="#262626"
           $radius="16px"
@@ -32,7 +35,7 @@ const SkinConfirm = () => {
         >
           <Image src={Img?.BioDefaultImg} width={24} height={24} alt="" />
           <FlexDiv $direction="column">
-            <P $fontSize="14px">Anonymous User</P>
+            <P $fontSize="14px">{t("skin.confirm.anonymousUser")}</P>
             <P $fontSize="12px" $color="#989899">
               0x412BA4...03AB46
             </P>
@@ -40,7 +43,7 @@ const SkinConfirm = () => {
         </FlexDiv>
       </FlexDiv>
       <FlexDiv $direction="column" $gap="10px">
-        <P $fontSize="16px">Sending</P>
+        <P $fontSize="16px">{t("skin.confirm.sending")}</P>
         <FlexDiv
           $background="#262626"
           $justify="space-between"
@@ -57,7 +60,7 @@ const SkinConfirm = () => {
         </FlexDiv>
       </FlexDiv>
       <FlexDiv $direction="column" $gap="10px">
-        <P $fontSize="16px">Receiving</P>
+        <P $fontSize="16px">{t("skin.confirm.receiving")}</P>
         <FlexDiv
           $background="#262626"
           $justify="space-between"
@@ -68,25 +71,25 @@ const SkinConfirm = () => {
         >
           <FlexDiv $gap="10px" $align="center">
             <Image src={buyItem?.Img} width={22} height={24} alt="" />
-            <P $fontSize="16px">Skin {buyItem?.title}</P>
+            <P $fontSize="16px">{t("skin.confirm.skin", { skinTitle: buyItem?.title })}</P>
           </FlexDiv>
           <P>1</P>
         </FlexDiv>
       </FlexDiv>
       <FlexDiv $direction="column" $gap="5px" $margin="0 0 50px 0">
         <FlexDiv $justify="space-between">
-          <P>Tax</P>
+          <P>{t("skin.confirm.tax")}</P>
           <FlexDiv $align="center" $gap="5px">
             <Image src={Img?.AlarmImg} width={16} height={16} alt="" />
             <P $fontSize="12px" $color="#CACACC">
-              Quote updates in 60s
+              {t("skin.confirm.quoteUpdates")}
             </P>
           </FlexDiv>
         </FlexDiv>
         <S.Split />
         <FlexDiv $justify="space-between">
           <P $fontSize="14px" $color="#989899">
-            Fee (3%)
+            {t("skin.confirm.fee")}
           </P>
           <P $fontSize="14px" $color="#989899">
             0.12345 $CNTP
@@ -94,7 +97,7 @@ const SkinConfirm = () => {
         </FlexDiv>
         <FlexDiv $justify="space-between">
           <P $fontSize="14px" $color="#989899">
-            Network cost
+            {t("skin.confirm.networkCost")}
           </P>
           <FlexDiv $align="center">
             <Image src={Img?.CarServiceImg} width={16} height={16} alt="" />
@@ -109,12 +112,12 @@ const SkinConfirm = () => {
           width="100%"
           onClick={() => setRouter?.("/confirmprogress")}
         >
-          Confirm payment
+          {t("skin.confirm.confirmPayment")}
         </GradientButton>
         <FlexDiv $justify="center" $align="center" $gap="5px">
           <Image src={Img?.SecureImg} width={11} height={14} alt="" />
           <P $fontSize="11px" $color="#FFFFFF">
-            Secure payment
+            {t("skin.confirm.securePayment")}
           </P>
         </FlexDiv>
       </FlexDiv>

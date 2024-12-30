@@ -5,6 +5,7 @@ import { P } from '../p';
 import Skeleton from 'react-loading-skeleton';
 import { firstLetterUpperCase, formatToken } from '@/utilitiy/functions';
 import { useGameContext } from '@/utilitiy/providers/GameProvider';
+import { useTranslation } from 'react-i18next';
 
 type Asset = 'cntp' | 'conet' | 'ticket';
 
@@ -17,6 +18,8 @@ interface Props {
 export default function CurrentBalance({ inline = false, asset = 'cntp', secondaryAsset }: Props) {
   const fontSize = inline ? 16 : 20;
   const { profile } = useGameContext();
+
+  const { t } = useTranslation();
 
   const getFormattedBalance = () => {
     if (asset === 'cntp')
@@ -51,7 +54,7 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
       {
         inline ? (
           <FlexDiv $gap="8px" $align="center">
-            <P $fontSize={`${fontSize}px`}>{firstLetterUpperCase(asset)} Balance: </P>
+            <P $fontSize={`${fontSize}px`}>{t("components.currentBalance.assetBalance", { asset: firstLetterUpperCase(asset) })}</P>
 
             <P $fontSize={`${fontSize + 4}px`}>
               {profile ? (
@@ -64,8 +67,8 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
         ) : (
           <>
             <FlexDiv $gap="8px" $align="center">
-              <Image src={Img.LogoImg} width={32} height={32} alt="Conet" />
-              <P $fontSize={`${fontSize}px`}>Current Balance</P>
+              <Image src={Img.LogoImg} width={32} height={32} alt={t("components.currentBalance.conetAltText")} />
+              <P $fontSize={`${fontSize}px`}>{t("components.currentBalance.currentBalance")}</P>
             </FlexDiv>
 
             <FlexDiv $gap="8px" $align="flex-start" $direction="column" $justify="flex-start">
@@ -77,13 +80,13 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
                     <Skeleton width={200} />
                   )}
                 </P>
-                <P>{asset.toUpperCase()}{getSingularOrPlural(asset)}</P>
+                <P>{t("components.currentBalance.assetLabel", { asset: asset.toUpperCase(), plural: getSingularOrPlural(asset) })}</P>
               </FlexDiv>
               {
                 secondaryAsset && (
                   <FlexDiv $align="center" $gap="6px">
                     <P $fontSize="12px">{getFormattedSecondaryBalance()}</P>
-                    <P $fontSize="12px">{secondaryAsset.toUpperCase()}</P>
+                    <P $fontSize="12px">{t("components.currentBalance.secondaryAssetLabel", { secondaryAsset: secondaryAsset.toUpperCase() })}</P>
                   </FlexDiv>
                 )
               }
