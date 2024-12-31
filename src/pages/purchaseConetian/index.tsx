@@ -80,6 +80,8 @@ const PurchaseConetian = () => {
     const _oracleAssets: { name: string, price: string }[] = oracleAssets.assets
     const foundAsset: any = findAsset(asset)
 
+    if (foundAsset.name === 'usdt') foundAsset.price = 1
+
     return (parseFloat(userBalance?.balance) >= parseFloat(((CONETIAN_PRICE / parseFloat(foundAsset.price)) * amount).toFixed(4)))
 
     function findAsset(asset: string): { name: string, price: string } | undefined {
@@ -112,13 +114,6 @@ const PurchaseConetian = () => {
     setIsAddressChecking(false);
   }, [agentWallet])
 
-
-  const handleAgentWalletChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    e.preventDefault();
-    setAgentWallet(e.target.value);
-  };
 
   const handleChangeNftAmount = (e: any) => {
     const value = Number(e.target.value)
@@ -218,10 +213,9 @@ const PurchaseConetian = () => {
       return;
     }
 
-    let agentToUse: string = agentWallet;
+    let agentToUse = new URLSearchParams(window.location.search).get("agent");
 
-    if (!isDebox)
-      agentToUse = DEBOX_AGENT_WALLET
+    if (!agentToUse) agentToUse = '';
 
     // set transfer token details for confirmation page
     setConetianPurchaseDetails?.({
@@ -240,7 +234,7 @@ const PurchaseConetian = () => {
       <BackButton text={t('purchaseConetian.backButton')} to="/" />
 
       {/* user information */}
-      <FlexDiv $gap="16px">
+      <FlexDiv $gap="16px" $padding="0 10px">
         <UserData />
         <Button
           $width="32px"
@@ -259,7 +253,7 @@ const PurchaseConetian = () => {
       </FlexDiv>
 
       {/* nft information */}
-      <FlexDiv $gap="24px" $direction="column" >
+      <FlexDiv $gap="24px" $direction="column" $padding="0 10px">
         <img src={Img.BuyConetianBanner} alt="buy conetian banner" style={{ width: "100%" }} />
 
         <FlexDiv $direction="column" $gap="16px">
@@ -289,7 +283,7 @@ const PurchaseConetian = () => {
       </FlexDiv>
 
       {/* title */}
-      <FlexDiv $justify="space-between" $align="center" $margin="18px 0 0 0">
+      <FlexDiv $justify="space-between" $align="center" $margin="18px 0 0 0" $padding="0 10px">
         <P $fontSize="24px">
           {t("purchaseConetian.title")}
         </P>
