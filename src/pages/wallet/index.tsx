@@ -206,7 +206,7 @@ export default function Wallet() {
           {profile?.referrer && (
             <FlexDiv $gap="8px" $align="center" $padding="0 0 0 24px">
               <P $fontSize="14px" $color="#C8C6C8">
-                {t("wallet.inviterLabel")}
+                {t("wallet.referrerLabel")}
               </P>
               <FlexDiv $gap="8px" $align="center">
                 <P $fontSize="12px">{slice(profile?.referrer)}</P>

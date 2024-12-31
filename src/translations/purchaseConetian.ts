@@ -187,7 +187,7 @@ export const purchaseConetianConfirmZh = {
   payingWith: "支付方式",
   wallet: "钱包",
   summary: "摘要",
-  quoteUpdates: "报价更新在 {quoteSecs}秒后",
+  quoteUpdates: "报价更新在",
   conetianNft: "CoNETian NFT",
   gasFee: "手续费",
   total: "总计",
