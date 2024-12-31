@@ -225,14 +225,9 @@ export function GameProvider({ children }: GameProps) {
     if (profile?.keyID && profile?.keyID !== walletAddress.current) {
       walletAddress.current = profile?.keyID;
 
-      const url = window.location.search;
+      let referrer = new URLSearchParams(window.location.search).get("referrer");
 
-      const splitUrl = url.split("referrer=");
-
-      if (splitUrl.length > 1) {
-        const referrer = splitUrl[1];
-        if (referrer) fetchRegisterReferrer(referrer);
-      }
+      if (referrer) fetchRegisterReferrer(referrer);
 
       init(profile?.keyID);
     }
