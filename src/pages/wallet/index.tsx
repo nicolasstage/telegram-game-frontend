@@ -203,7 +203,7 @@ export default function Wallet() {
               </FlexDiv>
             </FlexDiv>
           </FlexDiv>
-          {profile?.referrer && (
+          {/* {profile?.referrer && (
             <FlexDiv $gap="8px" $align="center" $padding="0 0 0 24px">
               <P $fontSize="14px" $color="#C8C6C8">
                 {t("wallet.referrerLabel")}
@@ -222,7 +222,7 @@ export default function Wallet() {
                 </Button>
               </FlexDiv>
             </FlexDiv>
-          )}
+          )} */}
         </FlexDiv>
         <FlexDiv $direction="column" $gap="18px">
           <FlexDiv $direction="column" $gap="8px">
