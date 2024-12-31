@@ -17,7 +17,7 @@ const SpinButton = ({ ticketBalance, spinningCounter, pageState, isTicketUnlocke
 
   if (isUnlockingTicket) {
     return (
-      <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
+      <Button $index={10} $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
         {t("components.spinButton.unlockingTicket")}
       </Button>
     );
@@ -25,7 +25,7 @@ const SpinButton = ({ ticketBalance, spinningCounter, pageState, isTicketUnlocke
 
   if (!isTicketUnlocked) {
     return (
-      <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" onClick={handleTicketUnlock}>
+      <Button $index={10} $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" onClick={handleTicketUnlock}>
         {t("components.spinButton.unlockTicketUse")}
       </Button>
     );
@@ -33,7 +33,7 @@ const SpinButton = ({ ticketBalance, spinningCounter, pageState, isTicketUnlocke
 
   if (ticketBalance === '0') {
     return (
-      <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
+      <Button $index={10} $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
         {pageState === 1 ? t("components.spinButton.spin") : t("components.spinButton.spinAgain")}
       </Button>
     );
@@ -41,7 +41,7 @@ const SpinButton = ({ ticketBalance, spinningCounter, pageState, isTicketUnlocke
 
   if (isSpinning) {
     return (
-      <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
+      <Button $index={10} $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
         {t("components.spinButton.spinning")}
       </Button>
     );
@@ -49,14 +49,14 @@ const SpinButton = ({ ticketBalance, spinningCounter, pageState, isTicketUnlocke
 
   if (spinningCounter && spinningCounter > 0) {
     return (
-      <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
+      <Button $index={10} $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" disabled $background={"gray"}>
         {t("components.spinButton.wait", { seconds: spinningCounter })}
       </Button>
     );
   }
 
   return (
-    <Button $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" onClick={handleSpin}>
+    <Button $index={10} $width="196px" $height="45px" $radius="8px" $border="1px solid #04DAE8" onClick={handleSpin}>
       {pageState === 1 ? t("components.spinButton.spin") : t("components.spinButton.spinAgain")}
     </Button>
   );
