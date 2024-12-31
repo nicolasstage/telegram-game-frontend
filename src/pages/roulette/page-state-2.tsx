@@ -55,7 +55,7 @@ export default function PageState2({ pageState, doubleImageState, prizeNumber, h
               ) : (
                 <>
                   <P $fontSize="24px" $align="center" className="white-text-shadow">{t("components.roulette.ps2.tryDouble")}</P>
-                  <P $fontSize="18px" $align="center">{t("components.roulette.ps2.youWonAmount", { amount: prizeNumber || 0 })}</P>
+                  <P $fontSize="18px" $align="center">{t("components.roulette.ps2.youWonAmount")} {prizeNumber || 0} CNTP!</P>
                 </>
               )
             )
