@@ -4,7 +4,7 @@ const startEn = {
   createWalletButton: "Create a New Wallet",
   importWalletTitle: "Import Another Wallet",
   importWalletDescription:
-    "Import a wallet from the CoNET platform into CoNETian for easier management and boosted benefits!",
+    "Import a wallet from the DeBox platform into CoNETian for easier management and boosted benefits!",
   importWalletPlaceholder: "Enter Private Key",
   importWalletButton: "Import Wallet",
   importWalletConfirmTitle: "Import Wallet",
@@ -22,7 +22,7 @@ const startZh = {
   createWalletButton: "创建一个新钱包",
   importWalletTitle: "导入其他钱包",
   importWalletDescription:
-    "将钱包从CoNET平台导入到CoNETian，以便更轻松地管理和享受额外的福利！",
+    "将钱包从 DeBox 平台导入到 CoNETian，以便更轻松地管理并获得更多优势！",
   importWalletPlaceholder: "输入私钥",
   importWalletButton: "导入钱包",
   importWalletConfirmTitle: "导入钱包",
