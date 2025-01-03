@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import ConfirmModal from "@/components/modal/confirmModal";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
+import { Stack, Typography } from "@mui/material";
 
 const S = {
   BuyButton: styled(FlexDiv)`
@@ -120,6 +121,17 @@ export default function Wallet() {
         <BackButton text={t("wallet.backButtonText")} />
         <FlexDiv>
           <CurrentBalance asset="cntp" secondaryAsset="conet" showBnb />
+          <Stack>
+            <Image
+              height={150}
+              width={150}
+              alt={"Conetian NFT"}
+              src={Img.ConetianNFT}
+            />
+            <Typography padding={'4px'} textAlign={'center'} fontSize='12px' color="#FFFFFF" fontWeight={400} borderRadius={'0px 0px 8px 8px'} bgcolor={'#303032'}>
+              Balance: {profile?.tokens?.ConetianNFT?.balance}
+            </Typography>
+          </Stack>
         </FlexDiv>
         <div className="split"></div>
         <FlexDiv $direction="column" $gap="10px">

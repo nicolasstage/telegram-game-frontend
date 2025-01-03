@@ -26,6 +26,7 @@ export const MyWalletEn = {
   importWalletFailureMessage: "Failed to import wallet.",
   stopMiningFailureMessage: "Failed to stop mining to import wallet.",
   noPrivateKeyError: "Please enter a private key",
+  learnMore: "Learn more about CoNET",
 };
 
 export const MyWalletZh = {
@@ -55,4 +56,5 @@ export const MyWalletZh = {
   importWalletFailureMessage: "导入钱包失败。",
   stopMiningFailureMessage: "停止挖矿以导入钱包失败。",
   noPrivateKeyError: "请输入私钥",
+  learnMore: "了解更多关于 CoNET",
 };
