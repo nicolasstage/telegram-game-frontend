@@ -53,7 +53,7 @@ const CONETIAN_PRICE = 100
 const DEBOX_AGENT_WALLET = '0x13Ce806fDA865c3bc341a1C487C8d3F15f543807'
 
 const PurchaseConetian = () => {
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number>(1);
   const [isValidAmount, setIsValidAmount] = useState<boolean>(false);
   const [agentWallet, setAgentWallet] = useState<string>("");
   const [isAgentWallet, setIsAgentWallet] = useState<boolean>(false);
@@ -74,6 +74,8 @@ const PurchaseConetian = () => {
 
   function validateFunds(asset: string): boolean {
     let userBalance = profile?.tokens?.[asset]
+
+    console.log("aqui", profile)
 
     if (!oracleAssets) return false
 
@@ -128,7 +130,7 @@ const PurchaseConetian = () => {
 
   const handleDecreaseNftAmount = () => {
     setAmount(prev => {
-      if (prev < 1) return 0
+      if (prev == 1) return 1
 
       return prev - 1
     })
@@ -292,8 +294,10 @@ const PurchaseConetian = () => {
       {/* inputs */}
       <FlexDiv $direction="column" $padding="0 10px" $gap="32px">
         <FlexDiv $direction="column" $gap="4px">
-          <P>{t("purchaseConetian.selectQuantity")}</P>
-
+          <FlexDiv $justify="space-between">
+            <P>{t("purchaseConetian.selectQuantity")}</P>
+            <P $fontSize="12px">Sold {profile?.tokens?.ConetianNFT?.supplyMaximum - profile?.tokens?.ConetianNFT?.totalSupply}</P>
+          </FlexDiv>
           <Button
             $background="#262626"
             $padding="12px 16px"

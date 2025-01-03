@@ -1,5 +1,5 @@
 import { Button } from "@/components/button";
-import { FlexDiv } from "@/components/div";
+import { FlexDiv, Div } from "@/components/div";
 import { P } from "@/components/p";
 import { slice } from "@/utilitiy/functions";
 import { Img } from "@/utilitiy/images";
@@ -12,10 +12,56 @@ import copy from "copy-to-clipboard";
 import { fetchImportWallet, fetchCreateWallet } from "@/API/getData";
 import { toast } from "react-toastify";
 import ConfirmModal from "@/components/modal/confirmModal";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useTranslation } from "react-i18next";
 import { CircularProgress, SvgIcon, Typography } from "@mui/material";
 import PageWrapper from "@/components/pageWrapper";
+
+
+const floatAnimation = keyframes`
+  0% {
+    transform: translate(-48%, -40%);
+  }
+
+  50% {
+    transform: translate(-48%, calc(-40% - 10px));
+  }
+
+  100% {
+    transform: translate(-48%, -40%);
+  }
+`
+
+const S = {
+  PlayButton: styled(Div)`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 30vh;
+    height: 30vh;
+    position: relative;
+
+    img:first-child {
+      width: 28vh !important;
+      height: 28vh !important;
+    }
+
+    img:last-child {
+      width: 16vh !important;
+      height: 16vh !important;
+
+      top: 50% !important;
+      left: 50% !important;
+
+      transform: translate(-48%, -45%);
+
+      animation: ${floatAnimation} 4s ease-in-out infinite;
+    }
+  `,
+};
+
 
 export default function Start() {
   const { t } = useTranslation();
@@ -75,51 +121,67 @@ export default function Start() {
   };
 
   return (
-    <PageWrapper margin="12px 16px 88px 16px" vhGap="1.8vh" centralizeVertically showMiningStatus={false}>
-      <FlexDiv $direction="column" $gap="60px">
+    <PageWrapper margin="0" centralizeVertically showMiningStatus={false}>
+      <FlexDiv $direction="column" $padding="8px" $height="100vh" $justify='space-around'>
         <FlexDiv $direction="column" $align="center" $justify="center">
           <Image
-            width={100}
-            height={100}
+            width={40}
+            height={40}
             src={Img.ConetLogo}
             alt='conet-logo'
             style={{
               cursor: "pointer",
-              marginRight: "10px",
             }}
           />
 
-          <Typography fontSize={'40px'} fontWeight={700} color="#FFFFFF">
+          <Typography fontSize={'36px'} fontWeight={700} color="#FFFFFF">
             {t("start.title")}
-          </Typography>
-
-          <Typography fontSize={'14px'} color="#FFFFFF">
-            {t("start.subtitle")}
           </Typography>
         </FlexDiv>
 
+        <FlexDiv $justify="center">
+        <Button $radius="50%">
+          <S.PlayButton>
+            <Image
+              width={269}
+              height={269}
+              src={Img.BackgroundAstronautNoPlay}
+              alt={t("home.playButtonAlt")}
+            />
+            <Image
+              fill
+              src={Img.Astronaut}
+              alt={t("home.astronautAlt")}
+            />
+          </S.PlayButton>
+        </Button>
+      </FlexDiv>
+
         <FlexDiv $direction="column" $gap="22px" >
           <FlexDiv $direction="column" $gap="18px">
+            <Typography fontSize={'18px'} fontWeight={400} textAlign={'center'} color="#FFFFFF">
+              Start Playing
+            </Typography>
             <Button
-              $padding="18px"
-              $radius="32px"
+              $padding="12px"
+              $radius="16px"
               $border="1px solid #04DAE8"
+              $color="#79F8FF"
               onClick={isCreatingWallet ? () => { } : handleCreateNewWallet}
               disabled={isCreatingWallet}
             >
               {isCreatingWallet ?
                 <CircularProgress size={24} color="inherit" />
-                : <> {t("start.createWalletButton")} </>
+                : <Typography fontSize={'14px'} fontWeight={400} textAlign={'center'}> {t("start.createWalletButton")} </Typography>
               }
             </Button>
           </FlexDiv>
         </FlexDiv>
 
-        <FlexDiv $direction="column" $gap="22px" >
+        <FlexDiv $direction="column" $gap="22px" $background="#262527" $radius="16px" $padding="16px">
           <FlexDiv $direction="column" $gap="18px">
-            <FlexDiv $direction="column" $gap="8px">
-              <P $fontSize="24px">{t("start.importWalletTitle")}</P>
-              <P $color="#C8C6C8">{t("start.importWalletDescription")}</P>
+            <FlexDiv $direction="column" $gap="4px">
+              <P $fontSize="16px" $weight="400">{t("start.importWalletTitle")}</P>
             </FlexDiv>
 
             <input
@@ -131,22 +193,28 @@ export default function Start() {
                 fontSize: "16px",
                 background: "rgba(99, 99, 99, 0.4)",
                 border: "1px solid rgba(255, 255, 255, 0.1)",
-                borderRadius: "16px",
+                borderRadius: "8px",
+                color:'white'
               }}
             />
 
             <Button
-              $padding="18px"
-              $radius="32px"
+              $padding="12px"
+              $radius="16px"
               $border="1px solid #04DAE8"
               onClick={isImportingWallet ? () => { } : handleImportWalletButton}
               disabled={isImportingWallet}
+              $fontSize="14px"
             >
               {t("start.importWalletButton")}
             </Button>
           </FlexDiv>
         </FlexDiv>
+        <a href="https://conet.network" target="_blank">
+          <Typography fontSize={'16px'} fontWeight={600} textAlign={'center'} color="#FFFFFF"> {t("start.learnMore")} </Typography>
+        </a>
       </FlexDiv>
+
 
       <ConfirmModal
         title={t("start.importWalletConfirmTitle")}

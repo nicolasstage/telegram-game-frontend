@@ -79,6 +79,7 @@ export const purchaseConetianEn = {
   },
   confirmAgreement: "I agree with the terms and conditions above",
   estimateGas: "Estimate Gas",
+  sold:'Sold'
 };
 
 export const purchaseConetianZh = {
@@ -161,6 +162,7 @@ export const purchaseConetianZh = {
   },
   confirmAgreement: "我同意上述条款和条件",
   estimateGas: "估算 Gas",
+  sold:'售出'
 };
 
 export const purchaseConetianConfirmEn = {

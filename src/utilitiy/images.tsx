@@ -8,6 +8,8 @@ export const Img = {
   PlayImg: "/play.png",
   Astronaut: "/astronaut_main.png",
   BackgroundAstronaut: "/background_astronaut.png",
+  BackgroundAstronautNoPlay: "/background_astronaut_no_play.png",
+  ConetianNFT:"/conetianLogo.png",
   ArbitrumLogo: "/arbitrum-logo.png",
   HomeImg: "/home.png",
   ActiveHomeImg: "/activeHome.png",

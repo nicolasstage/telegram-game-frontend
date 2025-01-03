@@ -2,10 +2,10 @@ const startEn = {
   title: "Play and Mine",
   subtitle: "with a New Generation of Transmission Protocols",
   createWalletButton: "Create a New Wallet",
-  importWalletTitle: "Import Another Wallet",
+  importWalletTitle: "Import your wallet from DeBox",
   importWalletDescription:
     "Import a wallet from the DeBox platform into CoNETian for easier management and boosted benefits!",
-  importWalletPlaceholder: "Enter Private Key",
+  importWalletPlaceholder: "Insert your Private Key",
   importWalletButton: "Import Wallet",
   importWalletConfirmTitle: "Import Wallet",
   importWalletConfirmMessage:
@@ -14,6 +14,7 @@ const startEn = {
   importWalletCancelButton: "No",
   importWalletSuccessMessage: "Import Successful!",
   importWalletFailureMessage: "Failed to import wallet.",
+  learnMore:"Learn more about CoNET"
 };
 
 const startZh = {
@@ -32,6 +33,7 @@ const startZh = {
   importWalletCancelButton: "否",
   importWalletSuccessMessage: "导入成功！",
   importWalletFailureMessage: "导入钱包失败。",
+  learnMore:"了解更多关于 CoNET"
 };
 
 export { startEn, startZh };

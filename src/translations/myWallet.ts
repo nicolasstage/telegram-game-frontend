@@ -12,7 +12,7 @@ export const MyWalletEn = {
   privateKeyLabel: "Private Key",
   copySuccessMessage: "Copied successfully!",
   referrerLabel: "Your inviter:",
-  importWalletTitle: "Import Another Wallet",
+  importWalletTitle: "Import your wallet from DeBox",
   importWalletDescription:
     "Import a wallet from the CoNET platform into CoNETian for easier management and boosted benefits!",
   importWalletPlaceholder: "Enter Private Key",
@@ -26,6 +26,7 @@ export const MyWalletEn = {
   importWalletFailureMessage: "Failed to import wallet.",
   stopMiningFailureMessage: "Failed to stop mining to import wallet.",
   noPrivateKeyError: "Please enter a private key",
+  learnMore:"Learn more about CoNET"
 };
 
 export const MyWalletZh = {
@@ -55,4 +56,5 @@ export const MyWalletZh = {
   importWalletFailureMessage: "导入钱包失败。",
   stopMiningFailureMessage: "停止挖矿以导入钱包失败。",
   noPrivateKeyError: "请输入私钥",
+  learnMore:"了解更多关于 CoNET"
 };
