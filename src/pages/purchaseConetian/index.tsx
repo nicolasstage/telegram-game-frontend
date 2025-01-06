@@ -70,7 +70,7 @@ const PurchaseConetian = () => {
 
   const { t } = useTranslation()
 
-  const { setRouter, setConetianPurchaseDetails, profile, oracleAssets, isDebox } = useGameContext();
+  const { setRouter, setConetianPurchaseDetails, profile, oracleAssets } = useGameContext();
 
   function validateFunds(asset: string): boolean {
     let userBalance = profile?.tokens?.[asset]
@@ -114,6 +114,12 @@ const PurchaseConetian = () => {
     setIsAddressChecking(false);
   }, [agentWallet])
 
+  const handleAgentWalletChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    e.preventDefault();
+    setAgentWallet(e.target.value);
+  };
 
   const handleChangeNftAmount = (e: any) => {
     const value = Number(e.target.value)
@@ -316,39 +322,37 @@ const PurchaseConetian = () => {
           </Button>
         </FlexDiv>
 
-        {!isDebox && (
-          <FlexDiv $direction="column" $gap="4px">
-            <P>{t("purchaseConetian.agentWallet")}</P>
+        <FlexDiv $direction="column" $gap="4px">
+          <P>{t("purchaseConetian.agentWallet")}</P>
 
-            <Button
-              $background="#262626"
-              $padding="12px 16px"
-              $radius="16px"
-              $width="100%"
-              $height="52px"
-            >
-              <FlexDiv $justify="space-between" $width="100%" $align="center">
-                <FlexDiv $direction="column" $grow="1">
-                  <S.ToInput
-                    placeholder={t('purchaseConetian.walletAddress')}
-                    value={agentWallet}
-                    onChange={handleAgentWalletChange}
-                  />
-                </FlexDiv>
-
-                {isAddressChecking ? (
-                  <Image src={SendImg.LoadingImg} width={20} height={20} alt="" />
-                ) : isAgentWallet ? (
-                  <Image src={SendImg.CheckedImg} width={20} height={20} alt="" />
-                ) : (
-                  <></>
-                )}
+          <Button
+            $background="#262626"
+            $padding="12px 16px"
+            $radius="16px"
+            $width="100%"
+            $height="52px"
+          >
+            <FlexDiv $justify="space-between" $width="100%" $align="center">
+              <FlexDiv $direction="column" $grow="1">
+                <S.ToInput
+                  placeholder={t('purchaseConetian.walletAddress')}
+                  value={agentWallet}
+                  onChange={handleAgentWalletChange}
+                />
               </FlexDiv>
-            </Button>
-            <Typography fontSize={'12px'} color="#E4E4E5">{t("purchaseConetian.extraTokensNote")}</Typography>
-            <Typography fontSize={'12px'} color="#C70039">{agentError}</Typography>
-          </FlexDiv>
-        )}
+
+              {isAddressChecking ? (
+                <Image src={SendImg.LoadingImg} width={20} height={20} alt="" />
+              ) : isAgentWallet ? (
+                <Image src={SendImg.CheckedImg} width={20} height={20} alt="" />
+              ) : (
+                <></>
+              )}
+            </FlexDiv>
+          </Button>
+          <Typography fontSize={'12px'} color="#E4E4E5">{t("purchaseConetian.extraTokensNote")}</Typography>
+          <Typography fontSize={'12px'} color="#C70039">{agentError}</Typography>
+        </FlexDiv>
 
         {/* Token Select */}
         <Box display={'flex'} flexDirection={'column'} gap={'4px'}>
