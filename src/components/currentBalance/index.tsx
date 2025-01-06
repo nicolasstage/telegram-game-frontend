@@ -108,13 +108,6 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
                     </P>
                     <P $fontSize="12px">USDT</P>
                   </FlexDiv>
-
-                  <FlexDiv $align="center" $gap="6px">
-                    <P $fontSize="12px">
-                      {profile?.tokens?.ConetianNFT?.balance}
-                    </P>
-                    <P $fontSize="12px">CoNETian NFT</P>
-                  </FlexDiv>
                 </>
               )}
             </FlexDiv>
