@@ -75,8 +75,6 @@ const PurchaseConetian = () => {
   function validateFunds(asset: string): boolean {
     let userBalance = profile?.tokens?.[asset]
 
-    console.log("aqui", profile)
-
     if (!oracleAssets) return false
 
     const _oracleAssets: { name: string, price: string }[] = oracleAssets.assets
