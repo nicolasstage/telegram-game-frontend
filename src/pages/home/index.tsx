@@ -136,7 +136,7 @@ export default function Home() {
         >
           <FlexDiv $align="center" $gap="8px" >
             <GradientP $first="#79F8FF" $second="#499599">
-              CoNETian NFT
+              {t("home.conetianNft")}
             </GradientP>
           </FlexDiv>
         </GradientButton>
