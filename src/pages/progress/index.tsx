@@ -48,63 +48,73 @@ const ConfirmProgress = () => {
       }
     };
 
-    if (transferTokenDetails?.assetName.toLowerCase() === "ccntp") {
-      transferToken();
-    } else if (transferTokenDetails?.assetName.toLowerCase() === "ticket") {
-      transferNft();
+    switch (transferTokenDetails?.assetName.toLowerCase()) {
+      case "ccntp": {
+        transferToken();
+        break;
+      }
+      default: {
+        transferNft();
+        break;
+      }
     }
   }, []);
 
   return (
-    <PageWrapper>
-      <Div $padding="0 10px">
-        <P $fontSize="24px">{t("components.progress.transactionInProgress")}</P>
-        <P $fontSize="14px" $color="#CACACC" $width="321px" $weight="400">
-          {t("components.progress.transactionDescription")}
-        </P>
-      </Div>
-
-      <Loading />
-
-      <FlexDiv $justify="center">
-        <P $fontSize="14px" $align="center" $width="178px">
-          {t("components.progress.pleaseWait")}
-        </P>
-      </FlexDiv>
-      <FlexDiv
-        $justify="center"
-        $direction="column"
-        $align="center"
-        $gap="5px"
-        $margin="50px 0 100px 0"
-      >
-        <Button
-          $width="296px"
-          $height="56px"
-          $background="#363E59"
-          $radius="16px"
-        >
-          <FlexDiv $align="center" $gap="5px">
-            <Image
-              src={Img.ProgressImg}
-              width={21}
-              height={20}
-              alt={t("components.progress.progressImageAlt")}
-              className="progress"
-            />
-            <P>{t("components.progress.processing")}</P>
+    <PageWrapper margin="12px 16px 88px 16px" vhGap="1.8vh" centralizeVertically>
+      <FlexDiv $direction="column" $gap="10vh" $padding="0 8px">
+        <FlexDiv $direction="column" $gap="40px">
+          <FlexDiv $direction="column" $gap="24px">
+            <P $fontSize="24px">{t("components.progress.transactionInProgress")}</P>
+            <P $fontSize="14px" $color="#CACACC" $width="321px" $weight="400">
+              {t("components.progress.transactionDescription")}
+            </P>
           </FlexDiv>
-        </Button>
-        <FlexDiv $justify="center" $align="center" $gap="5px">
-          <Image
-            src={Img.SecureImg}
-            width={11}
-            height={14}
-            alt={t("components.progress.secureImageAlt")}
-          />
-          <P $fontSize="11px" $color="#FFFFFF">
-            {t("components.progress.securePayment")}
-          </P>
+
+          <Loading />
+
+          <FlexDiv $justify="center">
+            <P $fontSize="14px" $align="center" $width="178px">
+              {t("components.progress.pleaseWait")}
+            </P>
+          </FlexDiv>
+        </FlexDiv>
+
+        <FlexDiv
+          $justify="center"
+          $direction="column"
+          $align="center"
+          $gap="5px"
+        >
+          <Button
+            $width="296px"
+            $height="56px"
+            $background="#363E59"
+            $radius="16px"
+          >
+            <FlexDiv $align="center" $gap="5px">
+              <Image
+                src={Img.ProgressImg}
+                width={21}
+                height={20}
+                alt={t("components.progress.progressImageAlt")}
+                className="progress"
+              />
+              <P>{t("components.progress.processing")}</P>
+            </FlexDiv>
+          </Button>
+
+          <FlexDiv $justify="center" $align="center" $gap="5px">
+            <Image
+              src={Img.SecureImg}
+              width={11}
+              height={14}
+              alt={t("components.progress.secureImageAlt")}
+            />
+            <P $fontSize="11px" $color="#FFFFFF">
+              {t("components.progress.securePayment")}
+            </P>
+          </FlexDiv>
         </FlexDiv>
       </FlexDiv>
     </PageWrapper>

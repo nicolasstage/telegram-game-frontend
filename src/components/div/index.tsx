@@ -20,11 +20,13 @@ export const Div = styled.div.attrs<{
   $boxSizing?: string;
   $overflowX?: string;
   $overflowY?: string;
+  $cursor?: string;
 }>((props) => ({
   $padding: props.$padding || "0",
   $margin: props.$margin || "0",
   $border: props.$border || "unset",
   $radius: props.$radius || "0",
+  $cursor: props.$cursor || "unset",
 }))`
   padding: ${(props) => props.$padding};
   margin: ${(props) => props.$margin};
@@ -45,6 +47,7 @@ export const Div = styled.div.attrs<{
   box-sizing: ${(props) => props.$boxSizing};
   overflow-x: ${(props) => props.$overflowX};
   overflow-y: ${(props) => props.$overflowY}; 
+  cursor: ${(props) => props.$cursor};
 `;
 
 export const FlexDiv = styled(Div).attrs<{

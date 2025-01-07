@@ -24,6 +24,12 @@ import {
   purchaseConetianZh,
 } from "./translations/purchaseConetian";
 import { startEn, startZh } from "./translations/start";
+import {
+  sendNftConfirmEn,
+  sendNftConfirmZh,
+  sendNftEn,
+  sendNftZh,
+} from "./translations/sendNft";
 
 const resources = {
   "en-US": {
@@ -43,6 +49,8 @@ const resources = {
       purchaseConetianConfirm: purchaseConetianConfirmEn,
       purchaseConetianProgress: purchaseConetianProgressEn,
       purchaseConetianSuccess: purchaseConetianSuccessEn,
+      sendNft: sendNftEn,
+      sendNftConfirm: sendNftConfirmEn,
     },
   },
   "zh-CN": {
@@ -62,6 +70,8 @@ const resources = {
       purchaseConetianConfirm: purchaseConetianConfirmZh,
       purchaseConetianProgress: purchaseConetianProgressZh,
       purchaseConetianSuccess: purchaseConetianSuccessZh,
+      sendNft: sendNftZh,
+      sendNftConfirm: sendNftConfirmZh,
     },
   },
 };

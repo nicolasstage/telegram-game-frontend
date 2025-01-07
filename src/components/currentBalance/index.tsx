@@ -7,7 +7,7 @@ import { firstLetterUpperCase, formatToken } from '@/utilitiy/functions';
 import { useGameContext } from '@/utilitiy/providers/GameProvider';
 import { useTranslation } from 'react-i18next';
 
-type Asset = 'cntp' | 'conet' | 'ticket';
+type Asset = 'cntp' | 'conet' | 'ticket' | 'conetian' | 'conetianReferrer';
 
 interface Props {
   inline?: boolean;
@@ -22,28 +22,38 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
 
   const { t } = useTranslation();
 
-  const getFormattedBalance = () => {
-    if (asset === 'cntp')
+  const getFormattedBalance = (_asset: string) => {
+    if (_asset === 'cntp')
       return formatToken(profile?.tokens?.cCNTP?.balance);
-    if (asset === 'conet')
+    if (_asset === 'conet')
       return profile?.tokens?.conet?.balance;
-    else if (asset === 'ticket')
+    if (_asset === 'ticket')
       return profile?.tickets?.balance;
+    if (_asset === 'conetian')
+      return profile?.tokens?.ConetianNFT?.balance;
+    if (_asset === 'conetianReferrer')
+      return profile?.tokens?.ConetianAgentNFT?.balance;
   };
 
-  const getFormattedSecondaryBalance = () => {
-    if (!secondaryAsset) return '';
-
-    if (secondaryAsset === 'cntp')
-      return formatToken(profile?.tokens?.cCNTP?.balance);
-    if (secondaryAsset === 'conet')
-      return profile?.tokens?.conet?.balance;
-    else if (secondaryAsset === 'ticket')
-      return profile?.tickets?.balance;
-  }
+  const getAssetFriendlyName = (_asset: string) => {
+    switch (_asset) {
+      case 'cntp':
+        return 'CNTP'
+      case 'conet':
+        return 'CONET'
+      case 'ticket':
+        return "Ticket"
+      case 'conetian':
+        return 'Conetian NFT'
+      case 'conetianReferrer':
+        return 'Conetian Agent NFT'
+      default:
+        return 'CNTP'
+    }
+  };
 
   const getSingularOrPlural = (asset: string) => {
-    const _balance = parseFloat(getFormattedBalance());
+    const _balance = parseFloat(getFormattedBalance(asset));
 
     if (_balance > 1 && asset === 'ticket') return 'S';
 
@@ -59,7 +69,7 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
 
             <P $fontSize={`${fontSize + 4}px`}>
               {profile ? (
-                getFormattedBalance()
+                getFormattedBalance(asset)
               ) : (
                 <Skeleton width={200} />
               )}
@@ -76,18 +86,18 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
               <FlexDiv $align="center" $gap="6px">
                 <P $fontSize={`${fontSize + 4}px`}>
                   {profile ? (
-                    getFormattedBalance()
+                    getFormattedBalance(asset)
                   ) : (
                     <Skeleton width={200} />
                   )}
                 </P>
-                <P>{t("components.currentBalance.assetLabel", { asset: asset.toUpperCase(), plural: getSingularOrPlural(asset) })}</P>
+                <P>{t("components.currentBalance.assetLabel", { asset: getAssetFriendlyName(asset).toUpperCase(), plural: getSingularOrPlural(asset) })}</P>
               </FlexDiv>
 
               {
                 secondaryAsset && (
                   <FlexDiv $align="center" $gap="6px">
-                    <P $fontSize="12px">{getFormattedSecondaryBalance()}</P>
+                    <P $fontSize="12px">{getFormattedBalance(secondaryAsset)}</P>
                     <P $fontSize="12px">{t("components.currentBalance.secondaryAssetLabel", { secondaryAsset: secondaryAsset.toUpperCase() })}</P>
                   </FlexDiv>
                 )

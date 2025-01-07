@@ -14,11 +14,12 @@ import { AnyARecord } from "dns";
 
 export type Difficulty = "easy" | "normal" | "hard";
 
-export type AssetType = 'cCNTP' | 'ticket' | 'nft';
+export type AssetType = 'cCNTP' | 'ticket' | 'conetian' | 'conetianReferrer';
 export const ReadableAssetType: Record<string, string> = {
   'cCNTP': 'CNTP',
   'Ticket': 'Ticket',
-  'nft': 'NFT'
+  'conetian': 'Conetian NFT',
+  'conetianReferrer': 'Conetian Agent NFT'
 }
 
 export type TransferTokenDetails = {

@@ -38,6 +38,8 @@ import PurchaseConetianConfirm from "@/pages/purchaseConetianConfirm";
 import PurchaseConetianProgress from "@/pages/purchaseConetianProgress";
 import PurchaseConetianSuccess from "@/pages/purchaseConetianSuccess";
 import Start from "@/pages/start";
+import SendNft from "@/pages/sendNft";
+import SendNftConfirm from "@/pages/sendNftConfirm";
 
 const S = {
   Main: styled.div`
@@ -152,6 +154,8 @@ function CurrentPage() {
     "/purchaseConetianConfirm": <PurchaseConetianConfirm />,
     "/purchaseConetianProgress": <PurchaseConetianProgress />,
     "/purchaseConetianSuccess": <PurchaseConetianSuccess />,
+    "/sendNft": <SendNft />,
+    "/sendNftConfirm": <SendNftConfirm />,
   };
 
   return pages[router as keyof typeof pages] ?? null;
