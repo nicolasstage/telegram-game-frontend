@@ -300,7 +300,6 @@ const PurchaseConetian = () => {
         <FlexDiv $direction="column" $gap="4px">
           <FlexDiv $justify="space-between">
             <P>{t("purchaseConetian.selectQuantity")}</P>
-            <P $fontSize="12px">Sold {profile?.tokens?.ConetianNFT?.supplyMaximum - profile?.tokens?.ConetianNFT?.totalSupply}</P>
           </FlexDiv>
           <Button
             $background="#262626"
