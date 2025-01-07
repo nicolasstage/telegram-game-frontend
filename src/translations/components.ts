@@ -128,6 +128,7 @@ export const componentsEn = {
       correctAnswer: "The correct answer is:",
       taskCompleted: "Task completed!",
       comeBackTomorrow: "Come back tomorrow to keep earning!",
+      checkRewards: "Check your rewards in the Earn Page",
     },
   },
 };
@@ -260,6 +261,7 @@ export const componentsZh = {
       correctAnswer: "正确答案是：",
       taskCompleted: "任务完成!",
       comeBackTomorrow: "明天再来继续赚取!",
+      checkRewards: "在 “赚取 ”页面查看您的奖励",
     },
   },
 };

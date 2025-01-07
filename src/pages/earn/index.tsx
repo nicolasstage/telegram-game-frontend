@@ -81,7 +81,7 @@ export default function Earn() {
     }
 
     fetchSocialMedias()
-  }, [profile])
+  }, [])
 
   useEffect(() => {
     async function fetchSocialMedias() {
@@ -288,7 +288,6 @@ export default function Earn() {
       if (chosenTask?.completed) return;
       if (!chosenTask?.resource) return;
       if (!chosenTaskCategory?.nftId) return;
-
 
       const partnerTaskGroupsCopy = partnerTaskGroups ? [...partnerTaskGroups] : []
 
