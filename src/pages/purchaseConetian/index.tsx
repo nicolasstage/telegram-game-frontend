@@ -484,12 +484,25 @@ const PurchaseConetian = () => {
             justifyContent='space-between'
             onClick={() => setIsAgreementOpen(prev => !prev)}
           >
-            <Typography
-              textAlign='center'
-              color={"#FFFFFF"}
-            >
-              {t("purchaseConetian.agreement")}
-            </Typography>
+            <Box display={"flex"} alignItems={"center"} gap={1}>
+              <Checkbox
+                sx={{
+                  color: "white", // Unchecked color
+                }}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setIsAgreementSigned(prev => !prev)
+                }
+                }
+                checked={isAgreementSigned}
+              ></Checkbox>
+              <Typography
+                textAlign='center'
+                color={"#FFFFFF"}
+              >
+                {t("purchaseConetian.agreement")}
+              </Typography>
+            </Box>
             <SvgIcon
               style={{
                 color: "#FFFFFF",
@@ -619,6 +632,9 @@ const PurchaseConetian = () => {
                 }
               >
                 <Checkbox
+                  sx={{
+                    color: "white", // Unchecked color
+                  }}
                   checked={isAgreementSigned}
                 ></Checkbox>
                 <Typography
