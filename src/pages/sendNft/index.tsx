@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import styled from "styled-components";
 import BackButton from "@/components/backButton";
@@ -12,6 +12,23 @@ import { SendImg } from "@/utilitiy/send";
 import { formatToken } from "@/utilitiy/functions";
 import { fetchIsAddress } from "@/API/getData";
 import { useTranslation } from 'react-i18next';
+import Selection from "@/components/selection";
+
+const nftOptions: Option[] = [
+  {
+    id: 1,
+    title: "Conetian NFT",
+    value: "conetian",
+    icon: "/send/nft.png"
+  },
+  // uncomment this to allow transfer of Conetian Agent NFT
+  // {
+  //   id: 2,
+  //   title: "Conetian Agent NFT",
+  //   value: "conetianReferrer",
+  //   icon: "/send/nft.png"
+  // }
+]
 
 const S = {
   ToInput: styled.input`
@@ -21,12 +38,14 @@ const S = {
     width: 95%;
     color: #989899;
     padding: 5px;
-  `,
+    `,
   BalanceInput: styled.input`
-    color: white;
     background: none;
     border: none;
     outline: none;
+    width: 95%;
+    color: #989899;
+    padding: 5px;
 
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
@@ -44,10 +63,13 @@ const S = {
   `,
 };
 
-const SendTicket = () => {
-  const assetName = "Ticket";
+type NftTypes = 'conetian' | 'conetianReferrer';
 
+
+const SendNft = () => {
   const [amount, setAmount] = useState<string>("0");
+  const [selectedNft, setSelectedNft] = useState<NftTypes>('conetian')
+  const [selectedNftBalance, setSelectedNftBalance] = useState<string>('0')
   const [isValidAmount, setIsValidAmount] = useState<boolean>(false);
   const [toAddress, setToAddress] = useState<string>("");
   const [isValidAddress, setIsValidAddress] = useState<boolean>(false);
@@ -55,7 +77,20 @@ const SendTicket = () => {
 
   const { setRouter, setTransferTokenDetails, profile } = useGameContext();
 
-  const balance = profile?.tickets?.balance;
+  useEffect(() => {
+    const getSelectedNftBalance = (nftName: NftTypes) => {
+      if (nftName === 'conetian') {
+        return profile?.tokens?.ConetianNFT?.balance;
+      }
+      if (nftName === 'conetianReferrer') {
+        return profile?.tokens?.ConetianAgentNFT?.balance;
+      }
+    }
+
+    const balance = getSelectedNftBalance(selectedNft);
+
+    setSelectedNftBalance(balance)
+  }, [selectedNft])
 
   const handleToAddressChange = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -91,7 +126,7 @@ const SendTicket = () => {
         : rawValue;
 
     // Ensure the number is within the allowed range
-    if (Number(cutZeroString) > Number(balance) || Number(cutZeroString) < 0) {
+    if (Number(cutZeroString) > Number(selectedNftBalance) || Number(cutZeroString) < 0) {
       return;
     }
 
@@ -114,27 +149,33 @@ const SendTicket = () => {
 
     // set transfer token details for confirmation page
     setTransferTokenDetails?.({
-      assetName,
+      assetName: selectedNft,
       toAddress,
       amount,
     });
 
-    setRouter?.("/sendTicketConfirm");
+    setRouter?.("/sendNftConfirm");
   };
+
+  const handleNftChange = (value: NftTypes) => {
+    setSelectedNft(value);
+  }
 
   const { t } = useTranslation();
 
   return (
     <PageWrapper>
-      <BackButton text={t("sendCntp.sendTicketBackButton")} to="/send" />
+      <BackButton text={t("sendNft.sendBackButton")} to="/send" />
 
       <Div $padding="0 10px">
-        <CurrentBalance asset="ticket" />
+        <CurrentBalance asset={selectedNft} />
       </Div>
 
       <div className="split"></div>
 
       <FlexDiv $direction="column" $padding="0 10px" $gap="32px">
+        <Selection options={nftOptions} selectedOption={selectedNft} changeOption={handleNftChange} title={t("sendNft.selectNft")} />
+
         <Button
           $background="#262626"
           $padding="12px 16px"
@@ -143,9 +184,9 @@ const SendTicket = () => {
         >
           <FlexDiv $justify="space-between" $width="100%" $align="center">
             <FlexDiv $direction="column" $grow="1">
-              <P>{t("sendCntp.to")}</P>
+              <P>{t("sendNft.to")}</P>
               <S.ToInput
-                placeholder={t("sendCntp.walletPlaceholder")}
+                placeholder={t("sendNft.walletPlaceholder")}
                 value={toAddress}
                 onChange={handleToAddressChange}
               />
@@ -159,25 +200,33 @@ const SendTicket = () => {
             )}
           </FlexDiv>
         </Button>
+
+
         <FlexDiv
           $background="#262626"
           $padding="12px 16px"
           $radius="16px"
           $justify="space-between"
         >
-          <S.BalanceInput
-            value={amount}
-            onChange={handleAmountInputChange}
-            type="number"
-          />
+          <FlexDiv $justify="space-between" $width="100%" $align="center">
+            <FlexDiv $direction="column" $grow="1">
+              <P>{t("sendNft.amount")}</P>
+              <S.BalanceInput
+                value={amount}
+                onChange={handleAmountInputChange}
+                type="number"
+              />
+            </FlexDiv>
+          </FlexDiv>
+
           <Button
             $background="#30333b"
             $color="#8DA8FF"
             $padding="10px 16px"
             $radius="8px"
-            onClick={() => setAmount(balance)}
+            onClick={() => setAmount(selectedNftBalance)}
           >
-            {t("sendCntp.max")}
+            {t("sendNft.max")}
           </Button>
         </FlexDiv>
 
@@ -187,7 +236,7 @@ const SendTicket = () => {
             onClick={handleSend}
             disabled={!isValidAddress || !isValidAmount}
           >
-            {t("sendCntp.estimateGas")}
+            {t("sendNft.estimateGas")}
           </GradientButton>
         </FlexDiv>
       </FlexDiv>
@@ -195,4 +244,4 @@ const SendTicket = () => {
   );
 };
 
-export default SendTicket;
+export default SendNft;

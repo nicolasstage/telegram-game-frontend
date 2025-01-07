@@ -1,6 +1,8 @@
 export const Img = {
   UserDefaultImg: "/userDefault.png",
   RightArrowImg: "/rightArrow.svg",
+  DownArrowImg: "/downArrow.svg",
+  UpArrowImg: "/upArrow.svg",
   VolumeImg: "/volume.png",
   VolumeMuteImg: "/volumeMute.png",
   UserGroupImg: "/userGroup.png",
@@ -9,7 +11,7 @@ export const Img = {
   Astronaut: "/astronaut_main.png",
   BackgroundAstronaut: "/background_astronaut.png",
   BackgroundAstronautNoPlay: "/background_astronaut_no_play.png",
-  ConetianNFT:"/conetianLogo.png",
+  ConetianNFT: "/conetianLogo.png",
   ArbitrumLogo: "/arbitrum-logo.png",
   HomeImg: "/home.png",
   ActiveHomeImg: "/activeHome.png",

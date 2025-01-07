@@ -49,7 +49,7 @@ export const GradientImage = styled(FlexDiv)`
     #04dae8 75%
   );
   padding: 1px;
-  border-radius: 32px;
+  border-radius: ${(props) => props.$radius || '32px'};
   flex: ${(props) => props.$flex};
 `;
 
@@ -68,6 +68,36 @@ export const GradientButton: React.FC<GradientButtonProps> = ({
   children,
   width,
   height,
+  radius = '32px',
+  flex,
+  onClick,
+  disabled,
+  cursor = "auto",
+}) => {
+  return (
+    <GradientImage $flex={flex} $radius={radius}>
+      <Button
+        $background="#252527"
+        $padding="8px 16px"
+        $radius="32px"
+        $fontSize="14px"
+        $width={width}
+        $height={height}
+        onClick={onClick}
+        $flex={flex}
+        $cursor={disabled ? "not-allowed" : cursor}
+        $color={disabled ? "gray" : "white"}
+      >
+        {children}
+      </Button>
+    </GradientImage>
+  );
+};
+
+export const GradientSquareButton: React.FC<GradientButtonProps> = ({
+  children,
+  width,
+  height,
   radius,
   flex,
   onClick,
@@ -75,11 +105,11 @@ export const GradientButton: React.FC<GradientButtonProps> = ({
   cursor = "auto",
 }) => {
   return (
-    <GradientImage $flex={flex}>
+    <GradientImage $flex={flex} $radius={radius}>
       <Button
         $background="#252527"
-        $padding="8px 16px"
-        $radius="32px"
+        $padding="16px"
+        $radius={radius || "16px"}
         $fontSize="14px"
         $width={width}
         $height={height}

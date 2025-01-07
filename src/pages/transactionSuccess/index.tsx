@@ -1,4 +1,4 @@
-import { GradientButton } from "@/components/button";
+import { GradientButton, GradientSquareButton } from "@/components/button";
 import { Div, FlexDiv } from "@/components/div";
 import { P } from "@/components/p";
 import PageWrapper from "@/components/pageWrapper";
@@ -13,54 +13,60 @@ const TransactionSuccess = () => {
   const { t } = useTranslation();
 
   return (
-    <PageWrapper>
-      <Div $padding="0 10px">
-        <Image src={Img.TransactionCheckImg} width={32} height={32} alt="" />
-        <Div>
-          <P $fontSize="45px">{t("transaction.title1")}</P>
-          <P $fontSize="45px" $color="#79F8FF">
-            {t("transaction.title2")}
-          </P>
-        </Div>
-        <Div>
-          <P>{t("transaction.summary")}</P>
-          <Div
-            $background="#262626"
-            $padding="20px"
-            $radius="16px"
-            $margin="10px 0 0 0"
-          >
-            <FlexDiv $justify="space-between">
-              <P $fontSize="14px">{t("transaction.sent")}</P>
-              <P $fontSize="14px">
-                {buyItem?.price} {ReadableAssetType[transferTokenDetails ? transferTokenDetails.assetName : 'cCNTP']}
+    <PageWrapper margin="12px 16px 88px 16px" vhGap="1.8vh" centralizeVertically>
+      <FlexDiv $direction="column" $gap="10vh" $padding="0 8px">
+        <FlexDiv $direction="column" $gap="40px">
+          <FlexDiv $direction="column" $gap="24px">
+            <Image src={Img.TransactionCheckImg} width={32} height={32} alt="" />
+
+            <Div>
+              <P $fontSize="36px">{t("transaction.title1")}</P>
+              <P $fontSize="36px" $color="#79F8FF">
+                {t("transaction.title2")}
               </P>
-            </FlexDiv>
-            <FlexDiv $justify="space-between" $margin="10px 0">
-              <P $fontSize="14px">{t("transaction.gasFee")}</P>
-              <P $fontSize="14px">{transferTokenDetails?.gasFee} $CONET</P>
-            </FlexDiv>
+            </Div>
+          </FlexDiv>
+
+          <Div>
+            <P>{t("transaction.summary")}</P>
+            <Div
+              $background="#262626"
+              $padding="20px"
+              $radius="16px"
+              $margin="10px 0 0 0"
+            >
+              <FlexDiv $justify="space-between">
+                <P $fontSize="14px">{t("transaction.sent")}</P>
+                <P $fontSize="14px">
+                  {buyItem?.price} {ReadableAssetType[transferTokenDetails ? transferTokenDetails.assetName : 'cCNTP']}
+                </P>
+              </FlexDiv>
+              <FlexDiv $justify="space-between" $margin="10px 0">
+                <P $fontSize="14px">{t("transaction.gasFee")}</P>
+                <P $fontSize="14px">{transferTokenDetails?.gasFee} $CONET</P>
+              </FlexDiv>
+            </Div>
           </Div>
-        </Div>
+        </FlexDiv>
+
         <FlexDiv
           $justify="center"
           $direction="column"
           $align="center"
-          $margin="50px 0 100px 0"
-          $gap="5px"
+          $gap="8px"
         >
           {buyItem?.buyTitle ? (
-            <GradientButton onClick={() => setRouter?.("/gameitem")}>
+            <GradientSquareButton width="264px" radius="16px" onClick={() => setRouter?.("/gameitem")}>
               {t("transaction.backToItems")}
-            </GradientButton>
+            </GradientSquareButton>
           ) : buyItem?.send ? (
-            <GradientButton onClick={() => setRouter?.("/wallet")}>
+            <GradientSquareButton width="264px" radius="16px" onClick={() => setRouter?.("/wallet")}>
               {t("transaction.backToWallet")}
-            </GradientButton>
+            </GradientSquareButton>
           ) : (
-            <GradientButton onClick={() => setRouter?.("/skinstore")}>
+            <GradientSquareButton width="264px" radius="16px" onClick={() => setRouter?.("/skinstore")}>
               {t("transaction.backToSkinsStore")}
-            </GradientButton>
+            </GradientSquareButton>
           )}
 
           <FlexDiv $justify="center" $align="center" $gap="5px">
@@ -70,7 +76,7 @@ const TransactionSuccess = () => {
             </P>
           </FlexDiv>
         </FlexDiv>
-      </Div>
+      </FlexDiv>
     </PageWrapper>
   );
 };

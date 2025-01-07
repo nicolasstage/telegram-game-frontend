@@ -7,6 +7,7 @@ export const SendImg = {
 
   CntpImg: "/send/cntp.png",
   TicketImg: "/send/tickets.svg",
+  NftImg: "/send/nft.png",
 
   ArrowDownImg: "/send/arrow-down.png",
   GasFeeImg: "/send/fee.png",

@@ -23,6 +23,12 @@ const actives = [
     title: "Ticket",
     router: "/sendTicket",
   },
+  {
+    key: 3,
+    img: SendImg.NftImg,
+    title: "NFT",
+    router: "/sendNft",
+  },
 ];
 
 const locks = [
@@ -40,11 +46,6 @@ const locks = [
     key: 3,
     img: SendImg.ItemBlurImg,
     title: "Item",
-  },
-  {
-    key: 4,
-    img: SendImg.NftBlurImg,
-    title: "NFT",
   },
 ];
 
@@ -78,7 +79,6 @@ const Send = () => {
                 $width="191px"
                 $height="118px"
                 $radius="16px"
-                $padding="5px 0"
                 onClick={() => setRouter?.(active.router)}
               >
                 <FlexDiv
@@ -88,11 +88,11 @@ const Send = () => {
                   $height="100%"
                   $direction="column"
                   $justify="flex-start"
-                  $padding="0 0 0 10px"
+                  $padding="16px 24px"
                 >
-                  <FlexDiv $direction="column" $align="center" $gap="10px">
-                    <Image src={active.img} width={60} height={60} alt="" />
-                    <P>{active.title}</P>
+                  <FlexDiv $direction="column" $align="start" $gap="10px">
+                    <Image src={active.img} width={48} height={48} alt="" />
+                    <P $fontSize="24px">{active.title}</P>
                   </FlexDiv>
                 </FlexDiv>
               </Button>
