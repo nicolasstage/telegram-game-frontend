@@ -160,7 +160,10 @@ const SendCNTP = () => {
             $color="#8DA8FF"
             $padding="10px 16px"
             $radius="8px"
-            onClick={() => setAmount(balance)}
+            onClick={() => {
+              setAmount(balance);
+              setIsValidAmount(true);
+            }}
           >
             {t("sendCntp.max")}
           </Button>

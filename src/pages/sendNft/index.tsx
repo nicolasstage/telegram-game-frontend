@@ -224,7 +224,10 @@ const SendNft = () => {
             $color="#8DA8FF"
             $padding="10px 16px"
             $radius="8px"
-            onClick={() => setAmount(selectedNftBalance)}
+            onClick={() => {
+              setAmount(selectedNftBalance);
+              setIsValidAmount(true);
+            }}
           >
             {t("sendNft.max")}
           </Button>
