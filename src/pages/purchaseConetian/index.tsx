@@ -50,7 +50,7 @@ const S = {
 };
 
 const CONETIAN_PRICE = 100
-const DEBOX_AGENT_WALLET = '0x13Ce806fDA865c3bc341a1C487C8d3F15f543807'
+const DEFAULT_AGENT_WALLET = '0x9d20C7F8bA93bEEf2DA8f9b9D7ffa891Af3bBf91'
 
 const PurchaseConetian = () => {
   const [amount, setAmount] = useState<number>(1);
@@ -219,9 +219,9 @@ const PurchaseConetian = () => {
       return;
     }
 
-    let agentToUse = new URLSearchParams(window.location.search).get("agent");
+    let agentToUse = agentWallet ? agentWallet : new URLSearchParams(window.location.search).get("agent");
 
-    if (!agentToUse) agentToUse = '';
+    if (!agentToUse) agentToUse = DEFAULT_AGENT_WALLET;
 
     // set transfer token details for confirmation page
     setConetianPurchaseDetails?.({
