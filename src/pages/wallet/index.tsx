@@ -125,7 +125,7 @@ export default function Wallet() {
             <Image
               height={150}
               width={150}
-              alt={"Conetian NFT"}
+              alt={"CoNETian NFT"}
               src={Img.ConetianNFT}
             />
             <Typography padding={'4px'} textAlign={'center'} fontSize='12px' color="#FFFFFF" fontWeight={400} borderRadius={'0px 0px 8px 8px'} bgcolor={'#303032'}>

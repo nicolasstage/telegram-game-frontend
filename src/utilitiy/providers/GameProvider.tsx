@@ -18,8 +18,8 @@ export type AssetType = 'cCNTP' | 'ticket' | 'conetian' | 'conetianReferrer';
 export const ReadableAssetType: Record<string, string> = {
   'cCNTP': 'CNTP',
   'Ticket': 'Ticket',
-  'conetian': 'Conetian NFT',
-  'conetianReferrer': 'Conetian Agent NFT'
+  'conetian': 'CoNETian NFT',
+  'conetianReferrer': 'CoNETian Agent NFT'
 }
 
 export type TransferTokenDetails = {
