@@ -17,14 +17,14 @@ import Selection from "@/components/selection";
 const nftOptions: Option[] = [
   {
     id: 1,
-    title: "Conetian NFT",
+    title: "CoNETian NFT",
     value: "conetian",
     icon: "/send/nft.png"
   },
   // uncomment this to allow transfer of Conetian Agent NFT
   // {
   //   id: 2,
-  //   title: "Conetian Agent NFT",
+  //   title: "CoNETian Agent NFT",
   //   value: "conetianReferrer",
   //   icon: "/send/nft.png"
   // }

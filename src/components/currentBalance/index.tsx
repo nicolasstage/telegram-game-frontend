@@ -44,9 +44,9 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
       case 'ticket':
         return "Ticket"
       case 'conetian':
-        return 'Conetian NFT'
+        return 'CoNETian NFT'
       case 'conetianReferrer':
-        return 'Conetian Agent NFT'
+        return 'CoNETian Agent NFT'
       default:
         return 'CNTP'
     }
@@ -55,7 +55,7 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
   const getSingularOrPlural = (asset: string) => {
     const _balance = parseFloat(getFormattedBalance(asset));
 
-    if (_balance > 1 && asset === 'ticket') return 'S';
+    if (_balance > 1 && asset === 'ticket') return 's';
 
     return '';
   }
@@ -91,7 +91,7 @@ export default function CurrentBalance({ inline = false, asset = 'cntp', seconda
                     <Skeleton width={200} />
                   )}
                 </P>
-                <P>{t("components.currentBalance.assetLabel", { asset: getAssetFriendlyName(asset).toUpperCase(), plural: getSingularOrPlural(asset) })}</P>
+                <P>{t("components.currentBalance.assetLabel", { asset: getAssetFriendlyName(asset), plural: getSingularOrPlural(asset) })}</P>
               </FlexDiv>
 
               {
