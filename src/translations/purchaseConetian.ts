@@ -1,5 +1,6 @@
 export const purchaseConetianEn = {
-  backButton: "Become a CoNETian",
+  backButton: "CoNETian Plan",
+  endOfEvent: "Conetian Plan selling event is closed",
   conetianBenefits: "CoNETian Benefits",
   benefitsList: {
     first: "Exclusive CoNETian NFT",
@@ -79,11 +80,12 @@ export const purchaseConetianEn = {
   },
   confirmAgreement: "I agree with the terms and conditions above",
   estimateGas: "Estimate Gas",
-  sold:'Sold'
+  sold: "Sold",
 };
 
 export const purchaseConetianZh = {
   backButton: "成为 CoNETian",
+  endOfEvent: "Conetian Plan selling event is closed",
   conetianBenefits: "CoNETian 福利",
   benefitsList: {
     first: "独家 CoNETian NFT",
@@ -162,7 +164,7 @@ export const purchaseConetianZh = {
   },
   confirmAgreement: "我同意上述条款和条件",
   estimateGas: "估算 Gas",
-  sold:'已出售'
+  sold: "已出售",
 };
 
 export const purchaseConetianConfirmEn = {
