@@ -12,7 +12,7 @@ export const HomeEn = {
 };
 
 export const HomeZh = {
-  conetianNft: "购买CoNETian NFT",
+  conetianNft: "CoNETian NFT",
   shop: "商店",
   playButtonAlt: "开始游戏",
   astronautAlt: "宇航员图像",

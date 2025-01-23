@@ -84,8 +84,8 @@ export const purchaseConetianEn = {
 };
 
 export const purchaseConetianZh = {
-  backButton: "成为 CoNETian",
-  endOfEvent: "Conetian Plan selling event is closed",
+  backButton: "CoNETian 计划",
+  endOfEvent: "CoNETian 计划销售活动已结束",
   conetianBenefits: "CoNETian 福利",
   benefitsList: {
     first: "独家 CoNETian NFT",
