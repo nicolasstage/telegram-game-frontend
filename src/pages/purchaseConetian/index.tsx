@@ -240,7 +240,7 @@ const PurchaseConetian = () => {
       <BackButton text={t('purchaseConetian.backButton')} to="/" />
 
       {/* nft information */}
-      <FlexDiv $gap="24px" $direction="column" $padding="0 10px">
+      <FlexDiv $gap="24px" $direction="column" $padding="0 10px" $margin="0 0 100px 0">
         <FlexDiv $width="100%" $direction="column" $justify="center" $align="center" $height="300px" style={{ overflow: 'hidden', borderRadius: "16px" }}>
           <img src={Img.BuyConetianBanner2} alt="buy conetian banner" style={{ width: "100%" }} />
         </FlexDiv>
@@ -270,7 +270,7 @@ const PurchaseConetian = () => {
           </FlexDiv>
 
           <FlexDiv $direction="row" $justify="center" $align="center" $margin="30px 0" $radius="16px" $padding="10px" $background="#303032" >
-            <P $color="#929092" $fontSize="22px">{t("purchaseConetian.endOfEvent")}</P>
+            <P $align="center" $color="#929092" $fontSize="22px">{t("purchaseConetian.endOfEvent")}</P>
           </FlexDiv>
         </FlexDiv>
       </FlexDiv>
